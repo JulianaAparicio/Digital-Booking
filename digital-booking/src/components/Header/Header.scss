@@ -1,0 +1,26 @@
+.db-header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+
+    &-container {
+        align-items: center;
+        box-sizing: border-box;
+        display: flex;
+        width: 100%;
+        background-color: var(--color-text-light);
+        padding: 0 40px;
+    }
+
+    &-items{
+        margin-left: auto;
+    }
+
+    .db-logo{
+        margin-top: 10px;
+    }
+    .db-button-primary-outlined {
+        margin-left: 10px;
+    }
+
+}

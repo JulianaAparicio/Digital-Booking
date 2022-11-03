@@ -1,0 +1,72 @@
+.db-register,
+.db-login {
+   display: flex;
+   flex-direction: column;
+   padding: 50px;
+   align-items: center;
+
+   .db-input,
+   .db-form-row {
+      width: 100%;
+      margin-bottom: 5px;
+   }
+
+   .db-form-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .db-input {
+         margin-left: 5px;
+
+         &:first-child {
+            margin-right: 5px;
+            margin-left: 0;
+         }
+      }
+
+      @media (max-width: 768px) {
+         flex-direction: column;
+
+         .db-input {
+            margin-left: 0;
+
+            &:first-child {
+               margin-right: 0;
+            }
+         }
+      }
+   }
+
+   .db-button {
+      margin-top: 50px;
+      margin-bottom: 18px;
+
+      @media (max-width: 450px) {
+         width: 206px;
+      }
+   }
+
+   .db-form-title {
+      color: var(--color-primary);
+      margin-bottom: 12px;
+   }
+
+   .db-form-footer {
+      font-family: 'Roboto Bold';
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-smaller);
+      line-height: 14px;
+      color: var(--color-text-dark);
+
+      & span:last-child {
+         color: var(--color-primary-light);
+
+         &:hover {
+            cursor: pointer;
+            color: var(--color-primary);
+
+         }
+      }
+   }
+}

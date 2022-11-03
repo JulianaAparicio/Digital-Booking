@@ -1,0 +1,53 @@
+.db-avatar {
+
+    display: flex;
+    align-items: center;
+
+    &-initials {
+        font-weight: var(--font-weight-bold);
+        font-size: var(--font-size-big);
+        line-height: 25px;
+        text-align: center;
+        color: var(--color-text-light);
+        background-color: var(--color-secondary);
+        border-radius: 50%;
+        padding: 8px;
+        letter-spacing: -2px;
+        margin-right: 5px;
+    }
+
+    &-name {
+        font-family: 'Roboto Bold';
+        font-style: normal;
+        font-weight: var(--font-weight-bold);
+        font-size: var(--font-size-medium);
+        line-height: 19px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+
+        & span:first-child {
+            color: var(--color-secondary);
+            opacity: 0.5;
+        }
+
+        & span:last-child {
+            color: var(--color-primary);
+        }
+    }
+
+    & svg {
+        position: relative;
+        top: -20px;
+        left: -15px;
+        
+        &:hover {
+            cursor: pointer;
+
+            path {
+                fill: var(--color-secondary-light);
+            }
+        }
+    }
+}
