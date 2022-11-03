@@ -2,7 +2,9 @@ export function formStateMapper(form) {
     let formStateless = {};
 
     Object.keys(form).forEach((key) => {
-        formStateless[key] = form[key].state[0]
+        if (form[key].state[0] !== null) {
+            formStateless[key] = form[key].state[0]
+        }
     })
 
     return formStateless;

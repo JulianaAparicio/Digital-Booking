@@ -6,23 +6,23 @@ import Recomendations from './components/Recomendations/Recomendations';
 import Searcher from './components/Searcher/Searcher';
 import gsap from 'gsap';
 import { Context } from '../../core/Context';
-import LoadingScreen from '../../components/LoadingScreen/LoadingScreen';
+import { getAllProducts, getProductByCategory, getProductByQuery } from '../../core/services/Product';
 
 var options = [
    {
-      id: 'PTO',
+      id: 1,
       icon: <LocationIcon />,
       title: 'Pasto - Nariño',
       subtitle: 'Colombia',
    },
    {
-      id: 'CTA',
+      id: 2,
       icon: <LocationIcon />,
       title: 'Cartagena de Indias - Bolivar',
       subtitle: 'Colombia',
    },
    {
-      id: 'MDE',
+      id: 3,
       icon: <LocationIcon />,
       title: 'Medellin - Antioquia',
       subtitle: 'Colombia',
@@ -30,126 +30,109 @@ var options = [
 ];
 
 const product = {
-   image: {
+   images: [{
+      id: 1,
       url: 'https://construccionesprisma.com.co/images/apartment_photos/22_41_pradoalto97.5m201.jpg',
-      productName: 'apto1',
+      title: 'apto1',
+   }],
+   title: 'Title',
+   category: {
+      id: 1,
+      title: 'Departamentos',
+      description: '',
+      imageURL: ''
    },
-   info: {
-      title: 'Title',
-      category: 'Departamentos',
-      points: 8,
-      textRate: 'Muy bueno',
-      distance: 'A 900 m del centro',
-      location: 'MDE',
-      amenities: ['wifi', 'pool'],
-      description:
-         'En el corazón de San Telmo, disfruta de un albergue inspirado en las pasiones de Buenos Aires.',
-   },
+   amenities: [
+      {id:'1', name: 'wifi'}, 
+      {id:'2', name: 'pool'}
+   ],
+   description: 'En el corazón de San Telmo, disfruta de un albergue inspirado en las pasiones de Buenos Aires.',
+   location: {
+      id: 1,   
+      city: {
+         id: 1,
+         name: '',
+         state: '',
+         country: ''
+      },
+      address: ''
+   }
 };
 
-const product2 = {
-   image: {
-      url: 'https://construccionesprisma.com.co/images/apartment_photos/22_41_pradoalto97.5m201.jpg',
-      productName: 'apto2',
-   },
-   info: {
-      title: 'Title',
-      category: 'Hoteles',
-      points: 10,
-      textRate: 'Excelente',
-      distance: 'A 1.5 km del centro',
-      location: 'MDE',
-      amenities: ['wifi', 'pool'],
-      description:
-         'En el corazón de San Telmo, disfruta de un albergue inspirado en las pasiones de Buenos Aires.',
-   },
-};
-
-const product3 = {
-   image: {
-      url: 'https://construccionesprisma.com.co/images/apartment_photos/22_41_pradoalto97.5m201.jpg',
-      productName: 'apto3',
-   },
-   info: {
-      title: 'Title',
-      category: 'Casas',
-      points: 6,
-      textRate: 'Regular',
-      distance: 'A 2.5 km del centro',
-      location: 'MDE',
-      amenities: [],
-      description:
-         'En el corazón de San Telmo, disfruta de un albergue inspirado en las pasiones de Buenos Aires.',
-   },
-};
-
-const product4 = {
-   image: {
-      url: 'https://construccionesprisma.com.co/images/apartment_photos/22_41_pradoalto97.5m201.jpg',
-      productName: 'apto4',
-   },
-   info: {
-      title: 'Title',
-      category: 'Habitaciones',
-      points: 7,
-      textRate: 'Bueno',
-      distance: 'A 3.5 km del centro',
-      location: 'MDE',
-      amenities: ['wifi'],
-      description:
-         'En el corazón de San Telmo, disfruta de un albergue inspirado en las pasiones de Buenos Aires.',
-   },
-};
-
-const products = [product, product2, product3, product4, product, product2, product3, product4];
+const products1 = new Array(8).fill(product);
 
 const Home = () => {
    const categoriesContext = useContext(Context);
+   const [currentProducts, setCurrentProducts] = useState([]);
 
    const searchForm = {
-      place: { state: useState(null), isValid: useState(false) },
-      date: { state: useState(null), isValid: useState(false) },
+      city: { state: useState(null), isValid: useState(false) },
+      date: { state: useState([null, null]), isValid: useState(false) },
    };
 
-   useEffect(() => {
-      const categoriesAnimations = gsap.from('#home .db-categories .cards > a', {
-         duration: 0.5,
-         opacity: 0,
-         yPercent: 20,
-         stagger: 0.1,
-         ease: 'power2.out',
-      });
+   const search = async () => {
+      await getProductByQuery(searchForm).then((products) => setCurrentProducts(products));
+   }
 
-      const recomendationsAnimations = gsap.from('#home .db-recommendations .cards .db-card', {
-         duration: 0.5,
-         opacity: 0,
-         scale: 0.6,
-         stagger: 0.2,
-         ease: 'power2.out',
-      });
+   const searchByCategory = async (category) => {
+      await getProductByCategory(category).then((products) => setCurrentProducts(products));
+   }
+
+   useEffect(() => { 
       return () => {
-         recomendationsAnimations.revert();
-         categoriesAnimations.revert();
+         recommendationsAnimations().revert();
+         categoriesAnimations().revert();
       };
    }, []);
+
+   useEffect(() => {      
+      if( searchForm.city.state[0] === null &&  searchForm.date.state[0] === null) {
+         getProducts().then((products) => setCurrentProducts(products));
+      } 
+   }, [searchForm.city.state[0], searchForm.date.state[0]])
 
    return (
       <>
          <div id="home">
             <Searcher
                setDate={searchForm.date.state[1]}
-               setPlace={searchForm.place.state[1]}
-               setPlaceValidation={searchForm.place.isValid[1]}
+               setPlace={searchForm.city.state[1]}
+               setPlaceValidation={searchForm.city.isValid[1]}
                setDateValidation={searchForm.date.isValid[1]}
                typeHeadOptions={options}
+               search={search}
             />
             {categoriesContext && (
-               <Categories categories={categoriesContext.categories.slice(0, 4)} />
+               <Categories categories={categoriesContext.categories && categoriesContext.categories.slice(0, 4)} searchByCategory={searchByCategory}/>
             )}
-            <Recomendations products={products} />
+            <Recomendations products={currentProducts.length ? currentProducts : products1} />
          </div>
       </>
    );
 };
+
+function categoriesAnimations() {
+   return gsap.from('#home .db-categories .cards > a', {
+      duration: 0.5,
+      opacity: 0,
+      yPercent: 20,
+      stagger: 0.1,
+      ease: 'power2.out',
+   });
+}
+
+function recommendationsAnimations() {
+   return gsap.from('#home .db-recommendations .cards .db-card', {
+      duration: 0.5,
+      opacity: 0,
+      scale: 0.6,
+      stagger: 0.2,
+      ease: 'power2.out',
+   });
+}
+
+async function getProducts() {
+   return await getAllProducts();
+}
 
 export default Home;

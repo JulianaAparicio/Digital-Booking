@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -19,10 +21,10 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @Operation(summary = "Consultar Todos los productos")
+    @Operation(summary = "Consultar Todos los productos segun una query")
     @GetMapping
-    public ResponseEntity<List<ProductDTO>> findAllProducts(){
-        return ResponseEntity.ok(productService.searchAll());
+    public ResponseEntity<List<ProductDTO>> findAllProducts(@RequestParam Map<String,String> allParams){
+        return ResponseEntity.ok(productService.searchByQuery(allParams));
     }
 
     @Operation(summary = "Consultar producto por ID")

@@ -1,6 +1,7 @@
 package digital.booking.entities;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,10 +9,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@Entity
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Table(name = "products")
 public class Product {
 
@@ -43,7 +45,7 @@ public class Product {
     private List<Amenity> amenities;
 
     @OneToMany
-    @JoinColumn(name = "images",nullable = false)
+    @JoinColumn(name = "product",nullable = false)
     private List<Image> images;
 
 }

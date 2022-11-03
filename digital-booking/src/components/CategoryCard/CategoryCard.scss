@@ -1,6 +1,10 @@
 .db-card-category {
    width: 100%;
 
+   &:hover {
+      cursor: pointer;
+   }
+
    &-image {
       aspect-ratio: 3/2;
       border-radius: var(--border-radius-big) var(--border-radius-big) 0 0;

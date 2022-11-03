@@ -2,9 +2,14 @@ import Card from '../../shared/Card/Card';
 import { addDots } from '../../utils/numberFormater';
 import './CategoryCard.scss';
 
-const CategoryCard = ({ category }) => {
+const CategoryCard = ({ category, filterByCategory }) => {
+
+   const search = () => {
+      filterByCategory(category.id)
+   }
+
    return (
-      <a href={'#' /* here goes the link based on the category name */}>
+      <div onClick={search}>
          <Card classList={'db-card-category'}>
             <img className="db-card-category-image" src={category.imageURL} alt={category.title} />
             <div className="db-card-category-content">
@@ -12,7 +17,7 @@ const CategoryCard = ({ category }) => {
                <p>{`${addDots.format(category.description)} ${category.title.toLowerCase()}`}</p>
             </div>
          </Card>
-      </a>
+      </div>
    );
 };
 

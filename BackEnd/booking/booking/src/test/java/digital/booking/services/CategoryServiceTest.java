@@ -3,7 +3,7 @@ package digital.booking.services;
 import digital.booking.DTO.CategoryDTO;
 import digital.booking.exceptions.BadRequestException;
 import digital.booking.exceptions.NotFoundException;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -11,15 +11,21 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest
 public class CategoryServiceTest {
 
     @Autowired
     CategoryService categoryService;
 
-    CategoryDTO categoryDTO = new CategoryDTO(1L,"titleTest","descriptionTest","imageURLTest");
+    private CategoryDTO categoryDTO;
 
+    @BeforeEach
+    void setUp() {
+        categoryDTO = new CategoryDTO(1L,"titleTest","descriptionTest","imageURLTest");
+    }
 
+    @Order(2)
     @Test
     public void testSearchAll(){
 
@@ -31,6 +37,8 @@ public class CategoryServiceTest {
             e.printStackTrace();
         }
     }
+
+    @Order(3)
     @Test
     public void testSearchById(){
         try {
@@ -43,6 +51,7 @@ public class CategoryServiceTest {
         }
     }
 
+    @Order(1)
     @Test
     public void testCreate() {
         try{
@@ -59,6 +68,7 @@ public class CategoryServiceTest {
         }
     }
 
+    @Order(4)
     @Test
     public void testUpdate() {
         try{
@@ -77,6 +87,7 @@ public class CategoryServiceTest {
         }
     }
 
+    @Order(5)
     @Test
     public void testDelete(){
         try {
@@ -86,9 +97,5 @@ public class CategoryServiceTest {
             e.printStackTrace();
         }
     }
-
-
-
-
 
 }

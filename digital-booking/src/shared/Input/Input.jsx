@@ -79,6 +79,7 @@ export default function Input({
                   ref={inputRef}
                   placeholder={placeholder}
                   plugins={[<DatePanel />]}
+                  format="DD/MM/YYYY"
                   minDate={minDate}
                   range
                />

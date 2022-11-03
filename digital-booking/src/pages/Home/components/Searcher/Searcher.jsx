@@ -5,7 +5,7 @@ import Input from '../../../../shared/Input/Input';
 import Typehead from '../../../../shared/Input/Typehead';
 import { getValidationErrors } from '../../../../utils/validationErrors';
 
-const Searcher = ({ setDate, setPlace, setPlaceValidation, setDateValidation, typeHeadOptions }) => {
+const Searcher = ({ setDate, setPlace, setPlaceValidation, setDateValidation, typeHeadOptions, search }) => {
    return (
       <section className="searcher">
          <h1>Busca ofertas en hoteles, casas y mucho más</h1>
@@ -31,7 +31,7 @@ const Searcher = ({ setDate, setPlace, setPlaceValidation, setDateValidation, ty
                minDate={new Date()}
                setInputValidation={setDateValidation}
             />
-            <Button classList={'searchButton db-button-primary'}>Buscar</Button>
+            <Button classList={'searchButton db-button-primary'} action={search}>Buscar</Button>
          </div>
       </section>
    );

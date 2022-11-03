@@ -11,7 +11,7 @@ export const DataProvider = ({children})=>{
 
     const getCategories =  async () => {
         await getAllCategories().then((categoriesDb) => {    
-            localStorage.setItem("CURRENT_CATEGORIES", JSON.stringify(categoriesDb.data));
+            localStorage.setItem("CURRENT_CATEGORIES", JSON.stringify(categoriesDb));
             setCategories(categoriesDb);
         }).catch((e) => {
             localStorage.setItem("CURRENT_CATEGORIES", JSON.stringify([]));

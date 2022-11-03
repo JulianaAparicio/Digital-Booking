@@ -6,7 +6,7 @@ import ProductImage from './ProductImage';
 export default function ProductCard({product}) {
     return (
         <Card classList={'db-card-product'}>
-            <SideMainLayout side={<ProductImage {...product.image}  />} main={<ProductDescription {...product.info} />} />
+            <SideMainLayout side={<ProductImage url={product.images.length ? product.images[0].url: ''} productName={product.images.length ? product.images[0].title : ''}  />} main={<ProductDescription {...product} />} />
         </Card>
     ) 
 }

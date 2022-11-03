@@ -56,9 +56,8 @@ public class CategoryService implements IService<CategoryDTO> {
         } else{
             logger.debug("Creating new category...");
             Category categoryCreated = mapper.convertValue(category, Category.class);
-            categoryRepository.save(categoryCreated);
             logger.info("The category was created successfully.");
-            return mapper.convertValue(categoryCreated, CategoryDTO.class);
+            return mapper.convertValue(categoryRepository.save(categoryCreated), CategoryDTO.class);
         }
     }
 
