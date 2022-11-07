@@ -62,12 +62,12 @@ const product = {
 const products1 = new Array(8).fill(product);
 
 const Home = () => {
-   const categoriesContext = useContext(Context);
+   const appContext = useContext(Context);
    const [currentProducts, setCurrentProducts] = useState([]);
 
    const searchForm = {
       city: { state: useState(null), isValid: useState(false) },
-      date: { state: useState([null, null]), isValid: useState(false) },
+      date: { state: useState(null), isValid: useState(false) },
    };
 
    const search = async () => {
@@ -99,11 +99,11 @@ const Home = () => {
                setPlace={searchForm.city.state[1]}
                setPlaceValidation={searchForm.city.isValid[1]}
                setDateValidation={searchForm.date.isValid[1]}
-               typeHeadOptions={options}
+               typeHeadOptions={appContext.cities}
                search={search}
             />
-            {categoriesContext && (
-               <Categories categories={categoriesContext.categories && categoriesContext.categories.slice(0, 4)} searchByCategory={searchByCategory}/>
+            {appContext && (
+               <Categories categories={appContext.categories && appContext.categories.slice(0, 4)} searchByCategory={searchByCategory}/>
             )}
             <Recomendations products={currentProducts.length ? currentProducts : products1} />
          </div>

@@ -16,14 +16,14 @@ const Header = () => {
     }
 
     return (
-        <div className="db-header db-header-container">
+        <header className="db-header db-header-container">
             <a href="/">
                 <Logo />
             </a>
             <div className="db-header-items">
                 {userContext && userContext.user ? <Avatar {...userContext.user} logOut={logOut} /> : <HeaderButtons />}
             </div>
-        </div>
+        </header>
     )
 } 
 

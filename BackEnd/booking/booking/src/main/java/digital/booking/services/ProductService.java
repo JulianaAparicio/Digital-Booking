@@ -2,7 +2,6 @@ package digital.booking.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import digital.booking.DTO.ProductDTO;
@@ -21,13 +20,14 @@ import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 @Service
 public class ProductService implements IService<ProductDTO> {
 
     @PersistenceContext
     EntityManager entityManager;
-    private final Logger logger = Logger.getLogger(CategoryService.class);
+    private final Logger logger = Logger.getLogger(ProductService.class);
 
     @Autowired
     private ProductRepository productRepository;
@@ -115,8 +115,13 @@ public class ProductService implements IService<ProductDTO> {
         logger.debug("Updating product...");
         existingProduct.setTitle(product.getTitle());
         existingProduct.setDescription(product.getDescription());
+        existingProduct.setCategory(product.getCategory());
         existingProduct.setAmenities(product.getAmenities());
+        existingProduct.setLocation(product.getLocation());
         existingProduct.setImages(product.getImages());
+        existingProduct.setItems(product.getItems());
+        existingProduct.setRatings(product.getRatings());
+
 
         productRepository.save(existingProduct);
         logger.info("The product was updated successfully.");
@@ -131,4 +136,21 @@ public class ProductService implements IService<ProductDTO> {
         productRepository.delete(product);
 
     }
+
+    public List<ProductDTO> searchRandom() {
+        logger.debug("Searching all products...");
+        List<ProductDTO> allProducts = searchAll();
+
+        List<ProductDTO> randomProducts = new ArrayList<>();
+
+        for (int i = 0; i < 6; i++){
+            Random random = new Random();
+            int nxt = random.nextInt(allProducts.size());
+            randomProducts.add(allProducts.get(nxt));
+        }
+
+        logger.info("Listing 6 random products...");
+        return randomProducts;
+    }
+
 }

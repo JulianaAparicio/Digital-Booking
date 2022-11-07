@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import DatePicker from 'react-multi-date-picker';
 import DatePanel from 'react-multi-date-picker/plugins/date_panel';
+import { months, weekDays } from '../../utils/spanishCalendar';
 import './Input.scss';
 
 export default function Input({
@@ -14,11 +15,13 @@ export default function Input({
    setValue,
    errors,
    setInputValidation,
-   minDate = null
+   minDate = null,
+   datePanel = true,
 }) {
    const [isFocus, setFocus] = useState(false);
    const [isInvalid, setInvalid] = useState(false);
    const [errorMessage, setErrorMessage] = useState('');
+   const [isMobile, setIsMobile] = useState(null);
 
    const inputRef = useRef();
 
@@ -53,13 +56,25 @@ export default function Input({
          input.addEventListener('blur', handleBlur);
       }
 
+      const changeCalendar = () => {
+         setIsMobile(window.matchMedia('(width < 600px)').matches ? true : false);
+      };
+
+      changeCalendar();
+
+      window.addEventListener('resize', changeCalendar);
+
       return () => {
          if (input) {
             input.removeEventListener('focus', handleFocus);
             input.removeEventListener('blur', handleBlur);
          }
+
+         window.removeEventListener('resize', changeCalendar);
       };
    }, []);
+
+   const datePickerPlugins = isMobile ? [<DatePanel />] : [];
 
    return (
       <div className="db-input">
@@ -78,10 +93,13 @@ export default function Input({
                   onChange={setValue}
                   ref={inputRef}
                   placeholder={placeholder}
-                  plugins={[<DatePanel />]}
+                  plugins={datePickerPlugins}
                   format="DD/MM/YYYY"
                   minDate={minDate}
+                  numberOfMonths={isMobile ? 1 : 2}
                   range
+                  weekDays={weekDays}
+                  months={months}
                />
             ) : (
                <input

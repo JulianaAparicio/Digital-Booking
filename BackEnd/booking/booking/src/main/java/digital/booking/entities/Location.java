@@ -22,11 +22,19 @@ public class Location {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "cityId",nullable = false)
+    @JoinColumn(name = "city_id",nullable = false)
     private City city;
 
     @NotNull
     @Column
     private String address;
+
+    @NotNull
+    @Column
+    private String latitude;
+
+    @NotNull
+    @Column
+    private String longitude;
 
 }

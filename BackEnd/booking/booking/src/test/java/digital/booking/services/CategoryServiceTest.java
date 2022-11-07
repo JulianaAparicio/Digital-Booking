@@ -22,7 +22,7 @@ public class CategoryServiceTest {
 
     @BeforeEach
     void setUp() {
-        categoryDTO = new CategoryDTO(1L,"titleTest","descriptionTest","imageURLTest");
+        categoryDTO = new CategoryDTO(15L,"titleTest","descriptionTest","imageURLTest");
     }
 
     @Order(2)
@@ -57,7 +57,7 @@ public class CategoryServiceTest {
         try{
             categoryService.create(categoryDTO);
 
-            CategoryDTO categoryCreated = categoryService.searchById(1L);
+            CategoryDTO categoryCreated = categoryService.searchById(15L);
             assertNotNull(categoryCreated,"The category is null");
             assertEquals(categoryDTO.getTitle(), categoryCreated.getTitle(), "Titles don't match.");
             assertEquals(categoryDTO.getDescription(), categoryCreated.getDescription(), "Descriptions don't match.");
@@ -76,7 +76,7 @@ public class CategoryServiceTest {
             categoryDTO.setDescription("descriptionEdited");
             categoryDTO.setImageURL("ImageURLEdited");
 
-            CategoryDTO categoryUpdated = categoryService.update(categoryDTO,1L);
+            CategoryDTO categoryUpdated = categoryService.update(categoryDTO,15L);
 
             assertEquals(categoryDTO.getTitle(), categoryUpdated.getTitle(), "Titles don't match.");
             assertEquals(categoryDTO.getDescription(), categoryUpdated.getDescription(), "Descriptions don't match.");
@@ -91,7 +91,7 @@ public class CategoryServiceTest {
     @Test
     public void testDelete(){
         try {
-            categoryService.delete(1L);
+            categoryService.delete(15L);
             assertNull(categoryService.searchById(categoryDTO.getId()));
         } catch (NotFoundException e){
             e.printStackTrace();

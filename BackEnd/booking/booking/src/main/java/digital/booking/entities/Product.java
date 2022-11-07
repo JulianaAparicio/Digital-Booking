@@ -33,11 +33,11 @@ public class Product {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "categoryId",nullable = false)
+    @JoinColumn(name = "category_id",nullable = false)
     private Category category;
 
     @OneToOne
-    @JoinColumn(name = "locationId",nullable = false)
+    @JoinColumn(name = "location_id",nullable = false)
     private Location location;
 
     @ManyToMany
@@ -45,7 +45,15 @@ public class Product {
     private List<Amenity> amenities;
 
     @OneToMany
-    @JoinColumn(name = "product",nullable = false)
+    @JoinColumn(name = "images",nullable = false)
     private List<Image> images;
+
+    @ManyToMany
+    @JoinColumn(name = "items",nullable = false)
+    private List<Item> items;
+
+    @OneToMany
+    @JoinColumn(name = "ratings",nullable = false)
+    private List<Rating> ratings;
 
 }

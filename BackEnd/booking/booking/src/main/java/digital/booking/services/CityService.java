@@ -8,11 +8,13 @@ import digital.booking.interfaces.IService;
 import digital.booking.repositories.CityRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CityService implements IService<City> {
-    private final Logger logger = Logger.getLogger(CategoryService.class);
+    private final Logger logger = Logger.getLogger(CityService.class);
 
     @Autowired
     private CityRepository cityRepository;

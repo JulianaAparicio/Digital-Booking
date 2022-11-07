@@ -25,6 +25,10 @@
       button {
          width: 100%;
       }
+
+      svg {
+         fill: var(--color-secondary);
+      }
    }
 
    &-header {

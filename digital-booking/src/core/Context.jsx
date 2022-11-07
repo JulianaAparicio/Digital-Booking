@@ -2,12 +2,14 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { createContext } from "react";
 import { getAllCategories } from "./services/categories";
+import { getAllCities } from "./services/City";
 
 export const Context = createContext();
 
 export const DataProvider = ({children})=>{
     const [user, setUser] = useState(null);
     const [categories, setCategories] = useState([]);
+    const [cities, setCities] = useState([]);
 
     const getCategories =  async () => {
         await getAllCategories().then((categoriesDb) => {    
@@ -18,20 +20,28 @@ export const DataProvider = ({children})=>{
             setCategories([]);
         })
     }
+
+    const getCities =  async () => {
+        await getAllCities().then((CitiesDb) => {    
+            localStorage.setItem("CURRENT_CITIES", JSON.stringify(CitiesDb));
+            setCities(CitiesDb);
+        }).catch((e) => {
+            localStorage.setItem("CURRENT_CITIES", JSON.stringify([]));
+            setCities([]);
+        })
+    }
     
     useEffect (()=>{
         const userStorage = JSON.parse(sessionStorage.getItem("CURRENT_USER"));
         const categoriesStorage = JSON.parse(localStorage.getItem("CURRENT_CATEGORIES"));
+        const citiesStorage = JSON.parse(localStorage.getItem("CURRENT_CITIES"));
         setUser(userStorage);
-        if (categoriesStorage && categoriesStorage.length) {
-            setCategories(categoriesStorage)
-        } else {
-            getCategories();
-        }
+        categoriesStorage && categoriesStorage.length ? setCategories(categoriesStorage) : getCategories();
+        citiesStorage && citiesStorage.length ? setCities(citiesStorage) : getCities();
     },[]);
 
     return(
-        <Context.Provider value ={{user, setUser, categories, setCategories}}>{children}</Context.Provider>
+        <Context.Provider value ={{user, setUser, categories, setCategories, cities, setCities}}>{children}</Context.Provider>
     )
 
 }
