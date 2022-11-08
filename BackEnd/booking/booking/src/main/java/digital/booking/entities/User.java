@@ -1,5 +1,6 @@
 package digital.booking.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,11 +39,9 @@ public class User {
     @Column
     private String password;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "products",nullable = false)
+    @JsonIgnore
     private List<Product> products;
 
-    @OneToMany
-    @JoinColumn(name = "favorites",nullable = false)
-    private List<Favorite> favorites;
 }

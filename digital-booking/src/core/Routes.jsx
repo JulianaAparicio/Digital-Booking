@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import Apartment from '../pages/Apartment/Apartment';
 import Home from '../pages/Home/Home';
@@ -19,11 +20,12 @@ const router = createBrowserRouter([
    },
    {
       path: '/product',
-      element: <Apartment />,
-      children: [{
-         path: ':apartmentId',
-         element: <Apartment />,
-      }]
+      children: [
+         {
+            path: ':apartmentId',
+            element: <Apartment />,
+         },
+      ],
    },
 ]);
 

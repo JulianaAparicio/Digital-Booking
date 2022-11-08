@@ -20,7 +20,7 @@
       }
    }
 
-   section:not(.db-apartment-images):not(.db-apartment-header) {
+   section:not(.db-apartment-images, .db-apartment-availability, .db-apartment-header) {
       margin: 2rem 1rem;
 
       @media screen and (min-width: 768px) {
@@ -55,13 +55,14 @@
       svg {
          &:hover {
             cursor: pointer;
+
             path {
                fill: var(--color-secondary);
             }
          }
       }
 
-      @media (max-width:450px) {
+      @media (max-width:768px) {
          padding: 0.5rem 0.5rem;
       }
    }
@@ -88,13 +89,33 @@
       svg {
          &:hover {
             cursor: pointer;
+
             path {
                fill: var(--color-secondary);
             }
          }
       }
 
-      @media (max-width:450px) {
+      @media (max-width:768px) {
+         padding: 0.5rem 0.5rem;
+      }
+   }
+
+   .db-apartment-icons {
+      margin: 0;
+      padding: 1rem 2rem 0rem;
+
+      svg {
+         &:hover {
+            cursor: pointer;
+
+            path {
+               fill: var(--color-secondary);
+            }
+         }
+      }
+
+      @media (max-width:768px) {
          padding: 0.5rem 0.5rem;
       }
    }
@@ -149,6 +170,7 @@
          cursor: pointer;
          display: none;
          margin-bottom: 1rem;
+         padding: 0 1rem;
          position: relative;
 
          &:hover .db-toggle-button {
@@ -214,7 +236,7 @@
       display: none;
       justify-content: center;
       align-items: center;
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.8);
       height: 100%;
       width: 100%;
       position: fixed;
@@ -294,6 +316,26 @@
       background: lightgray;
       margin: 0;
       padding: 2rem 1rem;
+
+      @media screen and (min-width: 768px) {
+         padding: 3rem 2rem;
+      }
+   }
+
+   .db-apartment-map {
+
+      p {
+         margin: 1.5rem auto;
+      }
+
+      .db-product-map {
+         justify-self: center;
+         aspect-ratio: 3/2;
+         border-radius: var(--border-radius-big);
+         margin: auto;
+         width: 100%;
+         
+      }
    }
 
    .db-apartment-highlights {

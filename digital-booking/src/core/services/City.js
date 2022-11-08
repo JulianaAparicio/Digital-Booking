@@ -1,7 +1,8 @@
 import { getReq } from "./axios";
+import { baseUrl } from "./baseUrl";
 
-const CITY_URL = 'http://localhost:8080/cities';
+const CITY_URL = `${baseUrl}/cities`;
 
 export async function getAllCities() {
-    return getReq(CITY_URL);
+   return getReq(CITY_URL);
 }
