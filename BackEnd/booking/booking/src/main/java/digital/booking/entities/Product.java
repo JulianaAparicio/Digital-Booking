@@ -32,10 +32,12 @@ public class Product {
     @Column
     private String description;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "category_id",nullable = false)
     private Category category;
 
+    @NotNull
     @OneToOne
     @JoinColumn(name = "location_id",nullable = false)
     private Location location;
