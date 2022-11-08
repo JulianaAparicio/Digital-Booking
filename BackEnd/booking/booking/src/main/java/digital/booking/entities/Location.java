@@ -21,7 +21,6 @@ public class Location {
     @NotNull
     private Long id;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "city_id",nullable = false)
     private City city;
