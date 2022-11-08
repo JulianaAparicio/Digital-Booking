@@ -26,6 +26,7 @@ public class Item {
     @Column
     private String description;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "politicId",nullable = false)
     private Politic politic;
