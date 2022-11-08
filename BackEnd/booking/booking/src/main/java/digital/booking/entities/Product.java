@@ -37,10 +37,12 @@ public class Product {
         return this.title + this.description;
     }
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "category_id",nullable = false)
     private Category category;
 
+    @NotNull
     @OneToOne(cascade = CascadeType.ALL )
     @JoinColumn(name = "location_id",nullable = false)
     private Location location;
