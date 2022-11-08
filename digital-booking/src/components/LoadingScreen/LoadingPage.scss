@@ -5,4 +5,9 @@
    background: white;
    display: flex;
    justify-content: center;
+
+   img {
+      object-fit: contain;
+      width: 80%;
+   }
 }

@@ -3,6 +3,7 @@ import Button from '../../shared/Button/Button';
 import './ProductCard.scss';
 import Amenity from '../../shared/Amenity/Amenity';
 import { Link } from 'react-router-dom';
+import Rating from '../../shared/Rating/Rating';
 
 export default function ProductDescription({
    id,
@@ -18,7 +19,7 @@ export default function ProductDescription({
       <div className="db-product-description">
          <div className="db-product-header">
             <div className="db-product-title">
-               <h4 className="db-product-category">{category.title}</h4>
+               <h4 className="db-product-category"><span>{category.title}</span><Rating rate={4}/></h4>
                <h1>{title}</h1>
             </div>
             <div className="db-product-rate">

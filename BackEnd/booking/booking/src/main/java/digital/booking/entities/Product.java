@@ -32,11 +32,16 @@ public class Product {
     @Column
     private String description;
 
+    @Override
+    public String toString() {
+        return this.title + this.description;
+    }
+
     @ManyToOne
     @JoinColumn(name = "category_id",nullable = false)
     private Category category;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL )
     @JoinColumn(name = "location_id",nullable = false)
     private Location location;
 
@@ -44,16 +49,16 @@ public class Product {
     @JoinColumn(name = "amenities",nullable = false)
     private List<Amenity> amenities;
 
-    @OneToMany
-    @JoinColumn(name = "images",nullable = false)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "product",nullable = false)
     private List<Image> images;
 
     @ManyToMany
     @JoinColumn(name = "items",nullable = false)
     private List<Item> items;
 
-    @OneToMany
-    @JoinColumn(name = "ratings",nullable = false)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "product",nullable = false)
     private List<Rating> ratings;
 
 }

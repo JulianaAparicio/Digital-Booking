@@ -2,6 +2,7 @@
    &-image {
       align-items: center;
       display: flex;
+      position: relative;
 
       img {
          border-radius: var(--border-radius-big);
@@ -9,6 +10,35 @@
          height: 283px;
          object-fit: cover;
 
+      }
+
+      span {
+         position: absolute;
+         right: 10px;
+         top: 10px;
+
+         &.db-favorite {
+            & svg {
+               path {
+                  fill: var(--color-primary);
+               }
+
+               &:hover {
+                  cursor: pointer;
+                  path {
+                     fill: var(--color-text-light);
+                  }
+               }
+            }
+         }
+
+         & svg:hover {
+            cursor: pointer;
+            path {
+               fill: var(--color-primary);
+            }
+         }
+     
       }
 
       @media (max-width: 450px) {
@@ -39,7 +69,10 @@
    }
 
    &-category {
-      opacity: 0.5;
+
+      span {
+         opacity: 0.5;
+      }
    }
 
    &-rate {

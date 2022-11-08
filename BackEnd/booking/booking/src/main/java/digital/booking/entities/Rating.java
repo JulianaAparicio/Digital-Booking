@@ -26,8 +26,7 @@ public class Rating {
     @Column
     private Integer score;
 
-    @ManyToMany
-    @JoinColumn(name = "users",nullable = false)
-    private List<User> users;
+    @OneToOne(cascade = CascadeType.ALL )
+    private User user;
 
 }
