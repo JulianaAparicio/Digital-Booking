@@ -64,12 +64,11 @@ public class CityService implements IService<City> {
         return existingCity;
     }
 
-        @Override
+    @Override
     public void delete(Long id) throws NotFoundException {
-            City city = cityRepository.findById(id).orElseThrow(() -> new NotFoundException("The " +
+        City city = cityRepository.findById(id).orElseThrow(() -> new NotFoundException("The " +
                     "city with the id: " + id + " was not found."));
-            logger.debug("Deleting city...");
-            cityRepository.delete(city);
-
+        logger.debug("Deleting city...");
+        cityRepository.delete(city);
     }
 }
