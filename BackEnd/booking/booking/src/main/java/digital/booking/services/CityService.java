@@ -68,7 +68,7 @@ public class CityService implements IService<City> {
     }
 
     @Override
-    public void delete(Long id) throws NotFoundException {
+    public void delete(Long id) throws NotFoundException, ServiceException {
         Map<String,String> queryParameters = new HashMap<>();
         queryParameters.put("city",id.toString());
         List<ProductDTO> productsFounded = productService.searchByQuery(queryParameters);
