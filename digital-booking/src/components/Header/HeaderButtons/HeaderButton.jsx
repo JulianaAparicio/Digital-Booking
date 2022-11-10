@@ -24,8 +24,8 @@ export default function HeaderButtons() {
 
     return (
         <div className="db-header-buttons"> 
-            {showRegister ? <a href="/register"><Button classList={'db-button-primary-outlined'} >Crear cuenta</Button></a> : null}
-            {showLogin ? <a href="/login"><Button classList={'db-button-primary-outlined'} >Iniciar sesión</Button></a> : null}
+            {showRegister ? <a href="register"><Button classList={'db-button-primary-outlined'} >Crear cuenta</Button></a> : null}
+            {showLogin ? <a href="login"><Button classList={'db-button-primary-outlined'} >Iniciar sesión</Button></a> : null}
             <HeaderMenu />
         </div>
     )
