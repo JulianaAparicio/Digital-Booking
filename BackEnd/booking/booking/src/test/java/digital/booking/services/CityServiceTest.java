@@ -22,6 +22,7 @@ class CityServiceTest {
 
     @BeforeEach
     void setUp() {
+        // GIVEN:
         cityTest = new City(1L,"cityNameTest","stateTest","countryTest");
     }
 
@@ -30,7 +31,10 @@ class CityServiceTest {
     @Test
     void testSearchAll() {
         try {
+            // WHEN:
             List<City> cityList = cityService.searchAll();
+
+            // THEN:
             assertTrue(cityList.size() > 0,"There are no cities to list.");
 
         } catch (Exception e){
@@ -42,7 +46,10 @@ class CityServiceTest {
     @Test
     void testSearchById() {
         try {
+            // WHEN:
             City cityFounded = cityService.searchById(cityTest.getId());
+
+            // THEN:
             assertEquals(cityTest.getId(), cityFounded.getId(), "Ids don't match.");
             assertNotNull(cityFounded,"The city founded is null.");
 
@@ -55,12 +62,17 @@ class CityServiceTest {
     @Test
     void testCreate() {
         try{
+            // WHEN:
             cityService.create(cityTest);
 
+            // THEN:
             City cityCreated = cityService.searchById(1L);
 
+            // Verifies if city is null:
             assertNotNull(cityCreated,"The city is null");
-            assertEquals(cityTest.getName(), cityCreated.getName(), "Titles don't match.");
+
+            // Verifies city's attributes:
+            assertEquals(cityTest.getName(), cityCreated.getName(), "Names don't match.");
             assertEquals(cityTest.getState(), cityCreated.getState(), "States don't match.");
             assertEquals(cityTest.getCountry(), cityCreated.getCountry(), "Countries don't match.");
 
@@ -74,12 +86,14 @@ class CityServiceTest {
     @Test
     void testUpdate() {
         try{
+            // WHEN:
             cityTest.setName("nameEdited");
             cityTest.setState("stateEdited");
             cityTest.setCountry("countryEdited");
 
             City cityUpdated = cityService.update(cityTest,1L);
 
+            // THEN:
             assertEquals(cityTest.getName(), cityUpdated.getName(), "Names don't match.");
             assertEquals(cityTest.getState(), cityUpdated.getState(), "States don't match.");
             assertEquals(cityTest.getCountry(), cityUpdated.getCountry(), "Countries don't match.");
@@ -89,14 +103,4 @@ class CityServiceTest {
         }
     }
 
-    @Order(5)
-    @Test
-    void testDelete() {
-        try {
-            cityService.delete(cityTest.getId());
-            assertNull(cityService.searchById(cityTest.getId()));
-        } catch (NotFoundException e){
-            e.printStackTrace();
-        }
-    }
 }
