@@ -22,6 +22,7 @@ public class CategoryServiceTest {
 
     @BeforeEach
     void setUp() {
+        // GIVEN:
         categoryDTO = new CategoryDTO(15L,"titleTest","descriptionTest","imageURLTest");
     }
 
@@ -30,7 +31,10 @@ public class CategoryServiceTest {
     public void testSearchAll(){
 
         try {
+            // WHEN:
             List<CategoryDTO> categoriesList = categoryService.searchAll();
+
+            // THEN:
             assertTrue(categoriesList.size() > 0,"There are no categories to list.");
 
         } catch (Exception e){
@@ -42,7 +46,10 @@ public class CategoryServiceTest {
     @Test
     public void testSearchById(){
         try {
+            // WHEN:
             CategoryDTO categoryFounded = categoryService.searchById(categoryDTO.getId());
+
+            // THEN:
             assertEquals(categoryDTO.getId(), categoryFounded.getId(), "Ids don't match.");
             assertNotNull(categoryFounded,"The categpry founded is null.");
 
@@ -55,10 +62,16 @@ public class CategoryServiceTest {
     @Test
     public void testCreate() {
         try{
+            // WHEN:
             categoryService.create(categoryDTO);
 
+            // THEN:
             CategoryDTO categoryCreated = categoryService.searchById(15L);
+
+            // Verifies if category is null:
             assertNotNull(categoryCreated,"The category is null");
+
+            // Verifies category's attributes:
             assertEquals(categoryDTO.getTitle(), categoryCreated.getTitle(), "Titles don't match.");
             assertEquals(categoryDTO.getDescription(), categoryCreated.getDescription(), "Descriptions don't match.");
             assertEquals(categoryDTO.getImageURL(), categoryCreated.getImageURL(), "ImageURLs don't match.");
@@ -72,27 +85,18 @@ public class CategoryServiceTest {
     @Test
     public void testUpdate() {
         try{
+            // WHEN:
             categoryDTO.setTitle("titleEdited");
             categoryDTO.setDescription("descriptionEdited");
             categoryDTO.setImageURL("ImageURLEdited");
 
+            // THEN:
             CategoryDTO categoryUpdated = categoryService.update(categoryDTO,15L);
 
             assertEquals(categoryDTO.getTitle(), categoryUpdated.getTitle(), "Titles don't match.");
             assertEquals(categoryDTO.getDescription(), categoryUpdated.getDescription(), "Descriptions don't match.");
             assertEquals(categoryDTO.getImageURL(), categoryUpdated.getImageURL(), "ImageURLs don't match.");
 
-        } catch (NotFoundException e){
-            e.printStackTrace();
-        }
-    }
-
-    @Order(5)
-    @Test
-    public void testDelete(){
-        try {
-            categoryService.delete(15L);
-            assertNull(categoryService.searchById(categoryDTO.getId()));
         } catch (NotFoundException e){
             e.printStackTrace();
         }
