@@ -29,7 +29,7 @@ public class Product {
     private String title;
 
     @NotNull
-    @Column
+    @Column(columnDefinition="TEXT")
     private String description;
 
     @Override

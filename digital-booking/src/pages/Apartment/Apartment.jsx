@@ -23,6 +23,7 @@ const Apartment = () => {
    const [currentProduct, setCurrentProduct] = useState(null);
    const [imageIndex, setImageIndex] = useState(1);
    const [isFavorite, setIsFavorite] = useState(false)
+   const [currentDates, setCurrentDates] = useState();
 
    const getProduct = async () => {
       await getProductById(apartmentId).then(product => {
@@ -38,6 +39,7 @@ const Apartment = () => {
 
    useEffect(() => {
       getProduct();
+      setCurrentDates(JSON.parse(localStorage.getItem("CURRENT_DATES")));  
    }, []);
 
    useEffect(() => {
@@ -90,7 +92,7 @@ const Apartment = () => {
                   title={currentProduct.title}
                   category={currentProduct.category.title}
                />
-               <Location location={currentProduct.location} />
+               <Location location={currentProduct.location} rate={currentProduct.rate} />
                <div className="db-apartment-icons">
                   <span>
                      <ShareIcon />
@@ -104,13 +106,10 @@ const Apartment = () => {
                      </span>
                   } 
                </div>
-               <Images
-                  imageIndex={imageIndex}
-                  images={[currentProduct.images[0], ...currentProduct.images.slice(1)]}
-               />
+               <Images imageIndex={imageIndex} images={currentProduct.images} />
                <Description title={currentProduct.title}>{currentProduct.description}</Description>
                <Amenities amenities={currentProduct.amenities} />
-               <Availability disabledDays={['2022/11/25', '2022/11/26', '2022/11/27']} />
+               <Availability disabledDays={['2022/11/25', '2022/11/26', '2022/11/27']} currentDates={currentDates} />
                <Map currentProduct={currentProduct} />
                <Highlights highlights={currentProduct.items} />
             </div>

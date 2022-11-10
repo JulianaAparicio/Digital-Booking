@@ -9,8 +9,7 @@ export default function ProductDescription({
    id,
    category,
    title,
-   points,
-   textRate,
+   rate,
    distance,
    amenities,
    description,
@@ -19,12 +18,12 @@ export default function ProductDescription({
       <div className="db-product-description">
          <div className="db-product-header">
             <div className="db-product-title">
-               <h4 className="db-product-category"><span>{category.title}</span><Rating rate={4}/></h4>
-               <h1>{title}</h1>
+               <h4 className="db-product-category"><span>{category.title}</span><Rating rate={rate && rate.score}/></h4>
+               <h2>{title}</h2>
             </div>
             <div className="db-product-rate">
-               <div className="db-product-points">{points}</div>
-               <span>{textRate}</span>
+               <div className="db-product-points">{rate && rate.score * 2}</div>
+               <span>{rate && rate.qualification}</span>
             </div>
          </div>
          <div className="db-product-location">

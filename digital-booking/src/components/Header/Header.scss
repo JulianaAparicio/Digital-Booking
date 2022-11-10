@@ -11,6 +11,10 @@
         width: 100%;
         background-color: var(--color-text-light);
         padding: 0 40px;
+
+        @media (max-width: 450px) {
+            padding: 0 10px;
+        }
     }
 
     &-items{

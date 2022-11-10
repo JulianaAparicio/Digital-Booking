@@ -10,7 +10,7 @@ function App() {
          <div id="app">
             <Header />
             <main>
-               <RouterProvider router={router} />
+               <RouterProvider  router={router} />
             </main>
             <Footer>©2022 Digital Booking</Footer>
          </div>
