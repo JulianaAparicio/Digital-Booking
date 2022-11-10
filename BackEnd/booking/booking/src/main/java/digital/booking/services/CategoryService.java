@@ -2,6 +2,7 @@ package digital.booking.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import digital.booking.DTO.CategoryDTO;
+import digital.booking.DTO.ProductDTO;
 import digital.booking.entities.Category;
 import digital.booking.exceptions.BadRequestException;
 import digital.booking.exceptions.NotFoundException;
@@ -12,15 +13,19 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+
+
+import java.util.Map;
 
 @Service
 public class CategoryService implements IService<CategoryDTO> {
     private final Logger logger = Logger.getLogger(CategoryService.class);
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private ProductService productService;
 
     @Autowired
     private ObjectMapper mapper;
@@ -78,11 +83,18 @@ public class CategoryService implements IService<CategoryDTO> {
     }
 
     @Override
-    public void delete(Long id) throws NotFoundException {
-        Category category = categoryRepository.findById(id).orElseThrow(() -> new NotFoundException("The " +
-                "category with the id: " + id + " was not found."));
-        logger.debug("Deleting category...");
-        categoryRepository.delete(category);
+    public void delete(Long id) throws ServiceException, NotFoundException {
+        Map<String,String> queryParameters = new HashMap<>();
+        queryParameters.put("category",id.toString());
+        List<ProductDTO> productsFounded = productService.searchByQuery(queryParameters);
+        if(productsFounded.size() > 1) {
+            throw new ServiceException("This category can't be deleted because there are products associated with it.");
+        } else {
+            categoryRepository.findById(id).orElseThrow(() -> new NotFoundException("The " +
+                    "category with the id: " + id + " was not found."));
+            logger.debug("Deleting category...");
+            categoryRepository.deleteById(id);
+        }
     }
 }
 
