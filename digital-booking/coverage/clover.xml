@@ -1,8 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1668040239431" clover="3.2.0">
-  <project timestamp="1668040239431" name="All files">
-    <metrics statements="115" coveredstatements="115" conditionals="9" coveredconditionals="9" methods="5" coveredmethods="5" elements="129" coveredelements="129" complexity="0" loc="115" ncloc="115" packages="6" files="10" classes="10"/>
-    <package name="Button">
+<coverage generated="1668117439542" clover="3.2.0">
+  <project timestamp="1668117439542" name="All files">
+    <metrics statements="140" coveredstatements="140" conditionals="11" coveredconditionals="11" methods="7" coveredmethods="7" elements="158" coveredelements="158" complexity="0" loc="140" ncloc="140" packages="8" files="12" classes="12"/>
+    <package name="components.CategoryCard">
+      <metrics statements="24" coveredstatements="24" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+      <file name="CategoryCard.jsx" path="C:\Users\Milo Martinez\DigitalHouse\PFI\grupo-06\digital-booking\src\components\CategoryCard\CategoryCard.jsx">
+        <metrics statements="24" coveredstatements="24" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="6" count="5" type="stmt"/>
+        <line num="7" count="5" type="cond" truecount="1" falsecount="0"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="5" type="stmt"/>
+        <line num="11" count="5" type="stmt"/>
+        <line num="12" count="5" type="stmt"/>
+        <line num="13" count="5" type="stmt"/>
+        <line num="14" count="5" type="stmt"/>
+        <line num="15" count="5" type="stmt"/>
+        <line num="16" count="5" type="stmt"/>
+        <line num="17" count="5" type="stmt"/>
+        <line num="18" count="5" type="stmt"/>
+        <line num="19" count="5" type="stmt"/>
+        <line num="20" count="5" type="stmt"/>
+        <line num="21" count="5" type="stmt"/>
+        <line num="22" count="5" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="shared.Button">
       <metrics statements="10" coveredstatements="10" conditionals="2" coveredconditionals="2" methods="0" coveredmethods="0"/>
       <file name="Button.jsx" path="C:\Users\Milo Martinez\DigitalHouse\PFI\grupo-06\digital-booking\src\shared\Button\Button.jsx">
         <metrics statements="10" coveredstatements="10" conditionals="2" coveredconditionals="2" methods="0" coveredmethods="0"/>
@@ -18,7 +48,7 @@
         <line num="10" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="Card">
+    <package name="shared.Card">
       <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="Card.jsx" path="C:\Users\Milo Martinez\DigitalHouse\PFI\grupo-06\digital-booking\src\shared\Card\Card.jsx">
         <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -33,7 +63,7 @@
         <line num="9" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="Icons">
+    <package name="shared.Icons">
       <metrics statements="44" coveredstatements="44" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
       <file name="FacebookIcon.jsx" path="C:\Users\Milo Martinez\DigitalHouse\PFI\grupo-06\digital-booking\src\shared\Icons\FacebookIcon.jsx">
         <metrics statements="9" coveredstatements="9" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
@@ -95,7 +125,7 @@
         <line num="9" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="Rating">
+    <package name="shared.Rating">
       <metrics statements="20" coveredstatements="20" conditionals="2" coveredconditionals="2" methods="0" coveredmethods="0"/>
       <file name="Rating.jsx" path="C:\Users\Milo Martinez\DigitalHouse\PFI\grupo-06\digital-booking\src\shared\Rating\Rating.jsx">
         <metrics statements="20" coveredstatements="20" conditionals="2" coveredconditionals="2" methods="0" coveredmethods="0"/>
@@ -121,7 +151,7 @@
         <line num="20" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="SocialNetworks">
+    <package name="shared.SocialNetworks">
       <metrics statements="25" coveredstatements="25" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
       <file name="SocialNetworks.jsx" path="C:\Users\Milo Martinez\DigitalHouse\PFI\grupo-06\digital-booking\src\shared\SocialNetworks\SocialNetworks.jsx">
         <metrics statements="25" coveredstatements="25" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
@@ -152,7 +182,7 @@
         <line num="25" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="Spinner">
+    <package name="shared.Spinner">
       <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="Spinner.jsx" path="C:\Users\Milo Martinez\DigitalHouse\PFI\grupo-06\digital-booking\src\shared\Spinner\Spinner.jsx">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -163,6 +193,13 @@
         <line num="5" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="utils">
+      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="numberFormater.js" path="C:\Users\Milo Martinez\DigitalHouse\PFI\grupo-06\digital-booking\src\utils\numberFormater.js">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
       </file>
     </package>
   </project>
