@@ -28,7 +28,8 @@ export async function getProductByQuery(queryForm) {
    const query = formStateMapper(queryForm);
    if (query.date) {
       query.date = query.date.toString();
-      if (query.date.length <= 1) delete query.date;
+      localStorage.setItem("CURRENT_DATES", JSON.stringify(query.date))
+      delete query.date;
    }
    return getReq(PRODUCT_URL, query).then((products) => {
       return mapProducts(products);
@@ -38,9 +39,36 @@ export async function getProductByQuery(queryForm) {
 export function mapProducts(products) {
    const favoriteProducts = JSON.parse(localStorage.getItem("USER_FAVORITES")) || [];
    return products.map((product) => {
+      const score =product.ratings.length ? Math.round(product.ratings.reduce((acc, rate) => acc + rate.score,0) / product.ratings.length) : 0;
       return {
          ...product,
-         isFavorite: favoriteProducts.includes(product.id)
+         isFavorite: favoriteProducts.includes(product.id),
+         rate: {
+            score,
+            qualification: productQualification(score)
+         }
       }
    })
+}
+
+function productQualification(rate) {
+   switch (rate * 2) {
+      case 0:
+         return "";
+      case 1:
+      case 2:
+         return "Pesimo";
+      case 3:
+      case 4:
+         return "Malo";
+      case 5:
+      case 6:
+         return "Regular";
+      case 7:
+      case 8:
+         return "Bueno";
+      case 9:
+      case 10:
+         return "Excelente";
+   }
 }

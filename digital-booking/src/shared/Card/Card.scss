@@ -18,6 +18,7 @@
       position: absolute;
       margin-top: 5px;
       border-radius: 0 0 var(--border-radius-small) var(--border-radius-small);
+      z-index: 1;
    }
 
    @media (max-width: 768px) {

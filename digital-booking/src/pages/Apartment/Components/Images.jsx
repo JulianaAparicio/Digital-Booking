@@ -40,11 +40,11 @@ const Images = ({ images, imageIndex }) => {
                <div className="db-mobile-images-container">
                   {images.map((image, i) => (
                      <img
-                        key={image.url}
+                        key={image && image.id}
                         data-index={i + 1}
                         className="db-mobile-images"
-                        src={image.url}
-                        alt={image.label}
+                        src={image && image.url}
+                        alt={image && image.label}
                      />
                   ))}
                </div>
@@ -59,10 +59,10 @@ const Images = ({ images, imageIndex }) => {
                   {images.slice(0, 5).map((image, i) => (
                      <img
                         onClick={() => setIndex(i)}
-                        key={image.url}
+                        key={image && image.id}
                         className="db-desktop-images"
-                        src={image.url}
-                        alt={image.label}
+                        src={image && image.url}
+                        alt={image && image.label}
                      />
                   ))}
                </div>
@@ -75,8 +75,8 @@ const Images = ({ images, imageIndex }) => {
                startIndex={indexSelected}
                items={images.map(image => {
                   return {
-                     original: image.url,
-                     thumbnail: image.url,
+                     original: image && image.url,
+                     thumbnail: image && image.url,
                   };
                })}
             />

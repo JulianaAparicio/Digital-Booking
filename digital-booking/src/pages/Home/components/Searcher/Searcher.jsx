@@ -3,6 +3,7 @@ import CalendarIcon from '../../../../shared/Icons/CalendarIcon';
 import LocationIcon from '../../../../shared/Icons/locationIcon';
 import Input from '../../../../shared/Input/Input';
 import Typehead from '../../../../shared/Input/Typehead';
+import Spinner from '../../../../shared/Spinner/Spinner';
 import titleCase from '../../../../utils/titleCase';
 import { getValidationErrors } from '../../../../utils/validationErrors';
 
@@ -13,6 +14,7 @@ const Searcher = ({
    setDateValidation,
    typeHeadOptions,
    search,
+   isLoading
 }) => {
    const typeHeadOptionsMapper = () => {
       return typeHeadOptions.map(option => {
@@ -51,6 +53,7 @@ const Searcher = ({
                setInputValidation={setDateValidation}
             />
             <Button classList={'searchButton db-button-primary'} action={search}>
+               {isLoading ? <Spinner /> : null}
                Buscar
             </Button>
          </div>

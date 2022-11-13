@@ -27,6 +27,6 @@ const router = createBrowserRouter([
          },
       ],
    },
-]);
+], {basename: '/'});
 
 export { router };

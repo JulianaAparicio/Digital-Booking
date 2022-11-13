@@ -62,7 +62,7 @@
          }
       }
 
-      @media (max-width:768px) {
+      @media (max-width:450px) {
          padding: 0.5rem 0.5rem;
       }
    }
@@ -81,7 +81,7 @@
       font-size: var(--font-size-small);
       line-height: 16px;
 
-      & div:first-child {
+      &-info {
          display: flex;
          align-items: center;
       }
@@ -96,14 +96,14 @@
          }
       }
 
-      @media (max-width:768px) {
+      @media (max-width:450px) {
          padding: 0.5rem 0.5rem;
       }
    }
 
    .db-apartment-icons {
       margin: 0;
-      padding: 1rem 2rem 0rem;
+      padding: 1rem 2rem 0.5rem;
 
       svg {
          &:hover {
@@ -115,8 +115,31 @@
          }
       }
 
-      @media (max-width:768px) {
+      @media (max-width:450px) {
          padding: 0.5rem 0.5rem;
+      }
+   }
+
+   .db-apartment-rate {
+      display: flex;
+      align-items: center;
+
+      .db-apartment-rating {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+      }
+
+      .db-apartment-points {
+         border-radius: var(--border-radius-big);
+         background-color: var(--color-secondary);
+         border: 1px solid var(--color-secondary);
+         height: 23px;
+         width: 37px;
+         color: var(--color-text-light);
+         text-align: center;
+         line-height: 24px;
+         margin-left: auto;
       }
    }
 
@@ -175,6 +198,7 @@
 
          &:hover .db-toggle-button {
             text-decoration: underline;
+
          }
 
          @media screen and (min-width: 1028px) {
@@ -241,7 +265,7 @@
       width: 100%;
       position: fixed;
       top: 0;
-      z-index: 10;
+      z-index: 20;
 
       &.hidden {
          display: none;
@@ -305,10 +329,65 @@
                margin-bottom: .8rem;
             }
 
-            svg {
+            svg path{
                fill: var(--color-primary);
             }
          }
+      }
+   }
+
+   .db-apartment-availability {
+
+      &-calendar {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+      }
+
+      &-container {
+         display: grid;
+         grid-template-columns: 2fr 1fr;
+         align-items: center;
+
+         @media (max-width: 768px) {
+            grid-template-columns: 1fr;
+         }
+      }
+   }
+
+   .db-reservation {
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: auto;
+      align-items: center;
+      row-gap: 10px;
+
+      .db-button {
+         margin: auto;
+      }
+
+      @media (max-width: 768px) {
+         grid-template-columns: auto auto;
+         column-gap: 10px;
+         .db-button {
+            width: 206px;
+         }
+      }
+
+      @media (max-width: 450px) {
+         grid-template-columns: auto;
+         .db-button {
+            width: 100%;
+         }
+      }
+      
+   }
+
+   .db-card-reservation {
+      @media (max-width: 768px) {
+         background-color: transparent;
+         box-shadow: none;
+         border: none;
       }
    }
 
@@ -316,6 +395,12 @@
       background: lightgray;
       margin: 0;
       padding: 2rem 1rem;
+
+      &-container {
+         display: grid;
+         grid-template-columns: 2fr 1fr;
+         align-items: center;
+      }
 
       @media screen and (min-width: 768px) {
          padding: 3rem 2rem;
@@ -334,7 +419,7 @@
          border-radius: var(--border-radius-big);
          margin: auto;
          width: 100%;
-         
+
       }
    }
 
