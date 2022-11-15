@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import CloseIcon from "../../../shared/Icons/CloseIcon";
 import SocialNetworks from "../../../shared/SocialNetworks/SocialNetworks";
 import './SideNav.scss'
 
 export default function SideNav({close}) {
     const [showLogin, setShowLogin] = useState(true);
-    const [showRegister, setShowRegister] = useState(true)
+    const [showRegister, setShowRegister] = useState(true);
 
     useEffect(() => {
         const currentPage = window.location.pathname;
@@ -33,13 +34,17 @@ export default function SideNav({close}) {
             </div>
             <div className="db-side-panel-options">
                 { showRegister ? 
-                    <a href="/register"><div className="db-side-panel-options-item">
-                        Crear Cuenta
-                    </div></a> : null }
+                    <Link to={'/register'}>
+                        <div className="db-side-panel-options-item" >
+                            Crear Cuenta
+                        </div> 
+                    </Link> : null }
                 { showLogin ?
-                    <a href="/login"><div className="db-side-panel-options-item">
-                        Iniciar Sesión
-                    </div></a> : null
+                    <Link to={'/login'}>
+                        <div className="db-side-panel-options-item" >
+                            Iniciar Sesión
+                        </div>
+                    </Link> : null
                 }
             </div>
             <div className="db-side-panel-footer">
