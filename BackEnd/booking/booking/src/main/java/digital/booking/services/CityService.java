@@ -1,16 +1,19 @@
 package digital.booking.services;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import digital.booking.DTO.ProductDTO;
 import digital.booking.entities.City;
 import digital.booking.exceptions.BadRequestException;
 import digital.booking.exceptions.NotFoundException;
 import digital.booking.interfaces.IService;
 import digital.booking.repositories.CityRepository;
 import org.apache.log4j.Logger;
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CityService implements IService<City> {
@@ -18,9 +21,9 @@ public class CityService implements IService<City> {
 
     @Autowired
     private CityRepository cityRepository;
-
     @Autowired
-    private ObjectMapper mapper;
+    private ProductService productService;
+
 
     @Override
     public List<City> searchAll() {
@@ -64,12 +67,18 @@ public class CityService implements IService<City> {
         return existingCity;
     }
 
-        @Override
-    public void delete(Long id) throws NotFoundException {
-            City city = cityRepository.findById(id).orElseThrow(() -> new NotFoundException("The " +
+    @Override
+    public void delete(Long id) throws NotFoundException, ServiceException {
+        Map<String,String> queryParameters = new HashMap<>();
+        queryParameters.put("city",id.toString());
+        List<ProductDTO> productsFounded = productService.searchByQuery(queryParameters);
+        if(productsFounded.size() > 1) {
+            throw new ServiceException("This city can't be deleted because there are products associated with it.");
+        } else {
+            cityRepository.findById(id).orElseThrow(() -> new NotFoundException("The " +
                     "city with the id: " + id + " was not found."));
             logger.debug("Deleting city...");
-            cityRepository.delete(city);
-
+            cityRepository.deleteById(id);
+        }
     }
 }
