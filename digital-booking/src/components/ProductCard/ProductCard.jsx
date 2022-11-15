@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
-import { useState } from 'react';
 import Card from '../../shared/Card/Card';
-import SideMainLayout from '../../shared/Layouts/SideMainLayout';
+import SideMainLayout from '../../shared/Layouts/SideMainLayout/SideMainLayout';
 import ProductDescription from './ProductDescription';
 import ProductImage from './ProductImage';
 

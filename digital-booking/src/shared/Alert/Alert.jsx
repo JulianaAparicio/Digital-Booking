@@ -11,7 +11,6 @@ export default function Alert({type, children, close}) {
                     <CloseIcon/>
                 </div>
             </Card>
-            
         </div>
     )
 }
