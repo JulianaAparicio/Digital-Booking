@@ -1,0 +1,13 @@
+stages:
+  - deploy
+
+produccion FrontEnd S3:
+  stage: deploy
+  image:
+    name: banst/awscli
+    entrypoint: [""]
+  only:
+    - produccionFrontEndBucket
+  script:
+    - aws configure set region us-east-2
+    - aws s3 cp --recursive digital-booking/dist/ s3://$DEV_S3_BUCKET_FRONT
