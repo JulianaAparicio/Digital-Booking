@@ -17,5 +17,5 @@ Pasos para hacer deploy en el servidor EC2 de BackEnd Aplicacion Api Digital-boo
 - git push origin produccionBackEnd
 - git checkout BackEnd
 
-Verificar en gitlat pipeline
+Verificar en gitlat pipeline que todo salio bien
 http://ec2-3-23-114-239.us-east-2.compute.amazonaws.com:8080/
