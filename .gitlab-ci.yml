@@ -1,0 +1,30 @@
+stages:
+  - build
+  - deploy
+
+before_produccion:
+  stage: build
+  tags:
+    - produccion
+  only:
+    - produccionBackEnd
+  script:
+    - whoami
+    - cd /var/www/BackEnd/BackEnd
+    - sudo git fetch -p
+    - sudo git pull
+    - sudo git checkout produccionBackEnd
+    - sudo git pull origin BackEnd
+    - sudo systemctl stop bookingApi
+    - sudo systemctl start bookingApi
+
+after_produccion:
+  stage: deploy
+  tags:
+    - produccion
+  only:
+    - produccionBackEnd
+  script:
+    - whoami
+    - cd /var/www/BackEnd/BackEnd
+
