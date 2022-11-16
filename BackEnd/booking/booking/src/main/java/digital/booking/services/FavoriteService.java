@@ -1,11 +1,8 @@
 package digital.booking.services;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import digital.booking.DTO.Favorite;
 import digital.booking.entities.Product;
 import digital.booking.entities.User;
 import digital.booking.exceptions.BadRequestException;
-import digital.booking.exceptions.NotFoundException;
 import digital.booking.repositories.ProductRepository;
 import digital.booking.repositories.UserRepository;
 import org.apache.log4j.Logger;

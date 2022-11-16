@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -51,6 +50,7 @@ public class ProductController {
         return ResponseEntity.ok("Product deleted ID: " + id);
     }
 
+    @Operation(summary = "Lista 6 productos aleatoriamente")
     @GetMapping("/random")
     public ResponseEntity<List<ProductDTO>> findRandomProducts(){
         return ResponseEntity.ok(productService.searchRandom());
