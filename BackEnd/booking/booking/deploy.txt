@@ -1,0 +1,21 @@
+
+Pasos para hacer deploy en el servidor EC2 de BackEnd Aplicacion Api Digital-booking
+
+- En la rama BackEnd hacer un git status y no debe estar nada pendiente
+- Hacer un git pull origin BackEnd
+- nuevamente hacer un git status y no debe estar nada pendiente
+- git branch -D produccionBackEnd
+- git checkout -b produccionBackEnd
+- Modificar el archivo index.html en src/main/resources/templates y actualizar la informacion como version
+- Generar el jar en Maven desde clean hasta install (corrige errores de librerias)
+- Probar que corra la aplicacion ejecutando en la carpeta tarjet el archivo bookingApi-1.jar con click derecho run bookingApi-1.jar
+- Verificar  en http://localhost:8080/ la version que se cambio
+- copiar el archivo jar en la carpeta raiz con el siguiente comando
+  cp ./target/bookingApi-1.jar ../../../
+- git add ../../../bookingApi-1.jar
+- git commit -m "actualizacion Version y nuevo jar"
+- git push origin produccionBackEnd
+- git checkout BackEnd
+
+Verificar en gitlat pipeline que todo salio bien
+http://ec2-3-23-114-239.us-east-2.compute.amazonaws.com:8080/
