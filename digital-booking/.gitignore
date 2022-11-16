@@ -7,12 +7,9 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-<<<<<<< HEAD
 
-=======
 node_modules
 coverage
->>>>>>> d0430835857798f0aead25bf57b4f6a4330dc05a
 dist-ssr
 *.local
 node_modules
@@ -26,9 +23,6 @@ node_modules
 *.njsproj
 *.sln
 *.sw?
-<<<<<<< HEAD
 .gitignore
-=======
 **/__snapshots__/**
 **/*.snap
->>>>>>> d0430835857798f0aead25bf57b4f6a4330dc05a
