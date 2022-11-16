@@ -1,26 +1,29 @@
 package digital.booking.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @SequenceGenerator(name="user_seg",initialValue = 1,allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "user_seq")
-
-    @NotNull
     private Long id;
 
     @NotNull
@@ -39,9 +42,54 @@ public class User {
     @Column
     private String password;
 
+    @Column
+    private Boolean active;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "products",nullable = false)
     @JsonIgnore
     private List<Product> products;
 
+    @ManyToOne
+    @JoinColumn(name = "role", nullable = false)
+    private Role role;
+
+    public User(String name, String lastName, String email, String password) {
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.active = true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        SimpleGrantedAuthority grantedAuthority= new SimpleGrantedAuthority(role.getName().name());
+        return Collections.singletonList(grantedAuthority);
+    }
+
+    @Override
+    public String getUsername() {
+        return this.getEmail();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return this.active;
+    }
 }
