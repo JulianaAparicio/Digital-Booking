@@ -46,7 +46,7 @@ public class UserService implements IService<User> {
             throw new BadRequestException("The user is null.");
         } else {
             logger.debug("Creating new user...");
-            Role role = roleRepository.findByName(UserRoleEnum.ROLE_USER);
+            Role role = roleRepository.findByName(UserRoleEnum.USER);
             user.setRole(role);
             return userRepository.save(user);
         }

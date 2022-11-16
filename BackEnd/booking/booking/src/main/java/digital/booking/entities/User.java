@@ -62,6 +62,15 @@ public class User implements UserDetails {
         this.active = true;
     }
 
+    public User(String name, String lastName, String email, String password, List<Product> products) {
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.setProducts(products);
+        this.active = true;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority grantedAuthority= new SimpleGrantedAuthority(role.getName().name());
@@ -75,17 +84,17 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override

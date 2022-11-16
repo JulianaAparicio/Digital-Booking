@@ -34,7 +34,8 @@ public class FavoriteServiceTest {
         List<Product> productsTest = new ArrayList<>();
 
         productDTOTest = new ProductDTO(25L, "titleTest", "descriptionTest", categoryTest, amenitiesTest, locationTest, imagesTest, itemsTest, ratingsTest);
-        userTest = new User(25L, "userNameTest", "userLastNameTest", "userEmailTest", "userPassTest", productsTest, new Role(1L, UserRoleEnum.ROLE_USER));
+        userTest = new User("userNameTest", "userLastNameTest", "userEmailTest", "userPassTest", productsTest);
+        userTest.setId(10L);
         favoriteTest = new Favorite(userTest.getId(), productDTOTest.getId());
     }
 
