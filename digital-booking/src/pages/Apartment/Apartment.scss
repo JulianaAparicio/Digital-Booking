@@ -167,6 +167,7 @@
 
             img {
                aspect-ratio: 3/2;
+               flex: none;
                object-fit: cover;
                scroll-snap-align: center;
                width: 100%;
@@ -329,7 +330,7 @@
                margin-bottom: .8rem;
             }
 
-            svg path{
+            svg path {
                fill: var(--color-primary);
             }
          }
@@ -369,6 +370,7 @@
       @media (max-width: 768px) {
          grid-template-columns: auto auto;
          column-gap: 10px;
+
          .db-button {
             width: 206px;
          }
@@ -376,11 +378,12 @@
 
       @media (max-width: 450px) {
          grid-template-columns: auto;
+
          .db-button {
             width: 100%;
          }
       }
-      
+
    }
 
    .db-card-reservation {
