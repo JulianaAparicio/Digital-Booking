@@ -5,8 +5,10 @@ export async function getReq(url, params) {
 }
 
 export async function postReq(url, body) {
-   console.log(body)
-   return await axios.post(url, JSON.stringify(body));
+   return await axios.post(url, JSON.stringify(body), {headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      'Access-Control-Allow-Origin': '*'
+    }});
 }
 
 export async function putReq(url, body) {

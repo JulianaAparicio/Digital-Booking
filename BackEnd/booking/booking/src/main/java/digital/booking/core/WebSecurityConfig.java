@@ -47,7 +47,7 @@ public class WebSecurityConfig  {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/categories/**","/products/**","/cities/**","/auth/**","/users/register" ).permitAll()
-                .antMatchers("/booking/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/booking/**").hasAnyAuthority("USER", "ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();
