@@ -4,7 +4,7 @@ import { createContext } from "react";
 import { getAllCategories } from "./services/categories";
 import { getAllCities } from "./services/City";
 import { decodeToken } from "./services/Token";
-import { setLocalStorage, getLocalStorage } from "./services/Storage";
+import { setLocalStorage, getLocalStorage, getSessionStorage } from "./services/Storage";
 
 export const Context = createContext();
 
@@ -34,7 +34,7 @@ export const DataProvider = ({children})=>{
     }
     
     useEffect (()=>{
-        const userStorage = getLocalStorage("CURRENT_USER");
+        const userStorage = getSessionStorage("CURRENT_USER");
         const categoriesStorage = getLocalStorage("CURRENT_CATEGORIES");
         const citiesStorage = getLocalStorage("CURRENT_CITIES");
         userStorage ? setUser(decodeToken()) : setUser(null);
