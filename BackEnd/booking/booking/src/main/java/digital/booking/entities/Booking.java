@@ -34,12 +34,12 @@ public class Booking {
     private LocalDate finalDate;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "productId",nullable = false)
     private Product product;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId",nullable = false)
     private User user;
 
