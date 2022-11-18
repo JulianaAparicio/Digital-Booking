@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import './Apartment.scss';
+import './Apartment&Reservation.scss';
 import Amenities from './Components/Amenities';
 import Description from './Components/Description';
 import Availability from './Components/Availability';
@@ -59,7 +59,6 @@ const Apartment = () => {
             })
             .filter(img => img)
       );
-
 
       const loadingPageHide = gsap.to('.db-loading-page', {
          delay: 0.2,
