@@ -13,6 +13,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Collections;
+import java.util.List;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.lenient;
@@ -27,7 +31,7 @@ public class CategoryServiceTest {
     @Autowired
     CategoryService categoryService;
 
-    Category category;
+    private Category category;
 
     @Mock
     private ObjectMapper mapper;
@@ -43,23 +47,24 @@ public class CategoryServiceTest {
         category.setImageURL("imageURLTest");
     }
 
-    /*@Order(2)
+    @Order(2)
     @Test
     public void testSearchAll(){
 
         try {
-            when(categoryRepository.findAll()).thenReturn(Arrays.asList(categoryDTO, Category.class));
-            //List<CategoryDTO> categoriesList = categoryService.searchAll();
+            lenient().when(categoryRepository.findAll()).thenReturn(Collections.emptyList());
 
-            assertNotNull(categoryService.searchAll(),"The value is null.");
-            assertTrue(categoryService.searchAll().size() > 0,"There are no categories to list.");
+            List<CategoryDTO> categoryList = categoryService.searchAll();
+
+            assertThat(categoryList).isNotNull();
+            assertNotNull(categoryList,"The value is null.");
 
         } catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    @Order(2)
+    /*@Order(2)
     @Test
     public void testSearchAll(){
 
