@@ -5,7 +5,7 @@ export const Avatar = ({name, lastName, logOut}) => {
   return (
     <div className='db-avatar'>
       <span className='db-avatar-initials'>
-        {name.charAt(0)} {lastName.charAt(0)}
+        {name && name.charAt(0)} {lastName && lastName.charAt(0)}
       </span>
       <div  className='db-avatar-name'>
         <span>Hola,</span>

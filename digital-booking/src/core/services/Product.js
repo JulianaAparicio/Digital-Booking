@@ -1,6 +1,8 @@
 import { formStateMapper } from "../../utils/formStateMapper";
 import { getReq } from "./axios";
 import { baseUrl } from './baseUrl';
+import { setLocalStorage, getLocalStorage } from "./Storage";
+
 
 const PRODUCT_URL = `${baseUrl}/products`;
 
@@ -28,7 +30,7 @@ export async function getProductByQuery(queryForm) {
    const query = formStateMapper(queryForm);
    if (query.date) {
       query.date = query.date.toString();
-      localStorage.setItem("CURRENT_DATES", JSON.stringify(query.date))
+      setLocalStorage("CURRENT_DATES", query.date);
       delete query.date;
    }
    return getReq(PRODUCT_URL, query).then((products) => {
@@ -37,7 +39,7 @@ export async function getProductByQuery(queryForm) {
 }
 
 export function mapProducts(products) {
-   const favoriteProducts = JSON.parse(localStorage.getItem("USER_FAVORITES")) || [];
+   const favoriteProducts = getLocalStorage("USER_FAVORITES") || [];
    return products.map((product) => {
       const score =product.ratings.length ? Math.round(product.ratings.reduce((acc, rate) => acc + rate.score,0) / product.ratings.length) : 0;
       return {

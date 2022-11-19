@@ -4,15 +4,16 @@ import Button from '../../shared/Button/Button';
 import Spinner from '../../shared/Spinner/Spinner';
 import { Link, useNavigate } from 'react-router-dom';
 import { getValidationErrors} from '../../utils/validationErrors';
-import { loginUser } from '../../core/services/login';
 import { formStateValidation } from '../../utils/formStateMapper';
 import { useContext, useState } from 'react';
 import Alert from '../../shared/Alert/Alert';
 import { Context } from '../../core/Context';
+import { loginUser } from '../../core/services/Auth';
+import { decodeToken, setToken } from '../../core/services/Token';
 
 const Login = () => {
    let browserNavigate = useNavigate();
-   const userContext = useContext(Context);
+   const appContext = useContext(Context);
 
    const [isLoading, setIsLoading] = useState(false);
    const [failedAuth, setFailedAuth] = useState(false);
@@ -24,18 +25,11 @@ const Login = () => {
 
    const login = () => {
       setIsLoading(true);
-      loginUser(loginForm).then(userAuth => {
-         setTimeout(() => {
-            if (userAuth) {
-               sessionStorage.setItem('CURRENT_USER', JSON.stringify(userAuth));
-               userContext.setUser(userAuth);
-               browserNavigate('/');
-            } else {
-               setFailedAuth(true)
-            }
-            setIsLoading(false);
-         }, 2000);
-      });
+      loginUser(loginForm).then(data => {
+         setToken(data);
+         appContext.setUser(decodeToken());
+         browserNavigate('/');
+      }).catch((e) => setFailedAuth(true)).finally(() => setIsLoading(false));
    };
 
    const closeAlert = () => {
