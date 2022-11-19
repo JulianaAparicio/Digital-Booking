@@ -2,6 +2,7 @@ import { useEffect, useId, useRef, useState } from 'react';
 import DatePicker from 'react-multi-date-picker';
 import DatePanel from 'react-multi-date-picker/plugins/date_panel';
 import { months, weekDays } from '../../utils/spanishCalendar';
+import TimePicker from 'react-multi-date-picker/plugins/analog_time_picker';
 import './Input.scss';
 
 export default function Input({
@@ -16,7 +17,7 @@ export default function Input({
    errors,
    setInputValidation,
    minDate = null,
-   datePanel = true,
+   value,
 }) {
    const [isFocus, setFocus] = useState(false);
    const [isInvalid, setInvalid] = useState(false);
@@ -101,6 +102,15 @@ export default function Input({
                   weekDays={weekDays}
                   months={months}
                />
+            ) : type === 'time-picker' ? (
+               <DatePicker
+                  onChange={setValue}
+                  ref={inputRef}
+                  value={value}
+                  plugins={[<TimePicker hideSeconds />]}
+                  format="HH:mm"
+                  disableDayPicker
+               />
             ) : (
                <input
                   key={id}
@@ -111,6 +121,7 @@ export default function Input({
                   onFocus={handleFocus}
                   onBlur={handleBlur}
                   onChange={handleChangeInput}
+                  value={value}
                />
             )}
          </div>
