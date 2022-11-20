@@ -32,16 +32,16 @@ public class CategoryServiceTest {
     @Autowired
     private CategoryService categoryService;
 
-    private Category category;
+    private Category categoryTest;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        category = new Category();
-        category.setId(1L);
-        category.setTitle("titleTest");
-        category.setDescription("descriptionTest");
-        category.setImageURL("imageURLTest");
+        categoryTest = new Category();
+        categoryTest.setId(1L);
+        categoryTest.setTitle("titleTest");
+        categoryTest.setDescription("descriptionTest");
+        categoryTest.setImageURL("imageURLTest");
     }
 
     @Order(2)
@@ -64,8 +64,8 @@ public class CategoryServiceTest {
     @Test
     public void testSearchById(){
         try {
-            lenient().when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
-            CategoryDTO categoryFounded = categoryService.searchById(category.getId());
+            lenient().when(categoryRepository.findById(1L)).thenReturn(Optional.of(categoryTest));
+            CategoryDTO categoryFounded = categoryService.searchById(categoryTest.getId());
 
             assertThat(categoryFounded).isNotNull();
 
@@ -78,7 +78,7 @@ public class CategoryServiceTest {
     @Test
     public void testCreate() {
         try{
-            lenient().when(categoryRepository.save(any(Category.class))).thenReturn(category);
+            lenient().when(categoryRepository.save(any(Category.class))).thenReturn(categoryTest);
 
             CategoryDTO categoryDTO = new CategoryDTO();
             categoryDTO.setId(1L);
@@ -92,9 +92,9 @@ public class CategoryServiceTest {
             assertNotNull(categoryCreated,"The category is null");
 
             // Verifies category's attributes:
-            assertEquals(category.getTitle(), categoryCreated.getTitle(), "Titles don't match.");
-            assertEquals(category.getDescription(), categoryCreated.getDescription(), "Descriptions don't match.");
-            assertEquals(category.getImageURL(), categoryCreated.getImageURL(), "ImageURLs don't match.");
+            assertEquals(categoryTest.getTitle(), categoryCreated.getTitle(), "Titles don't match.");
+            assertEquals(categoryTest.getDescription(), categoryCreated.getDescription(), "Descriptions don't match.");
+            assertEquals(categoryTest.getImageURL(), categoryCreated.getImageURL(), "ImageURLs don't match.");
 
         } catch (BadRequestException e){
             e.printStackTrace();
@@ -111,8 +111,8 @@ public class CategoryServiceTest {
             categoryDTO.setDescription("descriptionEdited");
             categoryDTO.setImageURL("ImageURLEdited");
 
-            lenient().when(categoryRepository.findById(1L)).thenReturn(Optional.ofNullable(category));
-            lenient().when(categoryRepository.save(category)).thenReturn(category);
+            lenient().when(categoryRepository.findById(1L)).thenReturn(Optional.ofNullable(categoryTest));
+            lenient().when(categoryRepository.save(categoryTest)).thenReturn(categoryTest);
 
             CategoryDTO categoryUpdated = categoryService.update(categoryDTO,1L);
 
