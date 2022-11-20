@@ -48,8 +48,8 @@ const Apartment = () => {
          return;
       }
 
-      setImages(
-         currentProduct.images
+      const returnBigImages = () => {
+         return currentProduct.images
             .map(image => {
                const img = document.createElement('img');
                img.src = image.url;
@@ -57,8 +57,16 @@ const Apartment = () => {
                   return image;
                }
             })
-            .filter(img => img)
-      );
+            .filter(img => img);
+      };
+
+      setImages(returnBigImages);
+   }, [currentProduct]);
+
+   useEffect(() => {
+      if (!currentProduct) {
+         return;
+      }
 
       const loadingPageHide = gsap.to('.db-loading-page', {
          delay: 0.2,
