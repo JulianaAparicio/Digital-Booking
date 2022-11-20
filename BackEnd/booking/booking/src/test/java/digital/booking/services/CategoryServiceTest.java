@@ -1,9 +1,9 @@
 package digital.booking.services;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import digital.booking.DTO.CategoryDTO;
 import digital.booking.entities.Category;
 import digital.booking.exceptions.BadRequestException;
+import digital.booking.exceptions.NotFoundException;
 import digital.booking.repositories.CategoryRepository;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,15 +28,11 @@ import static org.mockito.Mockito.lenient;
 public class CategoryServiceTest {
 
     @Mock
-    CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
     @Autowired
-    CategoryService categoryService;
+    private CategoryService categoryService;
 
     private Category category;
-
-    @Mock
-    private ObjectMapper mapper;
-
 
     @BeforeEach
     void setUp() {
@@ -56,24 +53,7 @@ public class CategoryServiceTest {
 
             List<CategoryDTO> categoryList = categoryService.searchAll();
 
-            assertThat(categoryList).isNotNull();
             assertNotNull(categoryList,"The value is null.");
-
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    /*@Order(2)
-    @Test
-    public void testSearchAll(){
-
-        try {
-            // WHEN:
-            List<CategoryDTO> categoriesList = categoryService.searchAll();
-
-            // THEN:
-            assertTrue(categoriesList.size() > 0,"There are no categories to list.");
 
         } catch (Exception e){
             e.printStackTrace();
@@ -84,17 +64,15 @@ public class CategoryServiceTest {
     @Test
     public void testSearchById(){
         try {
-            // WHEN:
-            CategoryDTO categoryFounded = categoryService.searchById(categoryDTO.getId());
+            lenient().when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
+            CategoryDTO categoryFounded = categoryService.searchById(category.getId());
 
-            // THEN:
-            assertEquals(categoryDTO.getId(), categoryFounded.getId(), "Ids don't match.");
-            assertNotNull(categoryFounded,"The categpry founded is null.");
+            assertThat(categoryFounded).isNotNull();
 
         } catch (NotFoundException e){
             e.printStackTrace();
         }
-    }*/
+    }
 
     @Order(1)
     @Test
@@ -123,25 +101,30 @@ public class CategoryServiceTest {
         }
     }
 
-    /*@Order(4)
+    @Order(4)
     @Test
     public void testUpdate() {
         try{
-            // WHEN:
+            CategoryDTO categoryDTO = new CategoryDTO();
+            categoryDTO.setId(1L);
             categoryDTO.setTitle("titleEdited");
             categoryDTO.setDescription("descriptionEdited");
             categoryDTO.setImageURL("ImageURLEdited");
 
-            // THEN:
-            CategoryDTO categoryUpdated = categoryService.update(categoryDTO,15L);
+            lenient().when(categoryRepository.findById(1L)).thenReturn(Optional.ofNullable(category));
+            lenient().when(categoryRepository.save(category)).thenReturn(category);
 
-            assertEquals(categoryDTO.getTitle(), categoryUpdated.getTitle(), "Titles don't match.");
-            assertEquals(categoryDTO.getDescription(), categoryUpdated.getDescription(), "Descriptions don't match.");
-            assertEquals(categoryDTO.getImageURL(), categoryUpdated.getImageURL(), "ImageURLs don't match.");
+            CategoryDTO categoryUpdated = categoryService.update(categoryDTO,1L);
+
+            assertNotNull(categoryUpdated,"The category updated is null.");
+
+            assertEquals("titleEdited", categoryUpdated.getTitle(), "Titles don't match.");
+            assertEquals("descriptionEdited", categoryUpdated.getDescription(), "Descriptions don't match.");
+            assertEquals("ImageURLEdited", categoryUpdated.getImageURL(), "ImageURLs don't match.");
 
         } catch (NotFoundException e){
             e.printStackTrace();
         }
-    }*/
+    }
 
 }
