@@ -3,26 +3,40 @@ package digital.booking.services;
 import digital.booking.entities.City;
 import digital.booking.exceptions.BadRequestException;
 import digital.booking.exceptions.NotFoundException;
+import digital.booking.repositories.CityRepository;
 import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.lenient;
 
+@ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest
 class CityServiceTest {
 
-    @Autowired
+    @Mock
+    private CityRepository cityRepository;
+
+    @InjectMocks
     private CityService cityService;
 
     private City cityTest;
 
     @BeforeEach
     void setUp() {
-        // GIVEN:
+        MockitoAnnotations.openMocks(this);
         cityTest = new City(1L,"cityNameTest","stateTest","countryTest");
     }
 
@@ -31,11 +45,11 @@ class CityServiceTest {
     @Test
     void testSearchAll() {
         try {
-            // WHEN:
+            lenient().when(cityRepository.findAll()).thenReturn(Collections.emptyList());
+
             List<City> cityList = cityService.searchAll();
 
-            // THEN:
-            assertTrue(cityList.size() > 0,"There are no cities to list.");
+            assertNotNull(cityList,"The value is null.");
 
         } catch (Exception e){
             e.printStackTrace();
@@ -46,12 +60,10 @@ class CityServiceTest {
     @Test
     void testSearchById() {
         try {
-            // WHEN:
+            lenient().when(cityRepository.findById(1L)).thenReturn(Optional.of(cityTest));
             City cityFounded = cityService.searchById(cityTest.getId());
 
-            // THEN:
-            assertEquals(cityTest.getId(), cityFounded.getId(), "Ids don't match.");
-            assertNotNull(cityFounded,"The city founded is null.");
+            assertThat(cityFounded).isNotNull();
 
         } catch (NotFoundException e){
             e.printStackTrace();
@@ -62,11 +74,15 @@ class CityServiceTest {
     @Test
     void testCreate() {
         try{
-            // WHEN:
-            cityService.create(cityTest);
+            lenient().when(cityRepository.save(any(City.class))).thenReturn(cityTest);
 
-            // THEN:
-            City cityCreated = cityService.searchById(1L);
+            City city = new City();
+            city.setId(1L);
+            city.setName("cityNameTest");
+            city.setState("stateTest");
+            city.setCountry("countryTest");
+
+            City cityCreated = cityService.create(city);
 
             // Verifies if city is null:
             assertNotNull(cityCreated,"The city is null");
@@ -76,7 +92,7 @@ class CityServiceTest {
             assertEquals(cityTest.getState(), cityCreated.getState(), "States don't match.");
             assertEquals(cityTest.getCountry(), cityCreated.getCountry(), "Countries don't match.");
 
-        } catch (BadRequestException | NotFoundException e){
+        } catch (BadRequestException e){
             e.printStackTrace();
         }
 
@@ -85,20 +101,25 @@ class CityServiceTest {
     @Order(4)
     @Test
     void testUpdate() {
-        try{
-            // WHEN:
-            cityTest.setName("nameEdited");
-            cityTest.setState("stateEdited");
-            cityTest.setCountry("countryEdited");
+        try {
+            City city = new City();
+            city.setId(1L);
+            city.setName("nameEdited");
+            city.setState("stateEdited");
+            city.setCountry("countryEdited");
 
-            City cityUpdated = cityService.update(cityTest,1L);
+            lenient().when(cityRepository.findById(1L)).thenReturn(Optional.ofNullable(cityTest));
+            lenient().when(cityRepository.save(cityTest)).thenReturn(cityTest);
 
-            // THEN:
-            assertEquals(cityTest.getName(), cityUpdated.getName(), "Names don't match.");
-            assertEquals(cityTest.getState(), cityUpdated.getState(), "States don't match.");
-            assertEquals(cityTest.getCountry(), cityUpdated.getCountry(), "Countries don't match.");
+            City cityUpdated = cityService.update(city, 1L);
 
-        } catch (NotFoundException e){
+            assertNotNull(cityUpdated, "The city updated is null.");
+
+            assertEquals("nameEdited", cityUpdated.getName(), "Names don't match.");
+            assertEquals("stateEdited", cityUpdated.getState(), "States don't match.");
+            assertEquals("countryEdited", cityUpdated.getCountry(), "Countries don't match.");
+
+        } catch (NotFoundException e) {
             e.printStackTrace();
         }
     }
