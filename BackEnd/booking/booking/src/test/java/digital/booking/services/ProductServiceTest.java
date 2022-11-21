@@ -4,6 +4,7 @@ import digital.booking.DTO.ProductDTO;
 import digital.booking.entities.*;
 import digital.booking.exceptions.BadRequestException;
 import digital.booking.exceptions.NotFoundException;
+import digital.booking.repositories.CategoryRepository;
 import digital.booking.repositories.ProductRepository;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,6 +32,12 @@ public class ProductServiceTest {
     @Mock
     ProductRepository productRepository;
 
+    @Mock
+    CategoryRepository categoryRepository;
+
+    @Mock
+    CategoryRepository cityRepository;
+
     @Autowired
     ProductService productService;
 
@@ -53,7 +60,7 @@ public class ProductServiceTest {
         cityTest = new City(1L,"cityNameTest","stateTest","countryTest");
         locationTest = new Location(1L,cityTest,"adressTest","latitudeTest","longitudeTest");
 
-        productTest = new Product(1L, "titleTest", "descriptionTest",categoryTest,locationTest);
+        //productTest = new Product(1L, "titleTest", "descriptionTest",categoryTest,locationTest);
     }
 
     @Order(2)
@@ -96,7 +103,7 @@ public class ProductServiceTest {
             productDTO.setTitle("titleTest");
             productDTO.setDescription("descriptionTest");
             productDTO.setCategory(categoryTest);
-            //productDTO.setLocation(locationTest);
+            productDTO.setLocation(locationTest);
 
             ProductDTO productCreated = productService.create(productDTO);
 
