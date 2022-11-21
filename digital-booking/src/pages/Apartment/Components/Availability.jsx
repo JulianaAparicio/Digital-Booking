@@ -6,7 +6,7 @@ import SectionTitle from '../../../components/SectionTitle/SectionTitle';
 import { months, weekDays } from '../../../utils/spanishCalendar';
 import Reservation from './Reservation';
 
-const Availability = ({ disabledDays, currentDates }) => {
+const Availability = ({ disabledDays, currentDates, id }) => {
    const [isMobile, setIsMobile] = useState(null);
    const [calendarDates, setCalendarDates] = useState([]);
 
@@ -46,8 +46,7 @@ const Availability = ({ disabledDays, currentDates }) => {
                   value={calendarDates}
                />
             </div>
-
-            <Reservation />
+            <Reservation id={id} />
          </div>
       </section>
    );
