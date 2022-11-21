@@ -2,7 +2,6 @@ package digital.booking.controllers;
 
 
 import digital.booking.core.TokenManager;
-import digital.booking.entities.User;
 import digital.booking.services.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
