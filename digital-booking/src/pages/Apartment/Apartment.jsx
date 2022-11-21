@@ -18,6 +18,8 @@ import LoadingScreen from '../../components/LoadingScreen/LoadingScreen';
 import HeartFilledIcon from '../../shared/Icons/HeartFilledIcon';
 import { toggleFavoriteLocal } from '../../core/services/Favorite';
 
+let aux = 0;
+
 const Apartment = () => {
    const { apartmentId } = useParams();
    const [currentProduct, setCurrentProduct] = useState(null);
@@ -48,8 +50,8 @@ const Apartment = () => {
          return;
       }
 
-      setImages(
-         currentProduct.images
+      const returnBigImages = () => {
+         return currentProduct.images
             .map(image => {
                const img = document.createElement('img');
                img.src = image.url;
@@ -57,8 +59,16 @@ const Apartment = () => {
                   return image;
                }
             })
-            .filter(img => img)
-      );
+            .filter(img => img);
+      };
+
+      setImages(returnBigImages);
+
+      if (images.length <= 0) {
+         aux++;
+         console.log(aux);
+         return;
+      }
 
       const loadingPageHide = gsap.to('.db-loading-page', {
          delay: 0.2,
@@ -94,7 +104,7 @@ const Apartment = () => {
          sectionsAnimation.revert();
          loadingPageHide.revert();
       };
-   }, [currentProduct]);
+   }, [currentProduct, aux]);
 
    return (
       <>
