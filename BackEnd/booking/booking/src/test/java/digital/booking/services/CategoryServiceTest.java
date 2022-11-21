@@ -28,26 +28,26 @@ import static org.mockito.Mockito.lenient;
 public class CategoryServiceTest {
 
     @Mock
-    private CategoryRepository categoryRepository;
+    CategoryRepository categoryRepository;
     @Autowired
-    private CategoryService categoryService;
+    CategoryService categoryService;
 
-    private Category categoryTest;
+    private Category category;
+
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        categoryTest = new Category();
-        categoryTest.setId(1L);
-        categoryTest.setTitle("titleTest");
-        categoryTest.setDescription("descriptionTest");
-        categoryTest.setImageURL("imageURLTest");
+        category = new Category();
+        category.setId(1L);
+        category.setTitle("titleTest");
+        category.setDescription("descriptionTest");
+        category.setImageURL("imageURLTest");
     }
 
     @Order(2)
     @Test
     public void testSearchAll(){
-
         try {
             lenient().when(categoryRepository.findAll()).thenReturn(Collections.emptyList());
 
@@ -64,8 +64,8 @@ public class CategoryServiceTest {
     @Test
     public void testSearchById(){
         try {
-            lenient().when(categoryRepository.findById(1L)).thenReturn(Optional.of(categoryTest));
-            CategoryDTO categoryFounded = categoryService.searchById(categoryTest.getId());
+            lenient().when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
+            CategoryDTO categoryFounded = categoryService.searchById(category.getId());
 
             assertThat(categoryFounded).isNotNull();
 
@@ -78,7 +78,7 @@ public class CategoryServiceTest {
     @Test
     public void testCreate() {
         try{
-            lenient().when(categoryRepository.save(any(Category.class))).thenReturn(categoryTest);
+            lenient().when(categoryRepository.save(any(Category.class))).thenReturn(category);
 
             CategoryDTO categoryDTO = new CategoryDTO();
             categoryDTO.setId(1L);
@@ -92,9 +92,9 @@ public class CategoryServiceTest {
             assertNotNull(categoryCreated,"The category is null");
 
             // Verifies category's attributes:
-            assertEquals(categoryTest.getTitle(), categoryCreated.getTitle(), "Titles don't match.");
-            assertEquals(categoryTest.getDescription(), categoryCreated.getDescription(), "Descriptions don't match.");
-            assertEquals(categoryTest.getImageURL(), categoryCreated.getImageURL(), "ImageURLs don't match.");
+            assertEquals(category.getTitle(), categoryCreated.getTitle(), "Titles don't match.");
+            assertEquals(category.getDescription(), categoryCreated.getDescription(), "Descriptions don't match.");
+            assertEquals(category.getImageURL(), categoryCreated.getImageURL(), "ImageURLs don't match.");
 
         } catch (BadRequestException e){
             e.printStackTrace();
@@ -105,14 +105,16 @@ public class CategoryServiceTest {
     @Test
     public void testUpdate() {
         try{
+            //lenient().when(categoryRepository.save(any())).thenReturn(category);
+
             CategoryDTO categoryDTO = new CategoryDTO();
             categoryDTO.setId(1L);
             categoryDTO.setTitle("titleEdited");
             categoryDTO.setDescription("descriptionEdited");
             categoryDTO.setImageURL("ImageURLEdited");
 
-            lenient().when(categoryRepository.findById(1L)).thenReturn(Optional.ofNullable(categoryTest));
-            lenient().when(categoryRepository.save(categoryTest)).thenReturn(categoryTest);
+            lenient().when(categoryRepository.findById(1L)).thenReturn(Optional.ofNullable(category));
+            lenient().when(categoryRepository.save(category)).thenReturn(category);
 
             CategoryDTO categoryUpdated = categoryService.update(categoryDTO,1L);
 
@@ -126,5 +128,6 @@ public class CategoryServiceTest {
             e.printStackTrace();
         }
     }
+
 
 }
