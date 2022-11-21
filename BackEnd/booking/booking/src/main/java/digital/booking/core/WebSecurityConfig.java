@@ -46,6 +46,10 @@ public class WebSecurityConfig  {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                .antMatchers("/",
+                        "/swagger-ui.html",
+                        "/swagger-ui/**",
+                        "/v3/api-docs/**").permitAll()
                 .antMatchers("/categories/**","/products/**","/cities/**","/auth/**","/users/register" ).permitAll()
                 .antMatchers("/booking/**").hasAnyAuthority("USER", "ADMIN")
                 .anyRequest().authenticated()
