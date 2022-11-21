@@ -38,11 +38,7 @@ public class CategoryServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        category = new Category();
-        category.setId(1L);
-        category.setTitle("titleTest");
-        category.setDescription("descriptionTest");
-        category.setImageURL("imageURLTest");
+        category = new Category(1L,"titleTest","descriptionTest","imageURLTest");
     }
 
     @Order(2)
