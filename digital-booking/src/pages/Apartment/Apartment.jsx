@@ -136,6 +136,7 @@ const Apartment = () => {
                <Availability
                   disabledDays={['2022/11/25', '2022/11/26', '2022/11/27']}
                   currentDates={currentDates}
+                  id={currentProduct.id}
                />
                <Map currentProduct={currentProduct} />
                <Highlights highlights={currentProduct.items} />
