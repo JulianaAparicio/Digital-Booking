@@ -39,6 +39,8 @@ body {
    padding: 0;
    margin: 0;
    background-color: var(--body-background);
+   width: 100%;
+   overflow-x: hidden;
 
    #app {
       min-height: 100vh;

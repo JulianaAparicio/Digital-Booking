@@ -1,0 +1,22 @@
+
+//****Procedimiento Deploy FrontEnd***//
+
+git checkout FrontEnd //Estar ubicado en la rama FrontEnd
+git pull origin FrontEnd //Descargar lo Ultimo de gitlab
+git status //Revizar que no se tenga pendiente
+git branch -D produccionFrontEndBucket //Borrar la rama de deploy anterior
+git checkout -b produccionFrontEndBucket // Crear la rama de deploy nuevamente estando parado en la rama FrontEnd
+git branch //Muestra la rama donde estoy parado
+npm run dev //Correr el proyecto y verificar que este funcionando o realizar los cambios Ejm: BaseURL
+npm run build //Crear la carpeta y archivos de deploy
+git status //Verificar que archivos cambiaron
+git add . //Incluir todos los archivos que corresponden para el commit
+git commit -m "211122 Actualizacion AWS bucket FrontEnd" //Crear el commit
+git push origin produccionFrontEndBucket //Enviar la informacion a gitlab
+- Verificar en gitlab CI/CD Pipeline que el deploy pase bien
+- En Repository crear el Merge requests para mezclar la rama produccionFrontEndBucket a la rama FrontEnd con los cambios de dist y otros
+- Verificar en AWS http://camada3grupo6frontend.s3-website.us-east-2.amazonaws.com/
+
+
+
+

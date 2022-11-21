@@ -4,15 +4,18 @@ import { Context } from"../../core/Context"
 import { useContext } from "react";
 import HeaderButtons from "./HeaderButtons/HeaderButton";
 import {Avatar} from "../Avatar/Avatar"
+import { useNavigate } from "react-router-dom";
+import { logoutUser } from "../../core/services/Auth";
 
 const Header = () => {
 
-    const userContext = useContext(Context);
+    const appContext = useContext(Context);
+    const browserNavigate = useNavigate();
 
     const logOut = () => {
-        userContext.setUser(null);
-        sessionStorage.removeItem("CURRENT_USER");
-        window.location.href = "/";
+        appContext.setUser(null);
+        logoutUser();
+        browserNavigate("/");       
     }
 
     return (
@@ -21,7 +24,7 @@ const Header = () => {
                 <Logo />
             </a>
             <div className="db-header-items">
-                {userContext && userContext.user ? <Avatar {...userContext.user} logOut={logOut} /> : <HeaderButtons />}
+                {appContext && appContext.user ? <Avatar {...appContext.user} logOut={logOut} /> : <HeaderButtons />}
             </div>
         </header>
     )

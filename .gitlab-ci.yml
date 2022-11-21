@@ -1,30 +1,13 @@
 stages:
-  - build
   - deploy
 
-before_produccion:
-  stage: build
-  tags:
-    - produccion
-  only:
-    - produccionBackEnd
-  script:
-    - whoami
-    - cd /var/www/BackEnd/BackEnd
-    - sudo git fetch -p
-    - sudo git pull
-    - sudo git checkout produccionBackEnd
-    - sudo git pull origin BackEnd
-    - sudo systemctl stop bookingApi
-    - sudo systemctl start bookingApi
-
-after_produccion:
+produccion FrontEnd S3:
   stage: deploy
-  tags:
-    - produccion
+  image:
+    name: banst/awscli
+    entrypoint: [""]
   only:
-    - produccionBackEnd
+    - produccionFrontEndBucket
   script:
-    - whoami
-    - cd /var/www/BackEnd/BackEnd
-
+    - aws configure set region us-east-2
+    - aws s3 cp --recursive digital-booking/dist/ s3://$DEV_S3_BUCKET_FRONT

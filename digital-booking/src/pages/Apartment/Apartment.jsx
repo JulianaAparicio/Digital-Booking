@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import './Apartment.scss';
+import './Apartment&Reservation.scss';
 import Amenities from './Components/Amenities';
 import Description from './Components/Description';
 import Availability from './Components/Availability';
@@ -22,12 +22,13 @@ const Apartment = () => {
    const { apartmentId } = useParams();
    const [currentProduct, setCurrentProduct] = useState(null);
    const [imageIndex, setImageIndex] = useState(1);
-   const [isFavorite, setIsFavorite] = useState(false)
+   const [images, setImages] = useState([]);
+   const [isFavorite, setIsFavorite] = useState(false);
    const [currentDates, setCurrentDates] = useState();
 
    const getProduct = async () => {
       await getProductById(apartmentId).then(product => {
-         setCurrentProduct(product[0])
+         setCurrentProduct(product[0]);
          setIsFavorite(product[0].isFavorite);
       });
    };
@@ -35,17 +36,29 @@ const Apartment = () => {
    const toggleFavorite = async () => {
       await toggleFavoriteLocal(currentProduct.id);
       setIsFavorite(!isFavorite);
-   }
+   };
 
    useEffect(() => {
       getProduct();
-      setCurrentDates(JSON.parse(localStorage.getItem("CURRENT_DATES")));  
+      setCurrentDates(JSON.parse(localStorage.getItem('CURRENT_DATES')));
    }, []);
 
    useEffect(() => {
       if (!currentProduct) {
          return;
       }
+
+      setImages(
+         currentProduct.images
+            .map(image => {
+               const img = document.createElement('img');
+               img.src = image.url;
+               if (img.naturalWidth >= 700) {
+                  return image;
+               }
+            })
+            .filter(img => img)
+      );
 
       const loadingPageHide = gsap.to('.db-loading-page', {
          delay: 0.2,
@@ -97,19 +110,23 @@ const Apartment = () => {
                   <span>
                      <ShareIcon />
                   </span>
-                  {isFavorite ?
-                     <span onClick={toggleFavorite} >
-                        <HeartFilledIcon isFavorite={isFavorite}/> 
-                     </span> : 
+                  {isFavorite ? (
                      <span onClick={toggleFavorite}>
-                        <HeartIcon  />
+                        <HeartFilledIcon isFavorite={isFavorite} />
                      </span>
-                  } 
+                  ) : (
+                     <span onClick={toggleFavorite}>
+                        <HeartIcon />
+                     </span>
+                  )}
                </div>
-               <Images imageIndex={imageIndex} images={currentProduct.images} />
+               <Images imageIndex={imageIndex} images={images} />
                <Description title={currentProduct.title}>{currentProduct.description}</Description>
                <Amenities amenities={currentProduct.amenities} />
-               <Availability disabledDays={['2022/11/25', '2022/11/26', '2022/11/27']} currentDates={currentDates} />
+               <Availability
+                  disabledDays={['2022/11/25', '2022/11/26', '2022/11/27']}
+                  currentDates={currentDates}
+               />
                <Map currentProduct={currentProduct} />
                <Highlights highlights={currentProduct.items} />
             </div>
