@@ -101,8 +101,6 @@ public class CategoryServiceTest {
     @Test
     public void testUpdate() {
         try{
-            //lenient().when(categoryRepository.save(any())).thenReturn(category);
-
             CategoryDTO categoryDTO = new CategoryDTO();
             categoryDTO.setId(1L);
             categoryDTO.setTitle("titleEdited");
