@@ -4,47 +4,67 @@ import digital.booking.DTO.ProductDTO;
 import digital.booking.entities.*;
 import digital.booking.exceptions.BadRequestException;
 import digital.booking.exceptions.NotFoundException;
+import digital.booking.repositories.ProductRepository;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.lenient;
 
+@ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest
 public class ProductServiceTest {
 
-    @Autowired
-    private ProductService productService;
+    @Mock
+    ProductRepository productRepository;
 
-    private ProductDTO productDTOTest;
+    @Autowired
+    ProductService productService;
+
+    @Mock
+    private Product productTest;
+
+    @Mock
+    private Category categoryTest;
+
+    @Mock
+    private Location locationTest;
+
+    @Mock
+    private City cityTest;
 
     @BeforeEach
     void setUp() {
-        // GIVEN:
+        MockitoAnnotations.openMocks(this);
+        categoryTest = new Category(1L,"titleTest","descriptionTest","imageURLTest");
+        cityTest = new City(1L,"cityNameTest","stateTest","countryTest");
+        locationTest = new Location(1L,cityTest,"adressTest","latitudeTest","longitudeTest");
 
-        // ProductDTOTest initial attributes:
-        Category categoryTest = new Category();
-        List<Amenity> amenitiesTest = new ArrayList<>();
-        Location locationTest = new Location();
-        locationTest.setCity(new City(1L, "Medellin", "Antioquia", "Colombia"));
-        List<Image> imagesTest = new ArrayList<>();
-        List<Item> itemsTest = new ArrayList<>();
-        List<Rating> ratingsTest = new ArrayList<>();
-
-        productDTOTest = new ProductDTO(30L, "titleTest", "descriptionTest", categoryTest, amenitiesTest, locationTest, imagesTest, itemsTest, ratingsTest);
+        productTest = new Product(1L, "titleTest", "descriptionTest",categoryTest,locationTest);
     }
 
     @Order(2)
     @Test
     void testSearchAll() {
         try {
-            List<ProductDTO> productDTOListList = productService.searchAll();
-            assertTrue(productDTOListList.size() > 0,"There are no products to list.");
+            lenient().when(productRepository.findAll()).thenReturn(Collections.emptyList());
+
+            List<ProductDTO> productList = productService.searchAll();
+
+            assertNotNull(productList,"The value is null.");
 
         } catch (Exception e){
             e.printStackTrace();
@@ -55,12 +75,10 @@ public class ProductServiceTest {
     @Test
     void testSearchById() {
         try {
-            // WHEN:
-            ProductDTO productDTOFounded = productService.searchById(productDTOTest.getId());
+            lenient().when(productRepository.findById(1L)).thenReturn(Optional.of(productTest));
+            ProductDTO productFounded = productService.searchById(productTest.getId());
 
-            // THEN:
-            assertEquals(productDTOTest.getId(), productDTOFounded.getId(), "Ids don't match.");
-            assertNotNull(productDTOFounded,"The product founded is null.");
+            assertThat(productFounded).isNotNull();
 
         } catch (NotFoundException e){
             e.printStackTrace();
@@ -70,46 +88,48 @@ public class ProductServiceTest {
     @Order(1)
     @Test
     void testCreate() {
-        /*try{
-            // WHEN:
-            productService.create(productDTOTest);
+        try{
+            lenient().when(productRepository.save(any(Product.class))).thenReturn(productTest);
 
-            // THEN:
-            ProductDTO productDTOCreated = productService.searchById(30L);
+            ProductDTO productDTO = new ProductDTO();
+            productDTO.setId(1L);
+            productDTO.setTitle("titleTest");
+            productDTO.setDescription("descriptionTest");
+            productDTO.setCategory(categoryTest);
+            //productDTO.setLocation(locationTest);
+
+            ProductDTO productCreated = productService.create(productDTO);
 
             // Verifies if product is null:
-            assertNotNull(productDTOCreated,"The product is null");
+            assertNotNull(productCreated,"The product is null");
 
             // Verifies product's attributes:
-            assertEquals(productDTOTest.getTitle(), productDTOCreated.getTitle(), "Titles don't match.");
-            assertEquals(productDTOTest.getDescription(), productDTOCreated.getDescription(), "Descriptions don't match.");
-            assertEquals(productDTOTest.getCategory(), productDTOCreated.getCategory(), "Categories don't match.");
-            assertEquals(productDTOTest.getImages(), productDTOCreated.getImages(), "Images don't match.");
-            assertEquals(productDTOTest.getAmenities(), productDTOCreated.getAmenities(), "Amenities don't match.");
-            assertEquals(productDTOTest.getLocation(), productDTOCreated.getLocation(), "Locations don't match.");
-            assertEquals(productDTOTest.getItems(), productDTOCreated.getItems(), "Items don't match.");
-            assertEquals(productDTOTest.getRatings(), productDTOCreated.getRatings(), "Ratings don't match.");
+            assertEquals(productTest.getTitle(), productCreated.getTitle(), "Titles don't match.");
+            assertEquals(productTest.getDescription(), productCreated.getDescription(), "Descriptions don't match.");
 
-        } catch (BadRequestException | NotFoundException e){
+        } catch (BadRequestException e){
             e.printStackTrace();
-        }*/
-
+        }
     }
 
     @Order(4)
     @Test
     void testUpdate() {
         try{
-            // GIVEN: modifies 2 attributes
-            productDTOTest.setTitle("titleEdited");
-            productDTOTest.setDescription("descriptionEdited");
+            ProductDTO productDTO = new ProductDTO();
+            productDTO.setId(1L);
+            productDTO.setTitle("titleEdited");
+            productDTO.setDescription("descriptionEdited");
 
-            // WHEN:
-            ProductDTO productDTOUpdated = productService.update(productDTOTest,30L);
+            lenient().when(productRepository.findById(1L)).thenReturn(Optional.ofNullable(productTest));
+            lenient().when(productRepository.save(productTest)).thenReturn(productTest);
 
-            // THEN:
-            assertEquals(productDTOTest.getTitle(), productDTOUpdated.getTitle(), "Titles don't match.");
-            assertEquals(productDTOTest.getDescription(), productDTOUpdated.getDescription(), "Descriptions don't match.");
+            ProductDTO productUpdated = productService.update(productDTO,1L);
+
+            assertNotNull(productUpdated,"The product updated is null.");
+
+            assertEquals("titleEdited", productUpdated.getTitle(), "Titles don't match.");
+            assertEquals("descriptionEdited", productUpdated.getDescription(), "Descriptions don't match.");
 
         } catch (NotFoundException e){
             e.printStackTrace();
