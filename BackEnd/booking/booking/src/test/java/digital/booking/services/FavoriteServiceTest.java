@@ -1,6 +1,6 @@
 package digital.booking.services;
 
-import digital.booking.DTO.Favorite;
+import digital.booking.DTO.FavoriteDTO;
 import digital.booking.DTO.ProductDTO;
 import digital.booking.entities.*;
 import digital.booking.exceptions.BadRequestException;
@@ -21,7 +21,7 @@ public class FavoriteServiceTest {
 
     private User userTest;
     private ProductDTO productDTOTest;
-    private Favorite favoriteTest;
+    private FavoriteDTO favoriteTest;
 
     @BeforeEach
     void setUp() {
@@ -36,7 +36,7 @@ public class FavoriteServiceTest {
         productDTOTest = new ProductDTO(25L, "titleTest", "descriptionTest", categoryTest, amenitiesTest, locationTest, imagesTest, itemsTest, ratingsTest);
         userTest = new User("userNameTest", "userLastNameTest", "userEmailTest", "userPassTest", productsTest);
         userTest.setId(10L);
-        favoriteTest = new Favorite(userTest.getId(), productDTOTest.getId());
+        favoriteTest = new FavoriteDTO(userTest.getId(), productDTOTest.getId());
     }
 
     @Test
