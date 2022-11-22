@@ -5,6 +5,7 @@ import digital.booking.entities.*;
 import digital.booking.exceptions.BadRequestException;
 import digital.booking.exceptions.NotFoundException;
 import digital.booking.repositories.CategoryRepository;
+import digital.booking.repositories.CityRepository;
 import digital.booking.repositories.ProductRepository;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,7 +37,7 @@ public class ProductServiceTest {
     CategoryRepository categoryRepository;
 
     @Mock
-    CategoryRepository cityRepository;
+    CityRepository cityRepository;
 
     @Autowired
     ProductService productService;
@@ -57,10 +58,12 @@ public class ProductServiceTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         categoryTest = new Category(1L,"titleTest","descriptionTest","imageURLTest");
+        categoryRepository.save(categoryTest);
         cityTest = new City(1L,"cityNameTest","stateTest","countryTest");
-        locationTest = new Location(1L,cityTest,"adressTest","latitudeTest","longitudeTest");
+        cityRepository.save(cityTest);
+        locationTest = new Location(1L,cityTest,"addressTest","latitudeTest","longitudeTest");
 
-        //productTest = new Product(1L, "titleTest", "descriptionTest",categoryTest,locationTest);
+        productTest = new Product(1L, "titleTest", "descriptionTest",categoryTest,locationTest);
     }
 
     @Order(2)
