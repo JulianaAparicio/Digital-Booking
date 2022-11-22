@@ -12,9 +12,9 @@ Pasos para hacer deploy en el servidor EC2 de BackEnd Aplicacion Api Digital-boo
 - Verificar  en http://localhost:8080/ la version que se cambio
 - copiar el archivo jar en la carpeta raiz con el siguiente comando
   cp ./target/bookingApi-1.jar ../../../
-- git status
 - git add ../../../bookingApi-1.jar
 - git add .
+- git status
 - git commit -m "actualizacion Version y nuevo jar"
 - git push origin produccionBackEnd
 - git checkout BackEnd
