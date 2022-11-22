@@ -63,4 +63,11 @@ public class Product {
     @JoinColumn(name = "product",nullable = false)
     private List<Rating> ratings;
 
+    public Product(Long id, String title, String description, Category category, Location location) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.category = category;
+        this.location = location;
+    }
 }
