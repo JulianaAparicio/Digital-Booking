@@ -108,9 +108,9 @@ public class ProductService implements IService<ProductDTO> {
 
     @Override
     public ProductDTO update(ProductDTO product, Long id) throws NotFoundException {
-        Product existingProduct = productRepository.findById(product.getId())
-                .orElseThrow(() -> new NotFoundException("The product with id " + product.getId() +
-                        "was not found."));
+        Product existingProduct = productRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("The product with id " + id +
+                        " was not found."));
 
         logger.debug("Updating product...");
         existingProduct.setTitle(product.getTitle());

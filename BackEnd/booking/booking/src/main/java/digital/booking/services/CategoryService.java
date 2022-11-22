@@ -69,7 +69,7 @@ public class CategoryService implements IService<CategoryDTO> {
     @Override
     public CategoryDTO update(CategoryDTO category, Long id) throws NotFoundException {
         Category existingCategory = categoryRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("The category with id " + category.getId() +
+                .orElseThrow(() -> new NotFoundException("The category with id " + id +
                         "was not found."));
 
         logger.debug("Updating category...");

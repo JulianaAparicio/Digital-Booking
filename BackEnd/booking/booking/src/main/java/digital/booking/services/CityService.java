@@ -53,8 +53,8 @@ public class CityService implements IService<City> {
 
     @Override
     public City update(City city, Long id) throws NotFoundException {
-        City existingCity = cityRepository.findById(city.getId())
-                .orElseThrow(() -> new NotFoundException("The city with id " + city.getId() +
+        City existingCity = cityRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("The city with id " + id +
                         "was not found."));
 
         logger.debug("Updating city...");
