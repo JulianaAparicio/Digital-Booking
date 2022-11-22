@@ -7,6 +7,7 @@ import digital.booking.exceptions.NotFoundException;
 import digital.booking.repositories.CategoryRepository;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -20,7 +21,7 @@ import java.util.Optional;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -30,6 +31,7 @@ public class CategoryServiceTest {
     @Mock
     CategoryRepository categoryRepository;
     @Autowired
+    @InjectMocks
     CategoryService categoryService;
 
     private Category category;
