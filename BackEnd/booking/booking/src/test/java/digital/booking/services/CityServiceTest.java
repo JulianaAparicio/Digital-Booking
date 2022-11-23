@@ -20,6 +20,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -31,6 +32,9 @@ class CityServiceTest {
 
     @InjectMocks
     private CityService cityService;
+
+    @Mock
+    ProductService productService;
 
     private City cityTest;
 
@@ -120,6 +124,19 @@ class CityServiceTest {
             assertEquals("countryEdited", cityUpdated.getCountry(), "Countries don't match.");
 
         } catch (NotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Order(5)
+    @Test
+    public void testDelete() {
+        try{
+            lenient().when(cityRepository.findById(1L)).thenReturn(Optional.of(cityTest));
+            cityService.delete(1L);
+            verify(cityRepository).findById(1L);
+
+        } catch (NotFoundException e){
             e.printStackTrace();
         }
     }
