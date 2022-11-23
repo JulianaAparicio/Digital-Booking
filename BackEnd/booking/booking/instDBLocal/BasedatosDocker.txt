@@ -1,0 +1,8 @@
+
+docker container run -d --name basedatos -p 3306:3306 hectorjm/bookingdb
+docker ps -a
+
+
+USER: 0521PTC3N1db_GRUPO6
+PASSWORD: thah6Ea2
+
