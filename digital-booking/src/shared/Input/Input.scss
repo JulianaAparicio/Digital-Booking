@@ -9,7 +9,13 @@
       justify-content: space-around;
       background-color: var(--color-text-light);
 
-      input {
+      textarea {
+         resize: vertical;
+      }
+
+      input,
+      select,
+      textarea {
          height: 30px;
          width: 100%;
          border: none;

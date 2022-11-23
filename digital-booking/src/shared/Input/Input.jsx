@@ -13,11 +13,13 @@ export default function Input({
    icon,
    placeholder,
    isDisabled,
+   isReadOnly,
    setValue,
    errors,
    setInputValidation,
    minDate = null,
    value,
+   options = [],
 }) {
    const [isFocus, setFocus] = useState(false);
    const [isInvalid, setInvalid] = useState(false);
@@ -111,6 +113,34 @@ export default function Input({
                   format="HH:mm"
                   disableDayPicker
                />
+            ) : type === 'select' ? (
+               <select
+                  key={id}
+                  id={id}
+                  placeholder={placeholder}
+                  disabled={isDisabled}
+                  readOnly={isReadOnly}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
+                  onChange={handleChangeInput}
+                  value={value}>
+                  {options.map((op, i) => (
+                     <option value={op} key={i}>
+                        {op}
+                     </option>
+                  ))}
+               </select>
+            ) : type === 'textarea' ? (
+               <textarea
+                  key={id}
+                  id={id}
+                  placeholder={placeholder}
+                  disabled={isDisabled}
+                  readOnly={isReadOnly}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
+                  onChange={handleChangeInput}
+                  value={value}></textarea>
             ) : (
                <input
                   key={id}
@@ -118,6 +148,7 @@ export default function Input({
                   type={type}
                   placeholder={placeholder}
                   disabled={isDisabled}
+                  readOnly={isReadOnly}
                   onFocus={handleFocus}
                   onBlur={handleBlur}
                   onChange={handleChangeInput}

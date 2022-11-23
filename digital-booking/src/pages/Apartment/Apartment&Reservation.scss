@@ -447,10 +447,50 @@
    }
 }
 
-.db-reservation-page {
+.db-thanks-container {
+   align-items: center;
+   display: flex;
+   height: 100vh;
+   justify-content: center;
+   position: fixed;
+   width: 100%;
+   z-index: 50;
+   display: none;
+   background: rgba(0, 0, 0, 0.2);
 
+   .db-card {
+      display: grid;
+      gap: 1rem 0;
+      justify-items: center;
+      max-width: 768px;
+      padding: 2rem;
+      width: 60%;
+
+      svg {
+         height: min-content;
+         width: 4rem;
+      }
+
+      h3 {
+         color: var(--color-primary);
+         font-size: 1.5rem;
+      }
+
+      p {
+         font-size: 1rem;
+         text-align: center;
+      }
+
+      button {
+         max-width: 300px;
+         width: 100%;
+      }
+   }
+}
+
+.db-reservation-page {
    .content {
-      @media (min-width: 1024px) {
+      @media (min-width: 1025px) {
          display: grid;
          grid-template-areas:
             "form form overview"
@@ -500,6 +540,14 @@
 
       grid-area: date;
 
+      .db-card {
+         padding: 1rem;
+
+         .top {
+            color: var(--error);
+         }
+      }
+
       .rmdp-border {
          border: 0;
          margin: auto;
@@ -509,6 +557,9 @@
 
    .db-check-in {
       grid-area: time;
+      z-index: 1;
+      position: relative;
+
 
       .db-card {
          padding: 1rem;
@@ -559,11 +610,6 @@
          @media (min-width: 768px) and (max-width: 1024px) {
             display: grid;
             grid-template-columns: 1fr 1fr;
-         }
-
-         @media (min-width: 1024px) {
-            padding: 2rem 0;
-
          }
 
          &>div:not(.top) {
