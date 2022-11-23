@@ -13,12 +13,12 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookingDTO {
-    private Long id;
+public class BookingReqDTO {
     private String startTime;
-    private LocalDate initialDate;
-    private LocalDate finalDate;
-    private ProductDTO product;
-    private UserDTO user;
+    private String initialDate;
+    private String finalDate;
+    private String productId;
+    private String userId;
+    private Long id;
 
 }
