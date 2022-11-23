@@ -17,6 +17,7 @@ import Map from './Components/Map';
 import LoadingScreen from '../../components/LoadingScreen/LoadingScreen';
 import HeartFilledIcon from '../../shared/Icons/HeartFilledIcon';
 import { toggleFavoriteLocal } from '../../core/services/Favorite';
+import { getLocalStorage } from '../../core/services/Storage';
 
 let aux = 0;
 
@@ -24,7 +25,6 @@ const Apartment = () => {
    const { apartmentId } = useParams();
    const [currentProduct, setCurrentProduct] = useState(null);
    const [imageIndex, setImageIndex] = useState(1);
-   const [images, setImages] = useState([]);
    const [isFavorite, setIsFavorite] = useState(false);
    const [currentDates, setCurrentDates] = useState();
 
@@ -42,31 +42,11 @@ const Apartment = () => {
 
    useEffect(() => {
       getProduct();
-      setCurrentDates(JSON.parse(localStorage.getItem('CURRENT_DATES')));
+      setCurrentDates(getLocalStorage('CURRENT_DATES'));
    }, []);
 
    useEffect(() => {
       if (!currentProduct) {
-         return;
-      }
-
-      const returnBigImages = () => {
-         return currentProduct.images
-            .map(image => {
-               const img = document.createElement('img');
-               img.src = image.url;
-               if (img.naturalWidth >= 700) {
-                  return image;
-               }
-            })
-            .filter(img => img);
-      };
-
-      setImages(returnBigImages);
-
-      if (images.length <= 1) {
-         aux++;
-         console.log(aux);
          return;
       }
 
@@ -130,11 +110,11 @@ const Apartment = () => {
                      </span>
                   )}
                </div>
-               <Images imageIndex={imageIndex} images={images} />
+               <Images imageIndex={imageIndex} images={currentProduct.images} />
                <Description title={currentProduct.title}>{currentProduct.description}</Description>
                <Amenities amenities={currentProduct.amenities} />
                <Availability
-                  disabledDays={['2022/11/25', '2022/11/26', '2022/11/27']}
+                  disabledDates={currentProduct.availability}
                   currentDates={currentDates}
                   id={currentProduct.id}
                />

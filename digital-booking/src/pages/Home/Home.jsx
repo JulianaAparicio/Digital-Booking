@@ -122,7 +122,16 @@ const Home = () => {
                <LoadingComponent />
                {
                   <Categories
-                     categories={appContext.categories.slice(0, 4)}
+                     categories={appContext.categories
+                        .filter(category => {
+                           try {
+                              new URL(category.imageURL);
+                              return true;
+                           } catch (error) {
+                              return false;
+                           }
+                        })
+                        .slice(0, 4)}
                      searchByCategory={searchByCategory}
                   />
                }
