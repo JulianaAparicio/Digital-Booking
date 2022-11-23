@@ -1,19 +1,11 @@
 import '../Apartment/Apartment&Reservation.scss';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { redirect, useNavigate, useParams } from 'react-router-dom';
+import {  useNavigate, useParams } from 'react-router-dom';
 import LoadingScreen from '../../components/LoadingScreen/LoadingScreen';
 import { getProductById } from '../../core/services/Product';
 import gsap from 'gsap';
 import HeaderApartment from '../Apartment/Components/HeaderApartment';
-import Card from '../../shared/Card/Card';
-import Input from '../../shared/Input/Input';
-import { Calendar } from 'react-multi-date-picker';
-import { months, weekDays } from '../../utils/spanishCalendar';
-import useCalendarSize from '../../../hooks/useCalendarSize';
-import CheckIcon from '../../shared/Icons/CheckIcon';
-import LocationIcon from './../../shared/Icons/LocationIcon';
-import Button from '../../shared/Button/Button';
 import Highlights from '../Apartment/Components/Highlights';
 import ReservationForm from './components/ReservationForm';
 import ReservationDate from './components/ReservationDate';
@@ -21,22 +13,36 @@ import ReservationCheckIn from './components/ReservationCheckIn';
 import ApartmentOverview from './components/ApartmentOverview';
 import { useContext } from 'react';
 import { Context } from '../../core/Context';
+import { getLocalStorage } from '../../core/services/Storage';
+import { bookingProduct } from '../../core/services/Booking';
+import { DateObject } from 'react-multi-date-picker';
 
 const ReservationPage = () => {
    const ctx = useContext(Context);
    const { apartmentId } = useParams();
    const [currentProduct, setCurrentProduct] = useState(null);
+   const [currentDates, setCurrentDates] = useState();
+   const [isLoading, setIsLoading] = useState(false);
+   const [isDisabled, setIsDisabled] = useState(true);
+
 
    const navigate = useNavigate();
 
    const reservationForm = {
-      name: { state: useState(), isValid: useState(false) },
-      lastName: { state: useState(), isValid: useState(false) },
-      email: { state: useState(), isValid: useState(false) },
-      city: { state: useState(), isValid: useState(false) },
-      dates: { state: useState() },
-      checkIn: { state: useState(new Date()) },
+      userId: {state: useState(null)},
+      name: { state: useState(null), isValid: useState(false) },
+      lastName: { state: useState(null), isValid: useState(false) },
+      email: { state: useState(null), isValid: useState(false) },
+      city: { state: useState(null), isValid: useState(false) },
+      dates: { state: useState()},
+      checkIn: { state: useState(new DateObject({hour: 10, minute: 0})) },
+      productId: { state: useState(Number(apartmentId)) }
    };
+
+   const booking = async () => {
+      setIsLoading(true)
+      await bookingProduct(reservationForm).then((status) => console.log(status)).finally(() => setIsLoading(false));
+   }
 
    const getProduct = async () => {
       await getProductById(apartmentId).then(product => {
@@ -49,12 +55,12 @@ const ReservationPage = () => {
    };
 
    const getCheckInDate = () => {
-      const date = reservationForm.dates.state.at(0)?.at(0)?.unix * 1000;
+      const date = reservationForm.dates.state.at(0)?.at(0);
       return date ? formatDate(date) : null;
    };
 
    const getCheckOutDate = () => {
-      const date = reservationForm.dates.state.at(0)?.at(1)?.unix * 1000;
+      const date = reservationForm.dates.state.at(0)?.at(1);
       return date ? formatDate(date) : null;
    };
 
@@ -66,7 +72,14 @@ const ReservationPage = () => {
    }, [ctx]);
 
    useEffect(() => {
+      if(reservationForm) {
+         setIsDisabled(!(reservationForm.userId.state[0] !== null && reservationForm.productId.state[0] !== null && reservationForm.checkIn.state[0] !== null && reservationForm.dates.state[0] && reservationForm.dates.state[0].length === 2))
+      }
+   }, [reservationForm])
+
+   useEffect(() => {
       getProduct();
+      setCurrentDates(getLocalStorage('CURRENT_DATES'));
    }, []);
 
    useEffect(() => {
@@ -109,12 +122,15 @@ const ReservationPage = () => {
                         reservationForm={reservationForm}
                         user={ctx.user}
                      />
-                     <ReservationDate reservationForm={reservationForm} />
+                     <ReservationDate reservationForm={reservationForm} currentDates={currentDates} disabledDates={currentProduct.availability} />
                      <ReservationCheckIn reservationForm={reservationForm} />
                      <ApartmentOverview
                         currentProduct={currentProduct}
                         getCheckInDate={getCheckInDate}
                         getCheckOutDate={getCheckOutDate}
+                        confirm={booking}
+                        isLoading={isLoading}
+                        isDisabled={isDisabled}
                      />
                   </div>
                   <Highlights highlights={currentProduct.items} />

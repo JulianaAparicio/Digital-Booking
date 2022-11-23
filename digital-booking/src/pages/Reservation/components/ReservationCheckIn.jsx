@@ -17,7 +17,7 @@ const ReservationCheckIn = ({ reservationForm }) => {
                <p>Indica tu horario estimado de llegada</p>
                <Input
                   type="time-picker"
-                  value={reservationForm.checkIn.state[1]}
+                  value={reservationForm.checkIn.state[0]}
                   setValue={reservationForm.checkIn.state[1]}
                />
             </div>

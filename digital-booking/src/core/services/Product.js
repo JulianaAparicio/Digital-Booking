@@ -29,9 +29,8 @@ export async function getProductByCategory(category) {
 export async function getProductByQuery(queryForm) {
    const query = formStateMapper(queryForm);
    if (query.date) {
-      query.date = query.date.toString();
       setLocalStorage("CURRENT_DATES", query.date);
-      delete query.date;
+      query.date = query.date.toString();
    }
    return getReq(PRODUCT_URL, query).then((products) => {
       return mapProducts(products);
