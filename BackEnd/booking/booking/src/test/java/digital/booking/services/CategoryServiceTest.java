@@ -34,6 +34,9 @@ public class CategoryServiceTest {
     @InjectMocks
     CategoryService categoryService;
 
+    @Mock
+    ProductService productService;
+
     private Category category;
 
 
@@ -119,6 +122,20 @@ public class CategoryServiceTest {
             assertEquals("titleEdited", categoryUpdated.getTitle(), "Titles don't match.");
             assertEquals("descriptionEdited", categoryUpdated.getDescription(), "Descriptions don't match.");
             assertEquals("ImageURLEdited", categoryUpdated.getImageURL(), "ImageURLs don't match.");
+
+        } catch (NotFoundException e){
+            e.printStackTrace();
+        }
+    }
+
+
+    @Order(5)
+    @Test
+    public void testDelete() {
+        try{
+            lenient().when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
+            categoryService.delete(1L);
+            verify(categoryRepository).findById(1L);
 
         } catch (NotFoundException e){
             e.printStackTrace();
