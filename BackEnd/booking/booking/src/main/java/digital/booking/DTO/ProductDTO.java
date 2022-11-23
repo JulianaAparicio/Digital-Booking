@@ -1,5 +1,6 @@
 package digital.booking.DTO;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import digital.booking.entities.*;
 import lombok.*;
 
@@ -8,6 +9,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductDTO {
 
     private Long id;
@@ -19,6 +21,7 @@ public class ProductDTO {
     private List<Image> images;
     private List<Item> items;
     private List<Rating> ratings;
+    private List<Booking> availability;
 
 
 

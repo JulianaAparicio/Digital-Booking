@@ -1,5 +1,6 @@
 package digital.booking.entities;
 
+import digital.booking.DTO.BookingDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

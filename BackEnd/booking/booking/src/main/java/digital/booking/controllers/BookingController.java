@@ -1,6 +1,7 @@
 package digital.booking.controllers;
 
 import digital.booking.DTO.BookingDTO;
+import digital.booking.DTO.BookingReqDTO;
 import digital.booking.exceptions.BadRequestException;
 import digital.booking.exceptions.NotFoundException;
 import digital.booking.services.BookingService;
@@ -9,11 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 @RestController
-@CrossOrigin
-@RequestMapping("/bookings")
+@RequestMapping("/booking")
 public class BookingController {
 
     @Autowired
@@ -33,14 +37,15 @@ public class BookingController {
 
     @Operation(summary = "Crear nueva reserva")
     @PostMapping
-    public ResponseEntity<BookingDTO> createBooking(@RequestBody BookingDTO booking) throws BadRequestException {
-        return ResponseEntity.ok(bookingService.create(booking));
+    public ResponseEntity<BookingDTO> createBooking(@RequestBody BookingReqDTO bookingInfo) throws BadRequestException {
+
+        return ResponseEntity.ok(bookingService.book(bookingInfo));
     }
 
     @Operation(summary = "Actualizar reserva por ID")
     @PutMapping("/{id}")
-    public ResponseEntity<BookingDTO> updateBooking(@PathVariable Long id, @RequestBody BookingDTO booking) throws NotFoundException {
-        return ResponseEntity.ok(bookingService.update(booking, id));
+    public ResponseEntity<BookingDTO> updateBooking(@PathVariable Long id, @RequestBody BookingReqDTO booking) throws NotFoundException {
+        return ResponseEntity.ok(bookingService.updateBooking(booking, id));
     }
 
     @Operation(summary = "Eliminar reserva")
