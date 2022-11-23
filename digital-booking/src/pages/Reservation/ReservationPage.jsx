@@ -1,7 +1,7 @@
 import '../Apartment/Apartment&Reservation.scss';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import {  useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import LoadingScreen from '../../components/LoadingScreen/LoadingScreen';
 import { getProductById } from '../../core/services/Product';
 import gsap from 'gsap';
@@ -16,33 +16,42 @@ import { Context } from '../../core/Context';
 import { getLocalStorage } from '../../core/services/Storage';
 import { bookingProduct } from '../../core/services/Booking';
 import { DateObject } from 'react-multi-date-picker';
+import Thanks from './components/Thanks';
+import { createRef } from 'react';
 
 const ReservationPage = () => {
    const ctx = useContext(Context);
    const { apartmentId } = useParams();
    const [currentProduct, setCurrentProduct] = useState(null);
    const [currentDates, setCurrentDates] = useState();
-   const [isLoading, setIsLoading] = useState(false);
+   const [isLoading, setIsLoading] = useState(null);
    const [isDisabled, setIsDisabled] = useState(true);
 
+   const thanksContainer = createRef();
 
    const navigate = useNavigate();
 
    const reservationForm = {
-      userId: {state: useState(null)},
+      userId: { state: useState(null) },
       name: { state: useState(null), isValid: useState(false) },
       lastName: { state: useState(null), isValid: useState(false) },
       email: { state: useState(null), isValid: useState(false) },
       city: { state: useState(null), isValid: useState(false) },
-      dates: { state: useState()},
-      checkIn: { state: useState(new DateObject({hour: 10, minute: 0})) },
-      productId: { state: useState(Number(apartmentId)) }
+      vacined: { state: useState(null) },
+      tips: { state: useState(null) },
+      dates: { state: useState() },
+      checkIn: { state: useState(new DateObject({ hour: 10, minute: 0 })) },
+      productId: { state: useState(Number(apartmentId)) },
    };
 
    const booking = async () => {
-      setIsLoading(true)
-      await bookingProduct(reservationForm).then((status) => console.log(status)).finally(() => setIsLoading(false));
-   }
+      setIsLoading(true);
+      await bookingProduct(reservationForm)
+         .then(status => console.log(status))
+         .finally(() => {
+            setIsLoading(false);
+         });
+   };
 
    const getProduct = async () => {
       await getProductById(apartmentId).then(product => {
@@ -65,6 +74,30 @@ const ReservationPage = () => {
    };
 
    useEffect(() => {
+      if (isLoading) {
+         currentProduct &&
+            gsap.to('.db-loading-page', {
+               opacity: 1,
+               display: 'flex',
+            });
+      } else {
+         gsap.to('.db-loading-page', {
+            delay: 0.2,
+            opacity: 0,
+            display: 'none',
+         });
+         if (isLoading !== null) {
+            thanksContainer.current.style.display = 'flex';
+            gsap.from('.db-thanks-container .db-card', {
+               delay: 0.2,
+               scale: 0,
+               ease: 'elastic.out(1, 1)',
+            });
+         }
+      }
+   }, [isLoading]);
+
+   useEffect(() => {
       if (ctx.categories.length > 0 && !ctx.user) {
          navigate('/login');
          window.alert('Necesitas iniciar sesión antes de reservar.');
@@ -72,10 +105,18 @@ const ReservationPage = () => {
    }, [ctx]);
 
    useEffect(() => {
-      if(reservationForm) {
-         setIsDisabled(!(reservationForm.userId.state[0] !== null && reservationForm.productId.state[0] !== null && reservationForm.checkIn.state[0] !== null && reservationForm.dates.state[0] && reservationForm.dates.state[0].length === 2))
+      if (reservationForm) {
+         setIsDisabled(
+            !(
+               reservationForm.userId.state[0] !== null &&
+               reservationForm.productId.state[0] !== null &&
+               reservationForm.checkIn.state[0] !== null &&
+               reservationForm.dates.state[0] &&
+               reservationForm.dates.state[0].length === 2
+            )
+         );
       }
-   }, [reservationForm])
+   }, [reservationForm]);
 
    useEffect(() => {
       getProduct();
@@ -101,14 +142,15 @@ const ReservationPage = () => {
       });
 
       return () => {
-         cardsAnimation.revert();
          loadingPageHide.revert();
+         cardsAnimation.revert();
       };
    }, [currentProduct]);
 
    return (
       ctx.user && (
          <>
+            <Thanks ref={thanksContainer} />
             <LoadingScreen />
             {currentProduct && (
                <div className="db-reservation-page">
@@ -122,7 +164,11 @@ const ReservationPage = () => {
                         reservationForm={reservationForm}
                         user={ctx.user}
                      />
-                     <ReservationDate reservationForm={reservationForm} currentDates={currentDates} disabledDates={currentProduct.availability} />
+                     <ReservationDate
+                        reservationForm={reservationForm}
+                        currentDates={currentDates}
+                        disabledDates={currentProduct.availability}
+                     />
                      <ReservationCheckIn reservationForm={reservationForm} />
                      <ApartmentOverview
                         currentProduct={currentProduct}

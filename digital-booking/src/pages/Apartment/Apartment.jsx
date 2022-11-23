@@ -25,7 +25,6 @@ const Apartment = () => {
    const { apartmentId } = useParams();
    const [currentProduct, setCurrentProduct] = useState(null);
    const [imageIndex, setImageIndex] = useState(1);
-   const [images, setImages] = useState([]);
    const [isFavorite, setIsFavorite] = useState(false);
    const [currentDates, setCurrentDates] = useState();
 
@@ -48,25 +47,6 @@ const Apartment = () => {
 
    useEffect(() => {
       if (!currentProduct) {
-         return;
-      }
-
-      const returnBigImages = () => {
-         return currentProduct.images
-            .map(image => {
-               const img = document.createElement('img');
-               img.src = image.url;
-               if (img.naturalWidth >= 700) {
-                  return image;
-               }
-            })
-            .filter(img => img);
-      };
-
-      setImages(returnBigImages);
-
-      if (images.length <= 0) {
-         aux++;
          return;
       }
 
@@ -130,7 +110,7 @@ const Apartment = () => {
                      </span>
                   )}
                </div>
-               <Images imageIndex={imageIndex} images={images} />
+               <Images imageIndex={imageIndex} images={currentProduct.images} />
                <Description title={currentProduct.title}>{currentProduct.description}</Description>
                <Amenities amenities={currentProduct.amenities} />
                <Availability

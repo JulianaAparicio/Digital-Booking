@@ -2,7 +2,14 @@ import Button from '../../../shared/Button/Button';
 import Card from '../../../shared/Card/Card';
 import LocationIcon from '../../../shared/Icons/LocationIcon';
 
-const ApartmentOverview = ({ currentProduct, getCheckInDate, getCheckOutDate, confirm, isLoading, isDisabled}) => {
+const ApartmentOverview = ({
+   currentProduct,
+   getCheckInDate,
+   getCheckOutDate,
+   confirm,
+   isLoading,
+   isDisabled,
+}) => {
    return (
       <section className="db-apartment-overview">
          <Card>
@@ -37,7 +44,7 @@ const ApartmentOverview = ({ currentProduct, getCheckInDate, getCheckOutDate, co
                   <hr />
 
                   <Button classList="db-button-primary" isDisabled={isDisabled} action={confirm}>
-                     {isLoading ? <Spinner /> : null}
+                     {/* {isLoading ? <Spinner /> : null} */}
                      Confirmar reserva
                   </Button>
                </div>

@@ -12,19 +12,23 @@ const ReservationDate = ({ reservationForm, currentDates, disabledDates }) => {
    useCalendarSize(setIsMobile);
 
    const mapDaysF = ({ date }) => {
+      if (!disabledDates) return;
+
       const isNotAvailable = disabledDates.some(dateRange => {
          const initialDate = new Date(dateRange.initialDate);
          initialDate.setMinutes(initialDate.getMinutes() + initialDate.getTimezoneOffset());
          const finalDate = new Date(dateRange.finalDate);
          finalDate.setMinutes(finalDate.getMinutes() + finalDate.getTimezoneOffset());
-         finalDate.setDate(finalDate.getDate() + 1);  
-         return typeof date === 'object' ? date.valueOf() >= initialDate && date.valueOf() < finalDate : date >= initialDate && date < finalDate 
-      })
-      
+         finalDate.setDate(finalDate.getDate() + 1);
+         return typeof date === 'object'
+            ? date.valueOf() >= initialDate && date.valueOf() < finalDate
+            : date >= initialDate && date < finalDate;
+      });
+
       if (isNotAvailable) {
          return {
             disabled: true,
-            style: { color: '#8798ad' }
+            style: { color: '#8798ad' },
          };
       }
    };
@@ -34,28 +38,33 @@ const ReservationDate = ({ reservationForm, currentDates, disabledDates }) => {
          return;
       }
 
-      const currentInitialDateisDisabled = mapDaysF({date: currentDates[0]});
-      const currentFinalDateisDisabled = mapDaysF({date: currentDates[1]});
-      if (!(currentFinalDateisDisabled && currentFinalDateisDisabled.disabled || currentInitialDateisDisabled && currentInitialDateisDisabled.disabled)) {
+      const currentInitialDateisDisabled = mapDaysF({ date: currentDates[0] });
+      const currentFinalDateisDisabled = mapDaysF({ date: currentDates[1] });
+      if (
+         !(
+            (currentFinalDateisDisabled && currentFinalDateisDisabled.disabled) ||
+            (currentInitialDateisDisabled && currentInitialDateisDisabled.disabled)
+         )
+      ) {
          setCalendarDates([currentDates[0], currentDates[1]]);
          reservationForm.dates.state[1]([currentDates[0], currentDates[1]]);
-         setCurrentDatesDisabled(false)
+         setCurrentDatesDisabled(false);
       } else {
-         setCurrentDatesDisabled(true)
+         setCurrentDatesDisabled(true);
       }
-      
    }, [currentDates]);
 
    return (
       <section className="db-reservation-date">
          <h2>Selecciona tu fecha de reserva</h2>
          <Card>
-            {currentDatesDisabled ? 
-                <div className="top">
+            {currentDatesDisabled ? (
+               <div className="top">
                   <p>
                      Las fechas de tú busqueda más reciente no estan disponibles para este producto
                   </p>
-               </div> : null}
+               </div>
+            ) : null}
             <Calendar
                mapDays={mapDaysF}
                numberOfMonths={isMobile ? 1 : 2}
