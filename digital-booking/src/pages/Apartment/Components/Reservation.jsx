@@ -2,7 +2,7 @@ import Button from "../../../shared/Button/Button";
 import Card from "../../../shared/Card/Card";
 import { Context } from '../../../core/Context';
 import { useContext } from 'react';
-import { Link} from 'react-router-dom';
+import { Link, useLocation} from 'react-router-dom';
 
 
 export default function Reservation({id}) {
@@ -10,6 +10,8 @@ export default function Reservation({id}) {
 
 
     const appContext = useContext(Context);
+
+    const location = useLocation();
 
 
     return (
