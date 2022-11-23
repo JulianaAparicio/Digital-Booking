@@ -10,9 +10,10 @@ const Map = ({ currentProduct }) => {
                className="db-product-map"
                frameBorder="0"
                referrerPolicy="no-referrer-when-downgrade"
-               src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyAAWqIsm_JZtUYIW0OowHuGiMZIEJRX8F4&q=${currentProduct.title.replace(
-                  '" ","+"'
-               )},${currentProduct.location.city.name}+${currentProduct.location.city.country}`}
+               src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyAAWqIsm_JZtUYIW0OowHuGiMZIEJRX8F4&q=${`${currentProduct.title},${currentProduct.location.city.name},${currentProduct.location.city.country},${currentProduct.location.city.country}`.replaceAll(
+                  ' ',
+                  '%20'
+               )}`}
             />
          </div>
       </section>

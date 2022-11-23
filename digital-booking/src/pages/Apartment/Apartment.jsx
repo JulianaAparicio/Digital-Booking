@@ -64,7 +64,7 @@ const Apartment = () => {
 
       setImages(returnBigImages);
 
-      if (images.length <= 0) {
+      if (images.length <= 1) {
          aux++;
          console.log(aux);
          return;
