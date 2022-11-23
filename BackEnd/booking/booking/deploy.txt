@@ -2,8 +2,8 @@
 Pasos para hacer deploy en el servidor EC2 de BackEnd Aplicacion Api Digital-booking
 
 - En la rama BackEnd hacer un git status y no debe estar nada pendiente
-- Hacer un git pull origin BackEnd
-- nuevamente hacer un git status y no debe estar nada pendiente
+- git pull origin BackEnd
+- git status y no debe estar nada pendiente
 - git branch -D produccionBackEnd
 - git checkout -b produccionBackEnd
 - Modificar el archivo index.html en src/main/resources/templates y actualizar la informacion como version
@@ -14,9 +14,19 @@ Pasos para hacer deploy en el servidor EC2 de BackEnd Aplicacion Api Digital-boo
   cp ./target/bookingApi-1.jar ../../../
 - git add ../../../bookingApi-1.jar
 - git add .
+- git status
 - git commit -m "actualizacion Version y nuevo jar"
 - git push origin produccionBackEnd
 - git checkout BackEnd
 
-Verificar en gitlat pipeline que todo salio bien
+- Verificar en gitlat pipeline que todo salio bien
+
+- En repository - New merge request
+- Crear el Merge requests y mezclar la rama From produccionBackEnd into BackEnd
+-
+- Estando en la rama BackEnd local hacer un pull origin BackEnd
+- Quitar check de Delete source branch when merge request is accepted.
+- Create Merge Request
+- En Merge requests Mezclar la informacion
+
 http://ec2-3-23-114-239.us-east-2.compute.amazonaws.com:8080/

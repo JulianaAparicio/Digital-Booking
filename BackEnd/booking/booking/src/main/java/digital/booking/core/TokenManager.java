@@ -43,6 +43,7 @@ public class TokenManager {
         Map<String, Object> claims = new HashMap<>();
         claims.put("name", ((User) userDetails).getName());
         claims.put("lastName", ((User) userDetails).getLastName());
+        claims.put("id", ((User) userDetails).getId());
         return createToken(claims, userDetails.getUsername());
     }
 

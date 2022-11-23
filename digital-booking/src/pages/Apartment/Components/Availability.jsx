@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Calendar } from 'react-multi-date-picker';
+import useCalendarSize from '../../../../hooks/useCalendarSize';
 import SectionTitle from '../../../components/SectionTitle/SectionTitle';
 import { months, weekDays } from '../../../utils/spanishCalendar';
 import Reservation from './Reservation';
 
-const Availability = ({ disabledDays, currentDates }) => {
+const Availability = ({ disabledDays, currentDates, id }) => {
    const [isMobile, setIsMobile] = useState(null);
    const [calendarDates, setCalendarDates] = useState([]);
 
@@ -27,19 +28,7 @@ const Availability = ({ disabledDays, currentDates }) => {
       setCalendarDates([dates[0], dates[1]]);
    }, [currentDates]);
 
-   useEffect(() => {
-      const changeCalendar = () => {
-         setIsMobile(window.matchMedia('(width < 600px)').matches ? true : false);
-      };
-
-      changeCalendar();
-
-      window.addEventListener('resize', changeCalendar);
-
-      return () => {
-         window.removeEventListener('resize', changeCalendar);
-      };
-   }, []);
+   useCalendarSize(setIsMobile);
 
    return (
       <section className="db-apartment-availability">
@@ -57,8 +46,7 @@ const Availability = ({ disabledDays, currentDates }) => {
                   value={calendarDates}
                />
             </div>
-
-            <Reservation />
+            <Reservation id={id} />
          </div>
       </section>
    );

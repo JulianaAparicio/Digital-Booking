@@ -1,6 +1,5 @@
+.db-reservation-page,
 .db-apartment-container {
-   position: relative;
-
    .db-toggle-button {
       background: rgba(0, 0, 0, 0.3);
       bottom: 0;
@@ -63,7 +62,7 @@
       }
 
       @media (max-width:450px) {
-         padding: 0.5rem 0.5rem;
+         padding: .7rem 0.5rem;
       }
    }
 
@@ -167,6 +166,7 @@
 
             img {
                aspect-ratio: 3/2;
+               flex: none;
                object-fit: cover;
                scroll-snap-align: center;
                width: 100%;
@@ -329,7 +329,7 @@
                margin-bottom: .8rem;
             }
 
-            svg path{
+            svg path {
                fill: var(--color-primary);
             }
          }
@@ -369,6 +369,7 @@
       @media (max-width: 768px) {
          grid-template-columns: auto auto;
          column-gap: 10px;
+
          .db-button {
             width: 206px;
          }
@@ -376,11 +377,12 @@
 
       @media (max-width: 450px) {
          grid-template-columns: auto;
+
          .db-button {
             width: 100%;
          }
       }
-      
+
    }
 
    .db-card-reservation {
@@ -441,6 +443,217 @@
                }
             }
          }
+      }
+   }
+}
+
+.db-reservation-page {
+
+   .content {
+      @media (min-width: 1024px) {
+         display: grid;
+         grid-template-areas:
+            "form form overview"
+            "date date overview"
+            "time time overview"
+         ;
+         max-width: 1366px;
+         margin: auto;
+         width: 100%;
+      }
+   }
+
+   section {
+      @media (min-width: 1024px) {
+         margin-top: 1rem !important;
+         margin-bottom: 1rem !important;
+      }
+   }
+
+   h2 {
+      color: var(--color-secondary);
+      margin-bottom: 1rem;
+   }
+
+   .db-form {
+
+      grid-area: form;
+
+      .db-card {
+
+         @media (min-width: 768px) {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+         }
+
+         .db-input {
+            padding: 1.2rem;
+
+            &:not(:last-child) {
+               padding-bottom: 0;
+            }
+         }
+      }
+   }
+
+   .db-reservation-date {
+
+      grid-area: date;
+
+      .rmdp-border {
+         border: 0;
+         margin: auto;
+         padding: 1rem
+      }
+   }
+
+   .db-check-in {
+      grid-area: time;
+
+      .db-card {
+         padding: 1rem;
+
+         .top {
+            display: flex;
+
+            svg {
+               margin-right: 1rem;
+            }
+         }
+
+         .bottom {
+            p {
+               margin: 1rem 0 .5rem;
+            }
+
+            .db-input {
+               padding: 0;
+
+               @media (min-width: 768px) {
+                  width: 50%;
+               }
+
+               .rmdp-analog-clock {
+                  background-color: var(--color-primary-light);
+                  border-color: var(--color-primary)
+               }
+
+               .dial-lines:nth-of-type(5n) {
+                  background-color: var(--color-tertiary);
+               }
+            }
+         }
+      }
+   }
+
+   .db-apartment-overview {
+      grid-area: overview;
+
+      @media (min-width: 1024px) {
+         margin-left: 0 !important;
+      }
+
+      .db-card {
+         padding: 1rem 0;
+
+         @media (min-width: 768px) and (max-width: 1024px) {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+         }
+
+         @media (min-width: 1024px) {
+            padding: 2rem 0;
+
+         }
+
+         &>div:not(.top) {
+            padding: 0 1rem;
+         }
+
+         h2 {
+            margin: 0 1rem;
+            margin-bottom: 1rem;
+
+            @media (min-width: 768px) {
+               grid-column: 1/3;
+               margin-bottom: 1rem;
+            }
+         }
+
+         .top {
+            @media (min-width: 768px) and (max-width: 1024px) {
+               padding-left: 1rem;
+            }
+
+            img {
+               width: 100%;
+               object-fit: cover;
+
+               @media (min-width: 768px) and (max-width: 1024px) {
+                  height: 100%;
+               }
+            }
+         }
+
+         .details {
+            margin: 1rem 0;
+
+            @media (min-width: 768px) and (max-width: 1024px) {
+               margin-top: 0;
+            }
+
+            p {
+               color: var(--color-tertiary);
+            }
+
+            h3 {
+               font-size: 1.3rem;
+            }
+
+            .description {
+
+               margin-top: .8rem;
+               display: flex;
+               gap: .6rem;
+
+               svg {
+                  height: 1rem;
+                  width: min-content;
+               }
+
+               p {
+                  color: black;
+               }
+            }
+         }
+
+         .bottom {
+            &>div {
+               display: flex;
+               justify-content: space-between;
+               padding: 1rem 0;
+
+               .label {
+                  font-weight: 600;
+               }
+            }
+
+            button {
+               margin-top: 1rem;
+               width: 100%;
+            }
+         }
+      }
+   }
+
+   .db-apartment-highlights {
+      background: white;
+      margin: 0 !important;
+
+      padding: 2rem 1rem;
+
+      @media screen and (min-width: 768px) {
+         padding: 3rem 2rem;
       }
    }
 }

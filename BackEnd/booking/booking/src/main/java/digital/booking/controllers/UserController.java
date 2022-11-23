@@ -24,11 +24,12 @@ public class UserController {
     @Operation(summary = "Crear usuario")
     @PostMapping("register")
     public ResponseEntity<User> RegisterUser(@RequestBody Map<String, String> userInfo) throws BadRequestException {
+         User user = getUserEntity(userInfo);
+         return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(user));
+    }
 
+    private User getUserEntity(Map<String, String> userInfo) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-        User user = new User(userInfo.get("name"), userInfo.get("lastName"), userInfo.get("email"), passwordEncoder.encode(userInfo.get("password")));
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(user));
+        return new User(userInfo.get("name"), userInfo.get("lastName"), userInfo.get("email"), passwordEncoder.encode(userInfo.get("password")));
     }
 }
