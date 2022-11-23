@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -147,4 +148,18 @@ public class ProductServiceTest {
             e.printStackTrace();
         }
     }
+
+    @Order(5)
+    @Test
+    public void testDelete() {
+        try{
+            lenient().when(productRepository.findById(1L)).thenReturn(Optional.of(productTest));
+            productService.delete(1L);
+            verify(productRepository).findById(1L);
+
+        } catch (NotFoundException e){
+            e.printStackTrace();
+        }
+    }
+
 }
