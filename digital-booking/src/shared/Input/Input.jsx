@@ -13,6 +13,7 @@ export default function Input({
    icon,
    placeholder,
    isDisabled,
+   isReadOnly,
    setValue,
    errors,
    setInputValidation,
@@ -118,6 +119,7 @@ export default function Input({
                   type={type}
                   placeholder={placeholder}
                   disabled={isDisabled}
+                  readOnly={isReadOnly}
                   onFocus={handleFocus}
                   onBlur={handleBlur}
                   onChange={handleChangeInput}

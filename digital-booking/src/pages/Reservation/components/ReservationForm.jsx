@@ -1,8 +1,14 @@
+import { useEffect } from 'react';
 import Card from '../../../shared/Card/Card';
 import Input from '../../../shared/Input/Input';
 import { getValidationErrors } from '../../../utils/validationErrors';
 
 const ReservationForm = ({ user, reservationForm, currentProduct }) => {
+
+   useEffect(() => {
+      reservationForm.userId.state[1](user.id);
+   }, [user])
+
    return (
       <section className="db-form">
          <h2>Completa tus datos</h2>
@@ -17,7 +23,7 @@ const ReservationForm = ({ user, reservationForm, currentProduct }) => {
                setValue={reservationForm.name.state[1]}
                name={'name'}
                setInputValidation={reservationForm.name.isValid[1]}
-               isDisabled
+               isReadOnly={true}
             />
             <Input
                value={user.lastName}
@@ -29,7 +35,7 @@ const ReservationForm = ({ user, reservationForm, currentProduct }) => {
                setValue={reservationForm.lastName.state[1]}
                name={'lastName'}
                setInputValidation={reservationForm.lastName.isValid[1]}
-               isDisabled
+               isReadOnly={true}
             />
             <Input
                value={user.sub}
@@ -41,7 +47,7 @@ const ReservationForm = ({ user, reservationForm, currentProduct }) => {
                setValue={reservationForm.email.state[1]}
                name={'email'}
                setInputValidation={reservationForm.email.isValid[1]}
-               isDisabled
+               isReadOnly={true}
             />
             <Input
                value={`${currentProduct.location.city.name}, ${currentProduct.location.city.state}`}
@@ -53,7 +59,7 @@ const ReservationForm = ({ user, reservationForm, currentProduct }) => {
                setValue={reservationForm.city.state[1]}
                name={'city'}
                setInputValidation={reservationForm.city.isValid[1]}
-               isDisabled
+               isReadOnly={true}
             />
          </Card>
       </section>

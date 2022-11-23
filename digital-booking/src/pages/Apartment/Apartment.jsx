@@ -17,6 +17,7 @@ import Map from './Components/Map';
 import LoadingScreen from '../../components/LoadingScreen/LoadingScreen';
 import HeartFilledIcon from '../../shared/Icons/HeartFilledIcon';
 import { toggleFavoriteLocal } from '../../core/services/Favorite';
+import { getLocalStorage } from '../../core/services/Storage';
 
 let aux = 0;
 
@@ -42,7 +43,7 @@ const Apartment = () => {
 
    useEffect(() => {
       getProduct();
-      setCurrentDates(JSON.parse(localStorage.getItem('CURRENT_DATES')));
+      setCurrentDates(getLocalStorage('CURRENT_DATES'));
    }, []);
 
    useEffect(() => {
@@ -66,7 +67,6 @@ const Apartment = () => {
 
       if (images.length <= 0) {
          aux++;
-         console.log(aux);
          return;
       }
 
@@ -134,7 +134,7 @@ const Apartment = () => {
                <Description title={currentProduct.title}>{currentProduct.description}</Description>
                <Amenities amenities={currentProduct.amenities} />
                <Availability
-                  disabledDays={['2022/11/25', '2022/11/26', '2022/11/27']}
+                  disabledDates={currentProduct.availability}
                   currentDates={currentDates}
                   id={currentProduct.id}
                />

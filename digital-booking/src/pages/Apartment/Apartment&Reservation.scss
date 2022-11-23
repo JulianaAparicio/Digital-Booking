@@ -500,6 +500,14 @@
 
       grid-area: date;
 
+      .db-card {
+         padding: 1rem;
+
+         .top {
+            color: var(--error);
+         }
+      }
+
       .rmdp-border {
          border: 0;
          margin: auto;

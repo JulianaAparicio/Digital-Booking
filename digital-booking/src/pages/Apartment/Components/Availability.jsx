@@ -6,17 +6,27 @@ import SectionTitle from '../../../components/SectionTitle/SectionTitle';
 import { months, weekDays } from '../../../utils/spanishCalendar';
 import Reservation from './Reservation';
 
-const Availability = ({ disabledDays, currentDates, id }) => {
+const Availability = ({ disabledDates, currentDates, id }) => {
    const [isMobile, setIsMobile] = useState(null);
    const [calendarDates, setCalendarDates] = useState([]);
 
    const mapDaysF = ({ date }) => {
-      if (disabledDays && disabledDays.includes(date.toString()))
+      const isNotAvailable = disabledDates.some(dateRange => {
+         const initialDate = new Date(dateRange.initialDate);
+         initialDate.setMinutes(initialDate.getMinutes() + initialDate.getTimezoneOffset());
+         const finalDate = new Date(dateRange.finalDate);
+         finalDate.setMinutes(finalDate.getMinutes() + finalDate.getTimezoneOffset());
+         finalDate.setDate(finalDate.getDate() + 1);  
+         return date.valueOf() >= initialDate && date.valueOf() < finalDate
+      })
+      
+      if (isNotAvailable) {
          return {
             disabled: true,
-            style: { color: '#ccc' },
+            style: { color: '#8798ad' },
             onClick: () => alert('weekends are disabled'),
          };
+      }
    };
 
    useEffect(() => {
@@ -24,8 +34,7 @@ const Availability = ({ disabledDays, currentDates, id }) => {
          return;
       }
 
-      const dates = currentDates.split(',');
-      setCalendarDates([dates[0], dates[1]]);
+      setCalendarDates([currentDates[0], currentDates[1]]);
    }, [currentDates]);
 
    useCalendarSize(setIsMobile);
@@ -44,6 +53,7 @@ const Availability = ({ disabledDays, currentDates, id }) => {
                   range={true}
                   shadow={false}
                   value={calendarDates}
+                  readOnly={true}
                />
             </div>
             <Reservation id={id} />
