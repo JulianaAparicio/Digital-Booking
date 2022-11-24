@@ -24,7 +24,6 @@ export async function bookingProduct(bookingForm) {
         seller: bookingQuery.tips,
         startTime: bookingQuery.checkIn.toString()
     }
-    console.log(bookingQueryMapper)
 
-    //return postAuthReq(BOOKING_URL, bookingQueryMapper);
+    return postAuthReq(BOOKING_URL, bookingQueryMapper);
 }
