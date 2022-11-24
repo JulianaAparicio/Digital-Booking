@@ -18,7 +18,7 @@ SET @MYSQLDUMP_TEMP_LOG_BIN = @@SESSION.SQL_LOG_BIN;
 SET @@SESSION.SQL_LOG_BIN= 0;
 
 --
--- GTID state at the beginning of the backup
+-- GTID state at the beginning of the backup 
 --
 
 SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '';
@@ -34,12 +34,22 @@ INSERT INTO `amenities` VALUES (1,'wifi'),(2,'pool'),(3,'kitchen'),(4,'tv'),(5,'
 UNLOCK TABLES;
 
 --
+-- Dumping data for table `amenity_seq`
+--
+
+LOCK TABLES `amenity_seq` WRITE;
+/*!40000 ALTER TABLE `amenity_seq` DISABLE KEYS */;
+INSERT INTO `amenity_seq` VALUES (1);
+/*!40000 ALTER TABLE `amenity_seq` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping data for table `bookings`
 --
 
 LOCK TABLES `bookings` WRITE;
 /*!40000 ALTER TABLE `bookings` DISABLE KEYS */;
-INSERT INTO `bookings` VALUES (1,'2022-12-12','2022-12-05','10:36:06 p. m.',2,102),(2,'2022-12-22','2022-12-20','11:30',2,102),(3,'2022-12-31','2022-12-29','10:00',2,102);
+INSERT INTO `bookings` VALUES (1,'2022-12-12','2022-12-05','10:36:06 p. m.',2,102,NULL,NULL),(2,'2022-12-22','2022-12-20','11:30',2,102,NULL,NULL),(3,'2022-12-31','2022-12-29','10:00',2,102,NULL,NULL),(4,'2022-11-29','2022-11-27','10:00',2,254,NULL,NULL),(5,'2022-11-29','2022-11-27','10:00',2,254,NULL,NULL),(6,'2022-11-29','2022-11-27','10:00',2,254,NULL,NULL),(7,'2022-12-26','2022-12-23','10:00',2,502,NULL,NULL),(8,'2022-12-19','2022-12-16','10:00',2,502,'Camilo Martinez',_binary ''),(9,'2023-01-08','2023-01-05','13:00',2,502,'Usuario debe vacunarse antes de ingresar a la reserva',_binary ''),(10,'2022-12-11','2022-12-08','12:00',3,502,'Vacunarse antes de llegar al alojamiento',_binary '\0');
 /*!40000 ALTER TABLE `bookings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -49,8 +59,18 @@ UNLOCK TABLES;
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` VALUES (1,'14','https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1','Hoteles'),(2,'10','https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1','Casas'),(3,'55','https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1','Departamentos'),(4,'35','https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1','Casas de campo'),(102,'Contiene espacios reducidos como sala-comedor o habitaciones pequeñas','https://images.sparairnos.com/property/65505/images/135370/full/3110c348-e8a9-4a42-ae68-1a7cf78c173b','Departamento'),(1852,'descriptionTest','imageURLTest','titleTest'),(1902,'descriptionTest','imageURLTest','titleTest');
+INSERT INTO `categories` VALUES (1,'14','https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1','Hoteles'),(2,'10','https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1','Casas'),(3,'55','https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1','Departamentos'),(4,'35','https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1','Casas de campo'),(102,'Contiene espacios reducidos como sala-comedor o habitaciones pequeñas','https://images.sparairnos.com/property/65505/images/135370/full/3110c348-e8a9-4a42-ae68-1a7cf78c173b','Departamento'),(1852,'descriptionTest','imageURLTest','titleTest'),(1902,'descriptionTest','imageURLTest','titleTest'),(1952,'descriptionTest','imageURLTest','titleTest'),(2002,'descriptionTest','imageURLTest','titleTest'),(2052,'descriptionTest','imageURLTest','titleTest');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `category_seq`
+--
+
+LOCK TABLES `category_seq` WRITE;
+/*!40000 ALTER TABLE `category_seq` DISABLE KEYS */;
+INSERT INTO `category_seq` VALUES (2151);
+/*!40000 ALTER TABLE `category_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -64,10 +84,24 @@ INSERT INTO `cities` VALUES (1,'countryEdited','nameEdited','stateEdited'),(2,'C
 UNLOCK TABLES;
 
 --
--- Dumping data for table `hibernate_sequence`
+-- Dumping data for table `city_seq`
 --
 
+LOCK TABLES `city_seq` WRITE;
+/*!40000 ALTER TABLE `city_seq` DISABLE KEYS */;
+INSERT INTO `city_seq` VALUES (51);
+/*!40000 ALTER TABLE `city_seq` ENABLE KEYS */;
+UNLOCK TABLES;
 
+--
+-- Dumping data for table `image_seq`
+--
+
+LOCK TABLES `image_seq` WRITE;
+/*!40000 ALTER TABLE `image_seq` DISABLE KEYS */;
+INSERT INTO `image_seq` VALUES (1);
+/*!40000 ALTER TABLE `image_seq` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Dumping data for table `images`
@@ -75,8 +109,18 @@ UNLOCK TABLES;
 
 LOCK TABLES `images` WRITE;
 /*!40000 ALTER TABLE `images` DISABLE KEYS */;
-INSERT INTO `images` VALUES (6,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/1.jpg','otra',2),(7,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/2.jpg','otra',2),(8,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/3.jpg','otra',2),(9,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/4.jpg','otra',2),(10,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/5.jpg','otra',2),(11,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/6.jpg','otra',2),(12,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/7.jpg','otra',2),(13,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/8.jpg','otra',2),(14,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/9.jpg','otra',2),(15,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/10.jpg','otra',2),(16,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/11.jpg','otra',2),(17,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/12.jpg','otra',2),(18,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/13.jpg','otra',2),(19,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/14.jpg','otra',2),(20,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/15.jpg','otra',2),(21,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/16.jpg','otra',2),(22,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/17.jpg','otra',2),(23,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/18.jpg','otra',2),(24,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/19.jpg','otra',2),(25,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/20.jpg','otra',2),(26,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/21.jpg','otra',2),(27,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/22.jpg','otra',2),(28,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/23.jpg','otra',2),(29,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/24.jpg','otra',2),(30,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/25.jpg','otra',2),(31,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/26.jpg','otra',2),(32,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/27.jpg','otra',2),(33,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/28.jpg','otra',2),(34,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/29.jpg','otra',2),(35,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/30.jpg','otra',2),(36,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/31.jpg','otra',2),(37,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/32.jpg','otra',2),(38,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/33.jpg','otra',2),(39,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/34.jpg','otra',2),(40,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/35.jpg','otra',2),(41,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/36.jpg','otra',2),(42,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/37.jpg','otra',2),(43,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/38.jpg','otra',2),(44,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/39.jpg','otra',2),(45,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/40.jpg','otra',2),(73,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/1.jpg','otra',3),(74,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/2.jpg','otra',3),(75,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/3.jpg','otra',3),(76,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/4.jpg','otra',3),(77,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/5.jpg','otra',3),(78,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/6.jpg','otra',3),(79,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/7.jpg','otra',3),(80,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/8.jpg','otra',3),(81,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/9.jpg','otra',3),(82,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/10.jpg','otra',3),(83,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/11.jpg','otra',3),(84,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/12.jpg','otra',3),(85,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/13).jpg','otra',3),(86,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/14).jpg','otra',3),(87,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/15.jpg','otra',3),(88,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/16).jpg','otra',3),(89,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/17.jpg','otra',3),(90,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/18.jpg','otra',3),(91,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/19.jpg','otra',3),(92,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/20.jpg','otra',3),(93,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/21.jpg','otra',3),(94,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/22.jpg','otra',3),(95,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/23.jpg','otra',3),(96,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/24.jpg','otra',3),(97,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/25.jpg','otra',3),(98,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/26.jpg','otra',3),(99,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/27.jpg','otra',3),(100,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/28.jpg','otra',3),(101,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/29.jpg','otra',3),(102,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/30.jpg','otra',3),(103,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/31.jpg','otra',3),(104,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/32.jpg','otra',3),(105,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/33.jpg','otra',3),(106,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/34.jpg','otra',3),(107,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/35.jpg','otra',3),(108,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/36.jpg','otra',3),(109,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/37.jpg','otra',3),(110,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/38.jpg','otra',3),(111,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/39.jpg','otra',3),(112,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/40.jpg','otra',3),(113,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/41.jpg','otra',3),(114,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/42.jpg','otra',3),(115,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/43.jpg','otra',3),(141,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/1.jpg','otra',4),(142,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/2.jpg','otra',4),(143,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/3.jpg','otra',4),(144,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/4.jpg','otra',4),(145,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/5.jpg','otra',4),(146,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/6.jpg','otra',4),(147,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/7.jpg','otra',4),(148,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/8.jpg','otra',4),(149,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/9.jpg','otra',4),(150,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/10.jpg','otra',4),(151,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/11.jpg','otra',4),(152,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/12.jpg','otra',4),(153,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/13.jpg','otra',4),(154,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/14.jpg','otra',4),(155,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/15.jpg','otra',4),(156,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/16.jpg','otra',4),(157,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/17.jpg','otra',4),(158,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/18.jpg','otra',4),(159,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/19.jpg','otra',4),(160,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/20.jpg','otra',4),(161,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/21.jpg','otra',4),(162,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/22.jpg','otra',4),(163,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/23.jpg','otra',4),(164,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/24.jpg','otra',4),(165,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/25.jpg','otra',4),(166,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/26.jpg','otra',4),(167,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/27.jpg','otra',4),(168,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/28.jpg','otra',4),(169,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/29.jpg','otra',4),(170,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/30.jpg','otra',4),(171,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/31.jpg','otra',4),(172,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/32.jpg','otra',4),(173,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/33.jpg','otra',4),(174,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/34.jpg','otra',4),(175,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/35.jpg','otra',4),(176,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/36.jpg','otra',4),(177,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/37.jpg','otra',4),(178,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/38.jpg','otra',4),(179,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/39.jpg','otra',4),(180,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/40.jpg','otra',4),(211,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/348293948.jpg','otra',4),(212,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/356301091.jpg','otra',4),(213,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/373396432.jpg','otra',4),(214,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/61788178.jpg','otra',4),(215,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/61805307.jpg','otra',4),(216,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/61805307(1).jpg','otra',4),(217,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/61805794.jpg','otra',4),(218,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/61805794(1).jpg','otra',4),(219,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/61806410.jpg','otra',4),(220,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/61806410(1).jpg','otra',4),(221,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/95840790.jpg','otra',4),(222,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/principal.jpg','Principal',4),(223,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/principal(1).jpg','otra',4),(224,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/267596261.jpg','otra',5),(225,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/267596263.jpg','otra',5),(226,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/267596265.jpg','otra',5),(227,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/267596265(1).jpg','otra',5),(228,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/267596265(2).jpg','otra',5),(229,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/267596267.jpg','otra',5),(230,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/267596270.jpg','otra',5),(231,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/267596272.jpg','otra',5),(232,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/267596273.jpg','otra',5),(233,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/267596277.jpg','otra',5),(234,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/267596280.jpg','otra',5),(235,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/267596281.jpg','otra',5),(236,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/267596286.jpg','otra',5),(237,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/267725513.jpg','otra',5),(238,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/270389124.jpg','otra',5),(239,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/270389652.jpg','otra',5),(240,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/270391084.jpg','otra',5),(241,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/270821083.jpg','otra',5),(242,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/270821134.jpg','otra',5),(243,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/270821253.jpg','otra',5),(244,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/270821542.jpg','otra',5),(245,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/270822296.jpg','otra',5),(246,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/270822327.jpg','otra',5),(247,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/270822737.jpg','otra',5),(248,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/270822948.jpg','otra',5),(249,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/270822962.jpg','otra',5),(250,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/270823042.jpg','otra',5),(251,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/270823050.jpg','otra',5),(252,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/270823164.jpg','otra',5),(253,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/270823164(1).jpg','otra',5),(254,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/270823164(2).jpg','otra',5),(255,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/270823270.jpg','otra',5),(256,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/270823294.jpg','otra',5),(257,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/270823365.jpg','otra',5),(258,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/273533501.jpg','otra',5),(259,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/273533912.jpg','otra',5),(260,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/273534667.jpg','otra',5),(261,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/273534749.jpg','otra',5),(262,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/273534831.jpg','otra',5),(263,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/273535330.jpg','otra',5),(264,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/273536197.jpg','otra',5),(265,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/273536831.jpg','otra',5),(266,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/273536921.jpg','otra',5),(267,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/273536921(1).jpg','otra',5),(268,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/273536925.jpg','otra',5),(269,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/273536925(1).jpg','otra',5),(270,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/273536925(2).jpg','otra',5),(271,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/273537079.jpg','otra',5),(272,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/273537079(1).jpg','otra',5),(273,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/273537079(2).jpg','otra',5),(274,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/384852328.jpg','otra',5),(275,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/384995272.jpg','otra',5),(276,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/385614051.jpg','otra',5),(277,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/387349907.jpg','otra',5),(278,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/390905021.jpg','otra',5),(279,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/397246364.jpg','otra',5),(280,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/400845794.jpg','otra',5),(281,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/400845794(1).jpg','otra',5),(282,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/400845794(2).jpg','otra',5),(283,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/400845870.jpg','otra',5),(284,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/400845870(1).jpg','otra',5),(285,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/400845870(2).jpg','otra',5),(286,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/400846277.jpg','otra',5),(287,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/400846277(1).jpg','otra',5),(288,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/400846277(2).jpg','otra',5),(289,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/402949594.jpg','otra',5),(290,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/principal.jpg','otra',5),(291,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/principal(1).jpg','otra',5);
+INSERT INTO `images` VALUES (6,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/1.jpg','otra',2),(7,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/2.jpg','otra',2),(8,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/3.jpg','otra',2),(9,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/4.jpg','otra',2),(10,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/5.jpg','otra',2),(11,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/6.jpg','otra',2),(12,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/7.jpg','otra',2),(13,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/8.jpg','otra',2),(14,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/9.jpg','otra',2),(15,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/10.jpg','otra',2),(16,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/11.jpg','otra',2),(17,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/12.jpg','otra',2),(18,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/13.jpg','otra',2),(19,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/14.jpg','otra',2),(20,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/15.jpg','otra',2),(21,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/16.jpg','otra',2),(22,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/17.jpg','otra',2),(23,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/18.jpg','otra',2),(24,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/19.jpg','otra',2),(25,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/20.jpg','otra',2),(26,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/21.jpg','otra',2),(27,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/22.jpg','otra',2),(28,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/23.jpg','otra',2),(29,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/24.jpg','otra',2),(30,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/25.jpg','otra',2),(31,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/26.jpg','otra',2),(32,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/27.jpg','otra',2),(33,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/28.jpg','otra',2),(34,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/29.jpg','otra',2),(35,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/30.jpg','otra',2),(36,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/31.jpg','otra',2),(37,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/32.jpg','otra',2),(38,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/33.jpg','otra',2),(39,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/34.jpg','otra',2),(40,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/35.jpg','otra',2),(41,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/36.jpg','otra',2),(42,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/37.jpg','otra',2),(43,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/38.jpg','otra',2),(44,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/39.jpg','otra',2),(45,'https://camada3grupo6.s3.amazonaws.com/HotelSoyLocal/40.jpg','otra',2),(73,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/1.jpg','otra',3),(74,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/2.jpg','otra',3),(75,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/3.jpg','otra',3),(76,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/4.jpg','otra',3),(77,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/5.jpg','otra',3),(78,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/6.jpg','otra',3),(79,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/7.jpg','otra',3),(80,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/8.jpg','otra',3),(81,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/9.jpg','otra',3),(82,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/10.jpg','otra',3),(83,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/11.jpg','otra',3),(84,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/12.jpg','otra',3),(85,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/13).jpg','otra',3),(86,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/14).jpg','otra',3),(87,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/15.jpg','otra',3),(88,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/16).jpg','otra',3),(89,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/17.jpg','otra',3),(90,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/18.jpg','otra',3),(91,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/19.jpg','otra',3),(92,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/20.jpg','otra',3),(93,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/21.jpg','otra',3),(94,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/22.jpg','otra',3),(95,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/23.jpg','otra',3),(96,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/24.jpg','otra',3),(97,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/25.jpg','otra',3),(98,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/26.jpg','otra',3),(99,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/27.jpg','otra',3),(100,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/28.jpg','otra',3),(101,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/29.jpg','otra',3),(102,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/30.jpg','otra',3),(103,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/31.jpg','otra',3),(104,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/32.jpg','otra',3),(105,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/33.jpg','otra',3),(106,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/34.jpg','otra',3),(107,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/35.jpg','otra',3),(108,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/36.jpg','otra',3),(109,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/37.jpg','otra',3),(110,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/38.jpg','otra',3),(111,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/39.jpg','otra',3),(112,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/40.jpg','otra',3),(113,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/41.jpg','otra',3),(114,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/42.jpg','otra',3),(115,'https://camada3grupo6.s3.amazonaws.com/PenonDelRodadero/43.jpg','otra',3),(141,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/1.jpg','otra',4),(142,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/2.jpg','otra',4),(143,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/3.jpg','otra',4),(144,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/4.jpg','otra',4),(145,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/5.jpg','otra',4),(146,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/6.jpg','otra',4),(147,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/7.jpg','otra',4),(148,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/8.jpg','otra',4),(149,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/9.jpg','otra',4),(150,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/10.jpg','otra',4),(151,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/11.jpg','otra',4),(152,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/12.jpg','otra',4),(153,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/13.jpg','otra',4),(154,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/14.jpg','otra',4),(155,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/15.jpg','otra',4),(156,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/16.jpg','otra',4),(157,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/17.jpg','otra',4),(158,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/18.jpg','otra',4),(159,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/19.jpg','otra',4),(160,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/20.jpg','otra',4),(161,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/21.jpg','otra',4),(162,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/22.jpg','otra',4),(163,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/23.jpg','otra',4),(164,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/24.jpg','otra',4),(165,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/25.jpg','otra',4),(166,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/26.jpg','otra',4),(167,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/27.jpg','otra',4),(168,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/28.jpg','otra',4),(169,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/29.jpg','otra',4),(170,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/30.jpg','otra',4),(171,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/31.jpg','otra',4),(172,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/32.jpg','otra',4),(173,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/33.jpg','otra',4),(174,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/34.jpg','otra',4),(175,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/35.jpg','otra',4),(176,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/36.jpg','otra',4),(177,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/37.jpg','otra',4),(178,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/38.jpg','otra',4),(179,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/39.jpg','otra',4),(180,'https://camada3grupo6.s3.amazonaws.com/SanhaPlusHotel/40.jpg','otra',4),(224,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/1.jpg','otra',5),(225,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/2.jpg','otra',5),(226,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/3.jpg','otra',5),(227,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/4.jpg','otra',5),(228,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/5.jpg','otra',5),(229,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/6.jpg','otra',5),(230,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/7.jpg','otra',5),(231,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/8.jpg','otra',5),(232,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/9.jpg','otra',5),(233,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/10.jpg','otra',5),(234,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/11.jpg','otra',5),(235,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/12.jpg','otra',5),(236,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/13.jpg','otra',5),(237,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/14.jpg','otra',5),(238,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/15.jpg','otra',5),(239,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/16.jpg','otra',5),(240,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/17.jpg','otra',5),(241,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/18.jpg','otra',5),(242,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/19.jpg','otra',5),(243,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/20.jpg','otra',5),(244,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/21.jpg','otra',5),(245,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/22.jpg','otra',5),(246,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/23.jpg','otra',5),(247,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/24.jpg','otra',5),(248,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/25.jpg','otra',5),(249,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/26.jpg','otra',5),(250,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/27.jpg','otra',5),(251,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/27.jpg','otra',5),(252,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/28.jpg','otra',5),(253,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/29.jpg','otra',5),(254,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/30.jpg','otra',5),(255,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/31.jpg','otra',5),(256,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/32.jpg','otra',5),(257,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/33.jpg','otra',5),(258,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/34.jpg','otra',5),(259,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/35.jpg','otra',5),(260,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/36.jpg','otra',5),(261,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/37.jpg','otra',5),(262,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/38.jpg','otra',5),(263,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/39.jpg','otra',5),(264,'https://camada3grupo6.s3.amazonaws.com/VillaCataHotel/40.jpg','otra',5);
 /*!40000 ALTER TABLE `images` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `item_seq`
+--
+
+LOCK TABLES `item_seq` WRITE;
+/*!40000 ALTER TABLE `item_seq` DISABLE KEYS */;
+INSERT INTO `item_seq` VALUES (1);
+/*!40000 ALTER TABLE `item_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -90,6 +134,16 @@ INSERT INTO `items` VALUES (1,'No se permiten fiestas',1),(2,'No fumar',1),(3,'C
 UNLOCK TABLES;
 
 --
+-- Dumping data for table `location_seq`
+--
+
+LOCK TABLES `location_seq` WRITE;
+/*!40000 ALTER TABLE `location_seq` DISABLE KEYS */;
+INSERT INTO `location_seq` VALUES (751);
+/*!40000 ALTER TABLE `location_seq` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping data for table `locations`
 --
 
@@ -100,6 +154,16 @@ INSERT INTO `locations` VALUES (2,'Calle 19 # 8 14','11.24174','74.20735',16),(3
 UNLOCK TABLES;
 
 --
+-- Dumping data for table `politic_seq`
+--
+
+LOCK TABLES `politic_seq` WRITE;
+/*!40000 ALTER TABLE `politic_seq` DISABLE KEYS */;
+INSERT INTO `politic_seq` VALUES (1);
+/*!40000 ALTER TABLE `politic_seq` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping data for table `politics`
 --
 
@@ -107,6 +171,16 @@ LOCK TABLES `politics` WRITE;
 /*!40000 ALTER TABLE `politics` DISABLE KEYS */;
 INSERT INTO `politics` VALUES (1,'Normas de la Casa'),(2,'Politicas de Cancelacion'),(3,'Salud y Seguridad');
 /*!40000 ALTER TABLE `politics` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `product_seq`
+--
+
+LOCK TABLES `product_seq` WRITE;
+/*!40000 ALTER TABLE `product_seq` DISABLE KEYS */;
+INSERT INTO `product_seq` VALUES (301);
+/*!40000 ALTER TABLE `product_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -140,6 +214,16 @@ INSERT INTO `products_items` VALUES (2,1),(2,2),(2,3),(2,4),(2,5),(2,6),(2,7),(3
 UNLOCK TABLES;
 
 --
+-- Dumping data for table `rating_seq`
+--
+
+LOCK TABLES `rating_seq` WRITE;
+/*!40000 ALTER TABLE `rating_seq` DISABLE KEYS */;
+INSERT INTO `rating_seq` VALUES (1);
+/*!40000 ALTER TABLE `rating_seq` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping data for table `ratings`
 --
 
@@ -147,6 +231,16 @@ LOCK TABLES `ratings` WRITE;
 /*!40000 ALTER TABLE `ratings` DISABLE KEYS */;
 INSERT INTO `ratings` VALUES (1,4,102,2),(2,3,102,3),(3,5,102,4),(4,2,102,5),(5,4,152,5),(6,3,152,4),(7,5,152,3),(8,1,152,2),(9,3,160,2),(10,2,160,3),(11,4,160,4),(12,5,160,5);
 /*!40000 ALTER TABLE `ratings` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `role_seq`
+--
+
+LOCK TABLES `role_seq` WRITE;
+/*!40000 ALTER TABLE `role_seq` DISABLE KEYS */;
+INSERT INTO `role_seq` VALUES (1);
+/*!40000 ALTER TABLE `role_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -160,12 +254,22 @@ INSERT INTO `roles` VALUES (1,'USER');
 UNLOCK TABLES;
 
 --
+-- Dumping data for table `user_seq`
+--
+
+LOCK TABLES `user_seq` WRITE;
+/*!40000 ALTER TABLE `user_seq` DISABLE KEYS */;
+INSERT INTO `user_seq` VALUES (601);
+/*!40000 ALTER TABLE `user_seq` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping data for table `users`
 --
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (102,'camilo_2510@hotmail.com','Martinez','Camilo','$2a$10$7VGlbjCwJDb8c4ypZmjS8.CDa5gp/C9EwqOpywmPuSrIEJE49Blwy',_binary '',1),(152,'juliana_aparicio@outlook.com','Aparicio','Juliana','$2a$10$Zl8BYSzMnbgCLbTz/LgE2OzgnXuaz2JD9L51V641wmZHLzY1wSRxu',_binary '',1),(160,'fernandez.agustinaelena@gmail.com','Fernandez','Agustina','$2a$10$h6iL/0UCU0GjrxUO2YJgG.Rktql6l03euevRysaH.HC/ZJDJwPzBa',_binary '',1),(202,'nmflorezr@gmail.com','Florez','Nicolas','$2a$10$Oytnw0/3hk9Wz3vSSlR9Y.g/HNeyKUh/gMBlupg90jVU9BRzL3ncq',_binary '',1),(203,'nmflorezr@gmail.com','Florez','Nicolas','$2a$10$3DeYp3Q4sfSUKmaW4o0o/OgOdGHwWsnk6zTTknMd8n2ukEDcda01K',_binary '',1),(204,'nmflorezr1@gmail.com','Florez','Nicolas','$2a$10$Fhe.R4eU8ripby4ttuPzZ.Ew0od8BeRSwppKfo5DZAB5A9pBZaNYi',_binary '',1),(205,'dummyMail@gmail.com','Lastname','User','$2a$10$gz4wlkBOiXlob64Py9/Gz.VdMDDEtTBMqAYKknSY6xj92iM7yeeN2',_binary '',1),(252,'user@gmail.com','fernandez','agustina','$2a$10$14.gPA4fxOhruTSeEIhBCe0MEgQs9/SGqfMIdiR4OfCqqQV/NlO6W',_binary '',1),(253,'dummymail@gmail.com','lastname','name','$2a$10$TjK9Gt3qzVy9wwbjABDj0OLuKsLMPOSq2.r/lsKIRIqjnEoUPRl2a',_binary '',1),(254,'owo@gmail.com','lastname','name','$2a$10$VyzLZyrmtf5HK3qcAq2k.ORbzGAe92okYT3KCjhYP2kZlnDCm8PZy',_binary '',1),(302,'mail@dummymail.com','DummyLastName','DummyName','$2a$10$09dLZ18IibQbaCQzePxJg.WgHgpYJuShrAxVVi2QOVBjs0A/7y5iq',_binary '',1),(303,'hectorjaviermorenoh@gmail.com','Moreno','Hector Javier','$2a$10$7byski/.T5aNaCD6XCDNKuI8ClAAMLd.WBpzI9UIDm0bjaGQBlTRm',_binary '',1),(402,'camilomartinez2510@gmail.com','Martinez','Milo','$2a$10$PahmIRFYlaXi6EoUc20NGuPEJ5/G.Wo4cvCuMIz3jsPJ.oZ7txJ3m',_binary '',1);
+INSERT INTO `users` VALUES (102,'camilo_2510@hotmail.com','Martinez','Camilo','$2a$10$7VGlbjCwJDb8c4ypZmjS8.CDa5gp/C9EwqOpywmPuSrIEJE49Blwy',_binary '',1),(152,'juliana_aparicio@outlook.com','Aparicio','Juliana','$2a$10$Zl8BYSzMnbgCLbTz/LgE2OzgnXuaz2JD9L51V641wmZHLzY1wSRxu',_binary '',1),(160,'fernandez.agustinaelena@gmail.com','Fernandez','Agustina','$2a$10$h6iL/0UCU0GjrxUO2YJgG.Rktql6l03euevRysaH.HC/ZJDJwPzBa',_binary '',1),(202,'nmflorezr@gmail.com','Florez','Nicolas','$2a$10$Oytnw0/3hk9Wz3vSSlR9Y.g/HNeyKUh/gMBlupg90jVU9BRzL3ncq',_binary '',1),(203,'nmflorezr@gmail.com','Florez','Nicolas','$2a$10$3DeYp3Q4sfSUKmaW4o0o/OgOdGHwWsnk6zTTknMd8n2ukEDcda01K',_binary '',1),(204,'nmflorezr1@gmail.com','Florez','Nicolas','$2a$10$Fhe.R4eU8ripby4ttuPzZ.Ew0od8BeRSwppKfo5DZAB5A9pBZaNYi',_binary '',1),(205,'dummyMail@gmail.com','Lastname','User','$2a$10$gz4wlkBOiXlob64Py9/Gz.VdMDDEtTBMqAYKknSY6xj92iM7yeeN2',_binary '',1),(252,'user@gmail.com','fernandez','agustina','$2a$10$14.gPA4fxOhruTSeEIhBCe0MEgQs9/SGqfMIdiR4OfCqqQV/NlO6W',_binary '',1),(253,'dummymail@gmail.com','lastname','name','$2a$10$TjK9Gt3qzVy9wwbjABDj0OLuKsLMPOSq2.r/lsKIRIqjnEoUPRl2a',_binary '',1),(254,'owo@gmail.com','lastname','name','$2a$10$VyzLZyrmtf5HK3qcAq2k.ORbzGAe92okYT3KCjhYP2kZlnDCm8PZy',_binary '',1),(302,'mail@dummymail.com','DummyLastName','DummyName','$2a$10$09dLZ18IibQbaCQzePxJg.WgHgpYJuShrAxVVi2QOVBjs0A/7y5iq',_binary '',1),(303,'hectorjaviermorenoh@gmail.com','Moreno','Hector Javier','$2a$10$7byski/.T5aNaCD6XCDNKuI8ClAAMLd.WBpzI9UIDm0bjaGQBlTRm',_binary '',1),(502,'camilomartinez2510@gmail.com','Martinez','Milo','$2a$10$AlmseXGkFiqw3Qh2ZG9Oj.1PF.7kG8t4IMNKHIJmo8rOs59E.U6WS',_binary '',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -188,4 +292,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-23 22:36:24
+-- Dump completed on 2022-11-24 10:39:19
