@@ -72,12 +72,16 @@ const ReservationForm = ({ user, reservationForm, currentProduct }) => {
                setValue={reservationForm.vacined.state[1]}
                label={'¿Estás vacunad@?'}
                options={vacineOptions}
+               errors={getValidationErrors('select', true)}
+               setInputValidation={reservationForm.vacined.isValid[1]}
             />
             <Input
                type="textarea"
                value={reservationForm.tips.state[0]}
                setValue={reservationForm.tips.state[1]}
                label={'¿Datos estra para el vendedor?'}
+               errors={getValidationErrors('text', false)}
+               setInputValidation={reservationForm.tips.isValid[1]}
             />
          </Card>
       </section>
