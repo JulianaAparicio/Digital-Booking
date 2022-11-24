@@ -20,7 +20,7 @@ export async function bookingProduct(bookingForm) {
             month: "2-digit",
             day: "2-digit"
         }),
-        vaccinated: Boolean(bookingQuery.vacined),
+        vaccinated: bookingQuery.vacined === 'No' ? false : true,
         seller: bookingQuery.tips,
         startTime: bookingQuery.checkIn.toString()
     }
