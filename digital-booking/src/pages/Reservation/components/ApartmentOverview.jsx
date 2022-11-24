@@ -44,7 +44,6 @@ const ApartmentOverview = ({
                   <hr />
 
                   <Button classList="db-button-primary" isDisabled={isDisabled} action={confirm}>
-                     {/* {isLoading ? <Spinner /> : null} */}
                      Confirmar reserva
                   </Button>
                </div>
