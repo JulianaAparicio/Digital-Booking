@@ -19,8 +19,11 @@ export async function bookingProduct(bookingForm) {
             year: "numeric",
             month: "2-digit",
             day: "2-digit"
-        }), 
+        }),
+        vaccinated: bookingQuery.vacined === 'No' ? false : true,
+        seller: bookingQuery.tips,
         startTime: bookingQuery.checkIn.toString()
     }
+
     return postAuthReq(BOOKING_URL, bookingQueryMapper);
 }
