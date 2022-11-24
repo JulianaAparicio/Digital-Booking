@@ -37,8 +37,8 @@ const ReservationPage = () => {
       lastName: { state: useState(null), isValid: useState(false) },
       email: { state: useState(null), isValid: useState(false) },
       city: { state: useState(null), isValid: useState(false) },
-      vacined: { state: useState('') },
-      tips: { state: useState(null) },
+      vacined: { state: useState('Si'), isValid: useState(false) },
+      tips: { state: useState(''), isValid: useState(true)},
       dates: { state: useState() },
       checkIn: { state: useState(new DateObject({ hour: 10, minute: 0 })) },
       productId: { state: useState(Number(apartmentId)) },
@@ -99,9 +99,8 @@ const ReservationPage = () => {
 
    useEffect(() => {
       if (ctx.categories.length > 0 && !ctx.user) {
-         navigate('/login', {
-            state: { reservationMessage: 'Para realizar una reserva necesitas estar logueado' },
-         });
+         navigate('/login');
+         window.alert('Necesitas iniciar sesión antes de reservar.');
       }
    }, [ctx]);
 
