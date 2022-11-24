@@ -20,5 +20,6 @@ public class BookingReqDTO {
     private String productId;
     private String userId;
     private Long id;
-
+    private Boolean vaccinated;
+    private String seller;
 }
