@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService implements IService<User> {
@@ -46,6 +47,13 @@ public class UserService implements IService<User> {
             throw new BadRequestException("The user is null.");
         } else {
             logger.debug("Creating new user...");
+
+            Optional<User> userExists = userRepository.findByEmail(user.getEmail());
+            if (userExists.isPresent()) {
+                logger.error("The user email entered already exists is null.");
+                throw new BadRequestException("The user with email " + user.getEmail() + " already exists");
+            }
+
             Role role = roleRepository.findByName(UserRoleEnum.USER);
             user.setRole(role);
             return userRepository.save(user);

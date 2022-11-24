@@ -36,7 +36,7 @@ public class ProductServiceTest {
         List<Item> itemsTest = new ArrayList<>();
         List<Rating> ratingsTest = new ArrayList<>();
 
-        productDTOTest = new ProductDTO(30L, "titleTest", "descriptionTest", categoryTest, amenitiesTest, locationTest, imagesTest, itemsTest, ratingsTest);
+        productDTOTest = new ProductDTO(30L, "titleTest", "descriptionTest", categoryTest, amenitiesTest, locationTest, imagesTest, itemsTest, ratingsTest, new ArrayList<>());
     }
 
     @Order(2)
