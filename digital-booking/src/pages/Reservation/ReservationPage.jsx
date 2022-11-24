@@ -37,7 +37,7 @@ const ReservationPage = () => {
       lastName: { state: useState(null), isValid: useState(false) },
       email: { state: useState(null), isValid: useState(false) },
       city: { state: useState(null), isValid: useState(false) },
-      vacined: { state: useState(null) },
+      vacined: { state: useState('') },
       tips: { state: useState(null) },
       dates: { state: useState() },
       checkIn: { state: useState(new DateObject({ hour: 10, minute: 0 })) },
