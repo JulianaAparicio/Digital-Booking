@@ -35,6 +35,12 @@ public class Booking {
     @Column
     private LocalDate finalDate;
 
+    @Column
+    private Boolean vaccinated;
+
+    @Column(columnDefinition="TEXT")
+    private String seller;
+
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "productId",nullable = false)

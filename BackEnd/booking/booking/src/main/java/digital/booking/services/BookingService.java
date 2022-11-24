@@ -11,6 +11,7 @@ import digital.booking.entities.User;
 import digital.booking.exceptions.BadRequestException;
 import digital.booking.exceptions.NotFoundException;
 import digital.booking.interfaces.IService;
+import digital.booking.mails.BookingMail;
 import digital.booking.repositories.BookingRepository;
 import digital.booking.repositories.ProductRepository;
 import digital.booking.repositories.UserRepository;
@@ -96,10 +97,13 @@ public class BookingService implements IService<BookingDTO> {
             bookingCreated.setStartTime(booking.getStartTime());
             bookingCreated.setInitialDate(LocalDate.parse(booking.getInitialDate(), dateFormat));
             bookingCreated.setFinalDate(LocalDate.parse(booking.getFinalDate(), dateFormat));
+            bookingCreated.setVaccinated(booking.getVaccinated());
+            bookingCreated.setSeller(booking.getSeller());
 
-            System.out.println(bookingCreated);
             logger.info("The booking was created successfully.");
-            return mapper.convertValue(bookingRepository.save(bookingCreated), BookingDTO.class);
+            Booking bookingSaved = bookingRepository.save(bookingCreated);
+            BookingMail.sendBookingEmail(user.get(), product.get(), bookingSaved);
+            return mapper.convertValue(bookingSaved, BookingDTO.class);
         }
     }
 
@@ -117,6 +121,8 @@ public class BookingService implements IService<BookingDTO> {
         existingBooking.setFinalDate(LocalDate.parse(booking.getFinalDate(), dateFormat));
         existingBooking.setProduct(product.get());
         existingBooking.setUser(user.get());
+        existingBooking.setVaccinated(booking.getVaccinated());
+        existingBooking.setSeller(booking.getSeller());
 
         bookingRepository.save(existingBooking);
         logger.info("The booking was updated successfully.");

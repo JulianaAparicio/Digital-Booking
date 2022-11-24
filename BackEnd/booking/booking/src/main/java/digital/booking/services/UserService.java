@@ -8,6 +8,7 @@ import digital.booking.entities.UserRoleEnum;
 import digital.booking.exceptions.BadRequestException;
 import digital.booking.exceptions.NotFoundException;
 import digital.booking.interfaces.IService;
+import digital.booking.mails.RegisterMail;
 import digital.booking.repositories.RoleRepository;
 import digital.booking.repositories.UserRepository;
 import org.apache.log4j.Logger;
@@ -53,10 +54,12 @@ public class UserService implements IService<User> {
                 logger.error("The user email entered already exists is null.");
                 throw new BadRequestException("The user with email " + user.getEmail() + " already exists");
             }
-
             Role role = roleRepository.findByName(UserRoleEnum.USER);
             user.setRole(role);
-            return userRepository.save(user);
+
+            User userCreated = userRepository.save(user);
+            RegisterMail.sendRegisterEmail(userCreated);
+            return userCreated;
         }
     }
 

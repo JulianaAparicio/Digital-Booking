@@ -18,6 +18,8 @@ public class BookingDTO {
     private String startTime;
     private LocalDate initialDate;
     private LocalDate finalDate;
+    private Boolean vaccinated;
+    private String seller;
     private ProductDTO product;
     private UserDTO user;
 
