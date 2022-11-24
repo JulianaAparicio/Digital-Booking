@@ -99,8 +99,9 @@ const ReservationPage = () => {
 
    useEffect(() => {
       if (ctx.categories.length > 0 && !ctx.user) {
-         navigate('/login');
-         window.alert('Necesitas iniciar sesión antes de reservar.');
+         navigate('/login', {
+            state: { reservationMessage: 'Para realizar una reserva necesitas estar logueado' },
+         });
       }
    }, [ctx]);
 
