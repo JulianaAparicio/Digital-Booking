@@ -24,3 +24,4 @@ node_modules
 .gitignore
 **/__snapshots__/**
 **/*.snap
+**/core/services/baseUrl.js
