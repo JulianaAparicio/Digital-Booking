@@ -8,7 +8,6 @@ export async function getReq(url, params) {
 export async function postReq(url, body) {
    return await axios.post(url, JSON.stringify(body), {headers: {
       'Content-Type': 'application/json;charset=UTF-8',
-      'Access-Control-Allow-Origin': '*'
     }});
 }
 
@@ -22,7 +21,6 @@ export async function postAuthReq(url, body) {
 export async function putReq(url, body) {
    return await axios.put(url, JSON.stringify(body), {headers: {
       'Content-Type': 'application/json;charset=UTF-8',
-      'Access-Control-Allow-Origin': '*'
     }});
 }
 

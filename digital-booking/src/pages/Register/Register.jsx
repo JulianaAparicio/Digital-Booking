@@ -19,6 +19,7 @@ const Register = () => {
 
    const [isLoading, setIsLoading] = useState(false);
    const [failedAuth, setFailedAuth] = useState(false);
+   const [failedAuthError, setFailedAuthError] = useState('');
 
 
    const registerForm = {
@@ -36,9 +37,13 @@ const Register = () => {
             setToken(data);
             appContext.setUser(decodeToken());
             browserNavigate('/');
-         }).catch((e) => {
+         }).catch(({response}) => {
             setFailedAuth(true);
+            setFailedAuthError(response.data.message);
          }).finally(() => setIsLoading(false));
+      }).catch(({response}) => {
+         setFailedAuth(true);
+         setFailedAuthError(response.data.message);
       });
    };
 
@@ -124,7 +129,7 @@ const Register = () => {
          </MainCenterLayout>
          { failedAuth ? 
             <Alert type={'error'} close={closeAlert}>
-               Usuario o contraseña incorrectos.<br/>¡Intente de nuevo!
+               {failedAuthError}.<br/>¡Intente de nuevo!
             </Alert> : null
          } 
       </>
