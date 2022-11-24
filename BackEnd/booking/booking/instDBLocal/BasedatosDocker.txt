@@ -1,8 +1,22 @@
-
+Crear la base de datos en docker
+================================
 docker container run -d --name basedatos -p 3306:3306 hectorjm/bookingdb
 docker ps -a
 
+- Cambiar en aplication.propierties la conexion local
+- Iniciar la plicacion en intellij Maven corriendo desde clean hasta install para que cree la base de datos y tablas
+- Cargar la informacion desde workbench con usuario root
+- Archivo con datos datos.sql
 
 USER: 0521PTC3N1db_GRUPO6
 PASSWORD: thah6Ea2
 
+USER: root
+PASSWORD: thah6Ea2
+
+
+borrar la base de datos de docker
+=================================
+
+docker stop basedatos
+docker rm basedatos
