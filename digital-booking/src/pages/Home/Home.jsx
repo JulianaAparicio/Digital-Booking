@@ -12,11 +12,14 @@ import {
 } from '../../core/services/Product';
 import { useRef } from 'react';
 import LoadingComponent from './components/LoadingComponent/LoadingComponent';
+import MapPreview from './components/MapPreview/MapPreview';
+import { ProductMap } from './contexts/productMap';
 
 const Home = () => {
    const appContext = useContext(Context);
 
    const categoriesAnimated = useRef(false);
+   const [productMap, setProductMap] = useState(null);
    const recomendationsAnimated = useRef(false);
 
    const [currentProducts, setCurrentProducts] = useState(null);
@@ -105,9 +108,9 @@ const Home = () => {
    }, [searchForm.city.state[0], searchForm.date.state[0]]);
 
    return (
-      <>
+      <ProductMap.Provider value={{ productMap, setProductMap }}>
          {isLoading ? <LoadingComponent /> : null}
-
+         <MapPreview />
          <div id="home">
             <Searcher
                setDate={searchForm.date.state[1]}
@@ -141,7 +144,7 @@ const Home = () => {
                {currentProducts ? <Recomendations products={currentProducts} /> : null}
             </div>
          </div>
-      </>
+      </ProductMap.Provider>
    );
 };
 
