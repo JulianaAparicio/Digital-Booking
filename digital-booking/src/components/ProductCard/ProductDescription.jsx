@@ -4,21 +4,23 @@ import './ProductCard.scss';
 import Amenity from '../../shared/Amenity/Amenity';
 import { Link } from 'react-router-dom';
 import Rating from '../../shared/Rating/Rating';
+import { useContext } from 'react';
+import { ProductMap } from '../../pages/Home/contexts/productMap';
+import { useEffect } from 'react';
 
-export default function ProductDescription({
-   id,
-   category,
-   title,
-   rate,
-   distance,
-   amenities,
-   description,
-}) {
+export default function ProductDescription({ product }) {
+   const { id, category, title, rate, distance, amenities, description } = product;
+
+   const { setProductMap } = useContext(ProductMap);
+
    return (
       <div className="db-product-description">
          <div className="db-product-header">
             <div className="db-product-title">
-               <h4 className="db-product-category"><span>{category.title}</span><Rating rate={rate && rate.score}/></h4>
+               <h4 className="db-product-category">
+                  <span>{category.title}</span>
+                  <Rating rate={rate && rate.score} />
+               </h4>
                <h2>{title}</h2>
             </div>
             <div className="db-product-rate">
@@ -30,7 +32,11 @@ export default function ProductDescription({
             <div className="db-product-location-map">
                <LocationIcon />
                <span>{distance}</span>
-               <span className="db-product-location-map--show">Mostrar en el mapa</span>
+               <span
+                  onClick={() => setProductMap(product)}
+                  className="db-product-location-map--show">
+                  Mostrar en el mapa
+               </span>
             </div>
             <div className="db-product-location-amenities">
                {amenities.map(($amenity, i) => (
@@ -38,8 +44,8 @@ export default function ProductDescription({
                ))}
             </div>
          </div>
-         <div className="db-product-text">{description.slice(0,100)}...</div>
-         <Link to={`product/${id}`} >
+         <div className="db-product-text">{description.slice(0, 70)}...</div>
+         <Link to={`product/${id}`}>
             <Button classList={'db-button-primary'}>Ver más</Button>
          </Link>
       </div>

@@ -25,6 +25,7 @@
 
                &:hover {
                   cursor: pointer;
+
                   path {
                      fill: var(--color-text-light);
                   }
@@ -34,11 +35,12 @@
 
          & svg:hover {
             cursor: pointer;
+
             path {
                fill: var(--color-primary);
             }
          }
-     
+
       }
 
       @media (max-width: 450px) {
@@ -51,6 +53,7 @@
 
    &-description {
       padding: 1rem;
+      width: 100%;
 
       button {
          width: 100%;
@@ -121,10 +124,17 @@
          &--show {
             color: var(--color-primary);
             text-transform: uppercase;
+            cursor: pointer;
+            // transition: .1s;
+
+            &:hover {
+               color: var(--color-primary-dark);
+            }
          }
       }
 
       &-amenities {
+         gap: .2rem;
          margin-top: 5px;
          display: flex;
          align-items: center;

@@ -1,0 +1,36 @@
+.db-map-preview-container {
+   background: rgba(0, 0, 0, 0.3);
+   height: 100%;
+   padding-top: 10%;
+   position: fixed;
+   width: 100%;
+   z-index: 3;
+
+   @media (min-width: 1024px) {
+      padding-top: 5%;
+   }
+
+   @media (min-width: 1278px) {
+      padding-top: 2%;
+   }
+
+   .db-card {
+      align-items: center;
+      background: white url('../../../../assets/loader-gif.gif') center no-repeat;
+      background-size: contain;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem 0;
+      height: 70%;
+      margin: auto;
+      padding: 1rem;
+      width: 80%;
+
+
+      iframe {
+         height: 100%;
+         width: 100%;
+         border-radius: 8px;
+      }
+   }
+}

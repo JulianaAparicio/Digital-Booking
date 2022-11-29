@@ -151,7 +151,7 @@ const ReservationPage = () => {
    return (
       ctx.user && (
          <>
-            <Thanks ref={thanksContainer} />
+            <Thanks productId={apartmentId} ref={thanksContainer} />
             <LoadingScreen />
             {currentProduct && (
                <div className="db-reservation-page">

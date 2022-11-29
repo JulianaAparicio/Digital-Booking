@@ -17,7 +17,6 @@ const Amenity = ({ type, label = false }) => {
 };
 
 const Svg = ({ type }) => {
-   console.log(type.toLowerCase());
    switch (type.toLowerCase()) {
       case 'wifi':
          return <WifiIcon />;
