@@ -7,10 +7,8 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import digital.booking.DTO.ProductDTO;
-import digital.booking.entities.Booking;
-import digital.booking.entities.Product;
-import digital.booking.entities.QBooking;
-import digital.booking.entities.QProduct;
+import digital.booking.DTO.RatingDTO;
+import digital.booking.entities.*;
 import digital.booking.exceptions.BadRequestException;
 import digital.booking.exceptions.NotFoundException;
 import digital.booking.interfaces.IService;
@@ -132,6 +130,8 @@ public class ProductService implements IService<ProductDTO> {
                         "was not found."));
 
         logger.debug("Updating product...");
+        List<Rating> ratings = (List<Rating>) product.getRatings().stream().map((rating) -> mapper.convertValue(rating, Rating.class));
+
         existingProduct.setTitle(product.getTitle());
         existingProduct.setDescription(product.getDescription());
         existingProduct.setCategory(product.getCategory());
@@ -139,8 +139,7 @@ public class ProductService implements IService<ProductDTO> {
         existingProduct.setLocation(product.getLocation());
         existingProduct.setImages(product.getImages());
         existingProduct.setItems(product.getItems());
-        existingProduct.setRatings(product.getRatings());
-
+        existingProduct.setRatings(ratings);
 
         productRepository.save(existingProduct);
         logger.info("The product was updated successfully.");

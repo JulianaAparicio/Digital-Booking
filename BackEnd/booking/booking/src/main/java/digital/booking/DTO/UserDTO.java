@@ -1,9 +1,7 @@
 package digital.booking.DTO;
 
 import digital.booking.entities.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 

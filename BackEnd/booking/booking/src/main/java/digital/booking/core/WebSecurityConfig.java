@@ -76,7 +76,7 @@ public class WebSecurityConfig  {
                         "/v3/api-docs/**").permitAll()
                 .antMatchers("/categories/**","/products/**","/cities/**","/auth/**","/users/register" ).permitAll()
                 .antMatchers("/booking/**").hasAnyAuthority("USER", "ADMIN")
-                //.anyRequest().authenticated()
+                .anyRequest().authenticated()
                 .and()
                 .httpBasic();
         http.addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);

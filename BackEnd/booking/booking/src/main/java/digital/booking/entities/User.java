@@ -1,6 +1,7 @@
 package digital.booking.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import digital.booking.core.GrandAuthoritiesDeserializer;
 import lombok.*;
@@ -17,8 +18,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
