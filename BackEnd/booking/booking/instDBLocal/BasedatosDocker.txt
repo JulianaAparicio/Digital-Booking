@@ -6,6 +6,7 @@ docker ps -a
 - Cambiar en aplication.propierties la conexion local
 - Iniciar la plicacion en intellij Maven corriendo desde clean hasta install para que cree la base de datos y tablas
 - Cargar la informacion desde workbench con usuario root
+- Verificar antes de cargar los datos que las tablas esten vacias especialmente cities porque genera id duplicados
 - Archivo con datos datos.sql
 
 USER: 0521PTC3N1db_GRUPO6
