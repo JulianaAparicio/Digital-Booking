@@ -18,7 +18,7 @@ SET @MYSQLDUMP_TEMP_LOG_BIN = @@SESSION.SQL_LOG_BIN;
 SET @@SESSION.SQL_LOG_BIN= 0;
 
 --
--- GTID state at the beginning of the backup 
+-- GTID state at the beginning of the backup
 --
 
 SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '';
@@ -59,7 +59,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` VALUES (1,'14','https://camada3grupo6.s3.amazonaws.com/Categories/hoteles.jpg','Hoteles'),(2,'10','https://camada3grupo6.s3.amazonaws.com/Categories/casas.jpg','Casas'),(3,'55','https://camada3grupo6.s3.amazonaws.com/Categories/apartamentos.jpg','Departamentos'),(4,'35','https://camada3grupo6.s3.amazonaws.com/Categories/casaCampo.jpg','Casas de campo'),(102,'Contiene espacios reducidos como sala-comedor o habitaciones pequeñas','https://camada3grupo6.s3.amazonaws.com/Categories/apartamentos.jpg','Departamento'),(1852,'descriptionTest','imageURLTest','titleTest'),(1902,'descriptionTest','imageURLTest','titleTest'),(1952,'descriptionTest','imageURLTest','titleTest'),(2002,'descriptionTest','imageURLTest','titleTest'),(2052,'descriptionTest','imageURLTest','titleTest'),(2102,'string','string','string');
+INSERT INTO `categories` VALUES (1,'14','https://camada3grupo6.s3.amazonaws.com/Categories/hoteles.jpg','Hoteles'),(2,'10','https://camada3grupo6.s3.amazonaws.com/Categories/casas.jpg','Casas'),(3,'55','https://camada3grupo6.s3.amazonaws.com/Categories/apartamentos.jpg','Departamentos'),(4,'35','https://camada3grupo6.s3.amazonaws.com/Categories/casaCampo.jpg','Casas de campo'),(102,'Contiene espacios reducidos como sala-comedor o habitaciones pequeñas','https://camada3grupo6.s3.amazonaws.com/Categories/apartamentos.jpg','Departamento'),(1852,'descriptionTest','imageURLTest','titleTest'),(1902,'descriptionTest','imageURLTest','titleTest'),(1952,'descriptionTest','imageURLTest','titleTest'),(2002,'descriptionTest','imageURLTest','titleTest'),(2052,'descriptionTest','imageURLTest','titleTest'),(2102,'string','string','string'),(2152,'descriptionTest','imageURLTest','titleTest'),(2202,'descriptionTest','imageURLTest','titleTest'),(2252,'descriptionTest','imageURLTest','titleTest');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -69,7 +69,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `category_seq` WRITE;
 /*!40000 ALTER TABLE `category_seq` DISABLE KEYS */;
-INSERT INTO `category_seq` VALUES (2201);
+INSERT INTO `category_seq` VALUES (2351);
 /*!40000 ALTER TABLE `category_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -79,7 +79,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `cities` WRITE;
 /*!40000 ALTER TABLE `cities` DISABLE KEYS */;
-INSERT INTO `cities` VALUES (1,'countryEdited','nameEdited','stateEdited'),(2,'Colombia','Cartagena de Indias','Bolivar'),(3,'Colombia','Medellin','Antioquia'),(11,'Colombia','Cali','Valle del Cauca'),(12,'Colombia','Barranquilla','Atlantico'),(13,'Colombia','Cartagena','Bolivar'),(14,'Colombia','Bucaramanga','Santander'),(15,'Colombia','Villavicencio','Meta'),(16,'Colombia','Santa Marta','Magdalena'),(17,'Colombia','Valledupar','Cesar'),(18,'Colombia','Ibague','Tolima'),(19,'Colombia','Monteria','Cordoba'),(20,'Colombia','Pereira','Risaralda'),(21,'Colombia','Manizales','Caldas'),(22,'Colombia','Pasto','Narino'),(23,'Colombia','Neiva','Huila'),(24,'Colombia','Palmira','Valle del Cauca'),(25,'Colombia','Popayan','Cauca'),(26,'Colombia','Buenaventura','Valle del Cauca'),(27,'Colombia','Floridablanca','Santander'),(28,'Colombia','Armenia','Quindio'),(29,'Colombia','Sincelejo','Sucre'),(30,'Colombia','Itagui','Antioquia'),(31,'Colombia','Tumaco','Narino'),(32,'Colombia','Envigado','Antioquia'),(33,'Colombia','Dosquebradas','Risaralda'),(34,'Colombia','Tulua','Valle del Cauca'),(35,'Colombia','Barrancabermeja','Santander'),(36,'Colombia','Riohacha','La Guajira'),(37,'Argentina','Buenos Aires','Ciudad de Buenos Aires'),(38,'Argentina','Cordoba','Cordoba'),(39,'Argentina','Rosario','Santa Fe'),(40,'Argentina','Mar del Plata','Buenos Aires'),(41,'Argentina','San Miguel de Tucuman','Tucuman'),(42,'Argentina','Salta','Salta'),(43,'Argentina','Santa Fe','Santa Fe'),(44,'Argentina','Corrientes','Corrientes'),(45,'Argentina','Bahia Blanca','Buenos Aires'),(46,'Argentina','Resistencia','Chaco'),(47,'Argentina','Posadas',' Misiones'),(48,'Argentina','Quilmes','Buenos Aires'),(49,'Argentina','San Salvador de Jujuy','Jujuy'),(51,'Argentina','	Santiago del Estero','Santiago del Estero'),(53,'Argentina','La Rioja','La Rioja'),(54,'Argentina','San Luis','San Luis'),(55,'Colombia','Bogota','Distrito Capital'),(56,'Colombia','Carmen de Apicala','Tolima');
+INSERT INTO `cities` VALUES (2,'Colombia','Cartagena de Indias','Bolivar'),(3,'Colombia','Medellin','Antioquia'),(11,'Colombia','Cali','Valle del Cauca'),(12,'Colombia','Barranquilla','Atlantico'),(13,'Colombia','Cartagena','Bolivar'),(14,'Colombia','Bucaramanga','Santander'),(15,'Colombia','Villavicencio','Meta'),(16,'Colombia','Santa Marta','Magdalena'),(17,'Colombia','Valledupar','Cesar'),(18,'Colombia','Ibague','Tolima'),(19,'Colombia','Monteria','Cordoba'),(20,'Colombia','Pereira','Risaralda'),(21,'Colombia','Manizales','Caldas'),(22,'Colombia','Pasto','Narino'),(23,'Colombia','Neiva','Huila'),(24,'Colombia','Palmira','Valle del Cauca'),(25,'Colombia','Popayan','Cauca'),(26,'Colombia','Buenaventura','Valle del Cauca'),(27,'Colombia','Floridablanca','Santander'),(28,'Colombia','Armenia','Quindio'),(29,'Colombia','Sincelejo','Sucre'),(30,'Colombia','Itagui','Antioquia'),(31,'Colombia','Tumaco','Narino'),(32,'Colombia','Envigado','Antioquia'),(33,'Colombia','Dosquebradas','Risaralda'),(34,'Colombia','Tulua','Valle del Cauca'),(35,'Colombia','Barrancabermeja','Santander'),(36,'Colombia','Riohacha','La Guajira'),(37,'Argentina','Buenos Aires','Ciudad de Buenos Aires'),(38,'Argentina','Cordoba','Cordoba'),(39,'Argentina','Rosario','Santa Fe'),(40,'Argentina','Mar del Plata','Buenos Aires'),(41,'Argentina','San Miguel de Tucuman','Tucuman'),(42,'Argentina','Salta','Salta'),(43,'Argentina','Santa Fe','Santa Fe'),(44,'Argentina','Corrientes','Corrientes'),(45,'Argentina','Bahia Blanca','Buenos Aires'),(46,'Argentina','Resistencia','Chaco'),(47,'Argentina','Posadas',' Misiones'),(48,'Argentina','Quilmes','Buenos Aires'),(49,'Argentina','San Salvador de Jujuy','Jujuy'),(51,'Argentina','	Santiago del Estero','Santiago del Estero'),(53,'Argentina','La Rioja','La Rioja'),(54,'Argentina','San Luis','San Luis'),(55,'Colombia','Bogota','Distrito Capital'),(56,'Colombia','Carmen de Apicala','Tolima');
 /*!40000 ALTER TABLE `cities` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,7 +149,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `locations` WRITE;
 /*!40000 ALTER TABLE `locations` DISABLE KEYS */;
-INSERT INTO `locations` VALUES (2,'Calle 19 # 8 14','11.34228','-74.20860',16),(3,'Calle 1 # 17 69','11.19892','74.22813',16),(4,'Km. 13, Via Al Aeropuerto','11.157001','74.22288',16),(5,'Km. 27 Carretera al Parque Tayrona Casa 1','11.28147','73.94570',16),(6,'Vicente López 1827','-34.59046','-58.39121',37),(7,'250 Montevideo, 5000','-31.42091699984516','-64.1895531741783',38),(8,'Carmen De Apicalá - Cundai','4.166301307645855','-74.73109228655456',56),(502,'adressTest','latitudeTest','longitudeTest',1),(552,'adressTest','latitudeTest','longitudeTest',1),(602,'adressTest','latitudeTest','longitudeTest',1),(652,'addressTest','latitudeTest','longitudeTest',1);
+INSERT INTO `locations` VALUES (2,'Calle 19 # 8 14','11.241684146924813','-74.20734798157837',16),(3,'Calle 1 # 17 69','11.198615729277433','-74.22816698895492',16),(4,'Km. 13, Via Al Aeropuerto','11.157403656300135','-74.22288656030189',16),(5,'Km. 27 Carretera al Parque Tayrona Casa 1','11.27735976346513','-73.94550972961264',16),(6,'Vicente López 1827','-34.59033261119721','-58.39110188671169',37),(7,'250 Montevideo, 5000','-31.420225074132766','-64.1894601019803',38),(8,'Carmen De Apicalá - Cundai','4.166301307645855','-74.73109228655456',56),(502,'adressTest','latitudeTest','longitudeTest',1),(552,'adressTest','latitudeTest','longitudeTest',1),(602,'adressTest','latitudeTest','longitudeTest',1),(652,'addressTest','latitudeTest','longitudeTest',1);
 /*!40000 ALTER TABLE `locations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -189,7 +189,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (2,'El Soy Local Santa Marta se encuentra a menos de 1 km de la playa BahÃ­a de Santa Marta y ofrece alojamiento, restaurante, piscina al aire libre, bar y jardÃ­n. Se proporciona WiFi gratuita','Soy Local Santa Marta',1,2),(3,'El Penon Del Rodadero se encuentra en Santa Marta y ofrece vistas a la ciudad, alojamiento, piscina al aire libre, salÃ³n compartido, jardÃ­n, zona de playa privada y pista de tenis. Tanto WiFi como aparcamiento privado estÃ¡n disponibles en el apartamento de forma gratuita.','Peñon de rodadero',1,3),(4,'Sanha Plus Hotel Santa Marta ideal para descansar en familia y disfrutar de su piscina. Planes con alimentaciÃ³n y acomodaciÃ³n mÃºltiple.','Sanha Plus Hotel',1,4),(5,'Hotel en Santa Marta con piscina al aire libre y restaurante','Hotel Villa Cata',1,5),(6,'La Casa Bevant ofrece alojamiento en Buenos Aires, a solo 300 metros del cementerio de la Recoleta. El establecimiento proporciona conexión WiFi gratuita en todas las instalaciones.','Casa Bevant',2,6),(7,'El Guemes Apart Nueva Cordoba ofrece alojamiento con aire acondicionado y wifi gratis en Córdoba, a 200 metros del centro comercial Patio Olmos.','Guemes Apart Nueva Cordoba',3,7),(8,'Situated 21 km from Piscilago, VILLA DURYIX features accommodation with a bar, a garden and a 24-hour front desk for your convenience.','Villa Duryix',4,8);
+INSERT INTO `products` VALUES (2,'El Soy Local Santa Marta se encuentra en el centro de Santa Marta, cerca de la catedral de Santa Marta y del Museo del Oro de Santa Marta, y ofrece bar, jardín y terraza.','Soy Local Santa Marta',1,2),(3,'El Edificio El Peñón del Rodadero se encuentra en Santa Marta y ofrece vistas al jardín, pileta al aire libre, salón compartido, jardín, cancha de tenis y terraza.','Peñon de rodadero',1,3),(4,'El hotel Sánha Plus ofrece alojamiento en Santa Marta, a 500 metros de la playa (7 minutos en auto). Cuenta con 2 piscinas rodeadas de palmeras. Hay WiFi.','Sanha Plus Hotel',1,4),(5,'El Villa Cata Hotel se encuentra en Santa Marta, a 26 km de la Quinta de San Pedro Alejandrino, y ofrece alojamiento con restaurante, estacionamiento privado gratuito, pileta al aire libre y bar. Todos los alojamientos de este hotel de 3 estrellas tienen vistas a la pileta, salón compartido y jardín. Se ofrece conexión wifi gratis y room service.','Hotel Villa Cata',1,5),(6,'La Casa Bevant ofrece alojamiento en Buenos Aires, a solo 300 metros del cementerio de la Recoleta. El establecimiento proporciona conexión WiFi gratuita en todas las instalaciones.','Casa Bevant',2,6),(7,'El Guemes Apart Nueva Cordoba ofrece alojamiento con aire acondicionado y wifi gratis en Córdoba, a 200 metros del centro comercial Patio Olmos.','Guemes Apart Nueva Cordoba',3,7),(8,'Situated 21 km from Piscilago, VILLA DURYIX features accommodation with a bar, a garden and a 24-hour front desk for your convenience.','Villa Duryix',4,8);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -269,7 +269,28 @@ UNLOCK TABLES;
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (102,'camilo_2510@hotmail.com','Martinez','Camilo','$2a$10$7VGlbjCwJDb8c4ypZmjS8.CDa5gp/C9EwqOpywmPuSrIEJE49Blwy',_binary '',1),(152,'juliana_aparicio@outlook.com','Aparicio','Juliana','$2a$10$Zl8BYSzMnbgCLbTz/LgE2OzgnXuaz2JD9L51V641wmZHLzY1wSRxu',_binary '',1),(160,'fernandez.agustinaelena@gmail.com','Fernandez','Agustina','$2a$10$h6iL/0UCU0GjrxUO2YJgG.Rktql6l03euevRysaH.HC/ZJDJwPzBa',_binary '',1),(202,'nmflorezr@gmail.com','Florez','Nicolas','$2a$10$Oytnw0/3hk9Wz3vSSlR9Y.g/HNeyKUh/gMBlupg90jVU9BRzL3ncq',_binary '',1),(203,'nmflorezr@gmail.com','Florez','Nicolas','$2a$10$3DeYp3Q4sfSUKmaW4o0o/OgOdGHwWsnk6zTTknMd8n2ukEDcda01K',_binary '',1),(204,'nmflorezr1@gmail.com','Florez','Nicolas','$2a$10$Fhe.R4eU8ripby4ttuPzZ.Ew0od8BeRSwppKfo5DZAB5A9pBZaNYi',_binary '',1),(205,'dummyMail@gmail.com','Lastname','User','$2a$10$gz4wlkBOiXlob64Py9/Gz.VdMDDEtTBMqAYKknSY6xj92iM7yeeN2',_binary '',1),(252,'user@gmail.com','fernandez','agustina','$2a$10$14.gPA4fxOhruTSeEIhBCe0MEgQs9/SGqfMIdiR4OfCqqQV/NlO6W',_binary '',1),(253,'dummymail@gmail.com','lastname','name','$2a$10$TjK9Gt3qzVy9wwbjABDj0OLuKsLMPOSq2.r/lsKIRIqjnEoUPRl2a',_binary '',1),(254,'owo@gmail.com','lastname','name','$2a$10$VyzLZyrmtf5HK3qcAq2k.ORbzGAe92okYT3KCjhYP2kZlnDCm8PZy',_binary '',1),(302,'mail@dummymail.com','DummyLastName','DummyName','$2a$10$09dLZ18IibQbaCQzePxJg.WgHgpYJuShrAxVVi2QOVBjs0A/7y5iq',_binary '',1),(303,'hectorjaviermorenoh@gmail.com','Moreno','Hector Javier','$2a$10$7byski/.T5aNaCD6XCDNKuI8ClAAMLd.WBpzI9UIDm0bjaGQBlTRm',_binary '',1),(502,'camilomartinez2510@gmail.com','Martinez','Milo','$2a$10$AlmseXGkFiqw3Qh2ZG9Oj.1PF.7kG8t4IMNKHIJmo8rOs59E.U6WS',_binary '',1),(552,'fernandez.ae.87@gmail.com','hongo','pepe','$2a$10$O5faILsyONlDuMJXlc/gLuIzSciEFeV1M9Sg7n811GFFgmBhXlire',_binary '',1),(553,'mjz53@hotmail.com','Zabala','Marcos ','$2a$10$9mhS8AbftYXpUqh.XA3NruWWyzohwbCJmvf5x8U8a4zkrmhcx6HxS',_binary '',1),(554,'user1@gmail.com','araz','sole','$2a$10$oitWAAwyjSKhRTVF1/n/WeW5bU4LspyzgFtodx4TXoCfosVQxdGO6',_binary '',1),(555,'juan@gmail.com','Lopez','Juan','$2a$10$iCgLE74EzG3XAwROfr058uYUb3BvRkRyu6Mvbj8DFaWH/iZ4w.ZBC',_binary '',1),(556,'abc@gmail.com','LastName','Name','$2a$10$Ev8XxA4ltg25ULt4Gswl5ORAmX7gAtGJc.k.nWg7DhudppF8GzkGu',_binary '',1),(557,'asd@gmail.com','Lastname','User','$2a$10$zEI0oVbzrhos9rXx36Mum.AFf4wf7X5mZhijh44Lr.PCgZzeN.6g6',_binary '',1),(558,'nmflorezr@correo.udistrital.edu.co','Florez','Nicolas','$2a$10$j9tTa2heBPdBIirMfefEteka/Z4d6OoyVHTd2qP1V6rUfP.uK0nfe',_binary '',1),(559,'leammau@gmail.com','Mauro','Leandro','$2a$10$lANzbLMSRAwhVdzrcYvtJ.dD14mM.uZ.POab0orvM60Eaac1EVIva',_binary '',1);
+INSERT INTO `users` VALUES
+(102, 1, 'camilo_2510@hotmail.com','Martinez','Camilo','$2a$10$7VGlbjCwJDb8c4ypZmjS8.CDa5gp/C9EwqOpywmPuSrIEJE49Blwy',1),
+(152, 1, 'juliana_aparicio@outlook.com','Aparicio','Juliana','$2a$10$Zl8BYSzMnbgCLbTz/LgE2OzgnXuaz2JD9L51V641wmZHLzY1wSRxu',1),
+(160, 1, 'fernandez.agustinaelena@gmail.com','Fernandez','Agustina','$2a$10$h6iL/0UCU0GjrxUO2YJgG.Rktql6l03euevRysaH.HC/ZJDJwPzBa',1),
+(202, 1, 'nmflorezr@gmail.com','Florez','Nicolas','$2a$10$Oytnw0/3hk9Wz3vSSlR9Y.g/HNeyKUh/gMBlupg90jVU9BRzL3ncq',1),
+(203, 1, 'nmflorezr@gmail.com','Florez','Nicolas','$2a$10$3DeYp3Q4sfSUKmaW4o0o/OgOdGHwWsnk6zTTknMd8n2ukEDcda01K',1),
+(204, 1, 'nmflorezr1@gmail.com','Florez','Nicolas','$2a$10$Fhe.R4eU8ripby4ttuPzZ.Ew0od8BeRSwppKfo5DZAB5A9pBZaNYi',1),
+(205, 1, 'dummyMail@gmail.com','Lastname','User','$2a$10$gz4wlkBOiXlob64Py9/Gz.VdMDDEtTBMqAYKknSY6xj92iM7yeeN2',1),
+(252, 1, 'user@gmail.com','fernandez','agustina','$2a$10$14.gPA4fxOhruTSeEIhBCe0MEgQs9/SGqfMIdiR4OfCqqQV/NlO6W',1),
+(253, 1, 'dummymail@gmail.com','lastname','name','$2a$10$TjK9Gt3qzVy9wwbjABDj0OLuKsLMPOSq2.r/lsKIRIqjnEoUPRl2a',1),
+(254, 1, 'owo@gmail.com','lastname','name','$2a$10$VyzLZyrmtf5HK3qcAq2k.ORbzGAe92okYT3KCjhYP2kZlnDCm8PZy',1),
+(302, 1, 'mail@dummymail.com','DummyLastName','DummyName','$2a$10$09dLZ18IibQbaCQzePxJg.WgHgpYJuShrAxVVi2QOVBjs0A/7y5iq',1),
+(303, 1, 'hectorjaviermorenoh@gmail.com','Moreno','Hector Javier','$2a$10$7byski/.T5aNaCD6XCDNKuI8ClAAMLd.WBpzI9UIDm0bjaGQBlTRm',1),
+(502, 1, 'camilomartinez2510@gmail.com','Martinez','Milo','$2a$10$AlmseXGkFiqw3Qh2ZG9Oj.1PF.7kG8t4IMNKHIJmo8rOs59E.U6WS',1),
+(552, 1, 'fernandez.ae.87@gmail.com','hongo','pepe','$2a$10$O5faILsyONlDuMJXlc/gLuIzSciEFeV1M9Sg7n811GFFgmBhXlire',1),
+(553, 1, 'mjz53@hotmail.com','Zabala','Marcos ','$2a$10$9mhS8AbftYXpUqh.XA3NruWWyzohwbCJmvf5x8U8a4zkrmhcx6HxS',1),
+(554, 1, 'user1@gmail.com','araz','sole','$2a$10$oitWAAwyjSKhRTVF1/n/WeW5bU4LspyzgFtodx4TXoCfosVQxdGO6',1),
+(555, 1, 'juan@gmail.com','Lopez','Juan','$2a$10$iCgLE74EzG3XAwROfr058uYUb3BvRkRyu6Mvbj8DFaWH/iZ4w.ZBC',1),
+(556, 1, 'abc@gmail.com','LastName','Name','$2a$10$Ev8XxA4ltg25ULt4Gswl5ORAmX7gAtGJc.k.nWg7DhudppF8GzkGu',1),
+(557, 1, 'asd@gmail.com','Lastname','User','$2a$10$zEI0oVbzrhos9rXx36Mum.AFf4wf7X5mZhijh44Lr.PCgZzeN.6g6',1),
+(558, 1, 'nmflorezr@correo.udistrital.edu.co','Florez','Nicolas','$2a$10$j9tTa2heBPdBIirMfefEteka/Z4d6OoyVHTd2qP1V6rUfP.uK0nfe',1),
+(559, 1, 'leammau@gmail.com','Mauro','Leandro','$2a$10$lANzbLMSRAwhVdzrcYvtJ.dD14mM.uZ.POab0orvM60Eaac1EVIva',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -292,4 +313,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-29 15:21:46
+-- Dump completed on 2022-11-30 15:27:07
