@@ -54,8 +54,6 @@ public class UserService implements IService<User> {
                 logger.error("The user email entered already exists is null.");
                 throw new BadRequestException("The user with email " + user.getEmail() + " already exists");
             }
-            Role role = roleRepository.findByName(UserRoleEnum.USER);
-            user.setRole(role);
 
             User userCreated = userRepository.save(user);
             RegisterMail.sendRegisterEmail(userCreated);

@@ -44,6 +44,7 @@ public class TokenManager {
         claims.put("name", ((User) userDetails).getName());
         claims.put("lastName", ((User) userDetails).getLastName());
         claims.put("id", ((User) userDetails).getId());
+        claims.put("role", ((User) userDetails).getRole().getName().name());
         return createToken(claims, userDetails.getUsername());
     }
 
