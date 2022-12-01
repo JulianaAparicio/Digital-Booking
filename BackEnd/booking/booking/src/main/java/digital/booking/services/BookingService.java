@@ -1,12 +1,15 @@
 package digital.booking.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.impl.JPAQuery;
 import digital.booking.DTO.BookingDTO;
 import digital.booking.DTO.BookingReqDTO;
 import digital.booking.DTO.ProductDTO;
 import digital.booking.DTO.UserDTO;
 import digital.booking.entities.Booking;
 import digital.booking.entities.Product;
+import digital.booking.entities.QBooking;
 import digital.booking.entities.User;
 import digital.booking.exceptions.BadRequestException;
 import digital.booking.exceptions.NotFoundException;
@@ -20,6 +23,8 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -29,6 +34,9 @@ import java.util.Optional;
 
 @Service
 public class BookingService implements IService<BookingDTO> {
+
+    @PersistenceContext
+    EntityManager entityManager;
 
     private final Logger logger = Logger.getLogger(BookingService.class);
 
@@ -127,6 +135,12 @@ public class BookingService implements IService<BookingDTO> {
         bookingRepository.save(existingBooking);
         logger.info("The booking was updated successfully.");
         return mapper.convertValue(existingBooking, BookingDTO.class);
+    }
+
+    public List<Booking> getAvailabilityByProductId(Long id) {
+        JPAQuery<Booking> queryBooking = new JPAQuery<>(entityManager);
+        QBooking bookingQ = QBooking.booking;
+        return queryBooking.select(Projections.bean(Booking.class, bookingQ.initialDate.as("initialDate"), bookingQ.finalDate)).from(bookingQ).where(bookingQ.product.id.eq(id)).stream().toList();
     }
 
     @Override

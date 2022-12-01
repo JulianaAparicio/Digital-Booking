@@ -5,7 +5,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Favorite {
+public class FavoriteDTO {
     private Long userId;
     private Long productId;
 }

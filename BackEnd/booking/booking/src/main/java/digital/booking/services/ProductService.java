@@ -97,16 +97,11 @@ public class ProductService implements IService<ProductDTO> {
     @Override
     public ProductDTO searchById(Long id) throws NotFoundException {
         logger.debug("Searching product with id: " + id);
-        JPAQuery<Booking> queryBooking = new JPAQuery<>(entityManager);
-        QBooking bookingQ = QBooking.booking;
 
         Product productFounded = productRepository.findById(id).orElseThrow(() -> new NotFoundException("The " +
                 "product with id: " + id + " was not found."));
 
-        List<Booking> bookings = queryBooking.select(Projections.bean(Booking.class, bookingQ.initialDate.as("initialDate"), bookingQ.finalDate)).from(bookingQ).where(bookingQ.product.id.eq(productFounded.getId())).stream().toList();
-        ProductDTO productFinal = mapper.convertValue(productFounded, ProductDTO.class);
-        productFinal.setAvailability(bookings);
-        return productFinal;
+        return mapper.convertValue(productFounded, ProductDTO.class);
     }
 
     @Override
@@ -125,12 +120,14 @@ public class ProductService implements IService<ProductDTO> {
 
     @Override
     public ProductDTO update(ProductDTO product, Long id) throws NotFoundException {
-        Product existingProduct = productRepository.findById(product.getId())
-                .orElseThrow(() -> new NotFoundException("The product with id " + product.getId() +
-                        "was not found."));
+        Product existingProduct = productRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("The product with id " + id +
+                        " was not found."));
 
         logger.debug("Updating product...");
-        List<Rating> ratings = (List<Rating>) product.getRatings().stream().map((rating) -> mapper.convertValue(rating, Rating.class));
+
+        List<Rating> ratings = new ArrayList<>();
+        product.getRatings().stream().map((rating) -> ratings.add(mapper.convertValue(rating, Rating.class)));
 
         existingProduct.setTitle(product.getTitle());
         existingProduct.setDescription(product.getDescription());
