@@ -28,7 +28,7 @@ const Register = () => {
       email: { state: useState(), isValid: useState(false) },
       password: { state: useState(), isValid: useState(false) },
       passwordConfirm: { state: useState(), isValid: useState(false) },
-      role: { state: useState('USER'), isValid: useState(appContext.user && appContext.user.role !== 'ADMIN' ? false : true) },
+      role: { state: useState('USER'), isValid: useState(appContext.user && appContext.user.role === 'ADMIN' ? false : true) },
    };
 
    const registerNewUser = () => {
