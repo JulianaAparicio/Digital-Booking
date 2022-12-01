@@ -1,5 +1,5 @@
 import { formStateMapper } from "../../utils/formStateMapper";
-import { postAuthReq } from "./axios";
+import { getReq, postAuthReq } from "./axios";
 import { baseUrl } from "./baseUrl";
 
 const BOOKING_URL = `${baseUrl}/booking`;
@@ -27,3 +27,4 @@ export async function bookingProduct(bookingForm) {
 
     return postAuthReq(BOOKING_URL, bookingQueryMapper);
 }
+
