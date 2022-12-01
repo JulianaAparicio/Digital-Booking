@@ -2,25 +2,27 @@ package digital.booking.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.Tuple;
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import digital.booking.DTO.ProductDTO;
-import digital.booking.entities.Product;
-import digital.booking.entities.QProduct;
+import digital.booking.DTO.RatingDTO;
+import digital.booking.entities.*;
 import digital.booking.exceptions.BadRequestException;
 import digital.booking.exceptions.NotFoundException;
 import digital.booking.interfaces.IService;
 import digital.booking.repositories.ProductRepository;
 import org.apache.log4j.Logger;
+import org.hibernate.query.criteria.internal.predicate.ExistsPredicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Service
 public class ProductService implements IService<ProductDTO> {
@@ -37,9 +39,10 @@ public class ProductService implements IService<ProductDTO> {
 
     public List<ProductDTO> searchByQuery(Map<String,String> query) {
 
-
         JPAQuery<Product> queryProduct = new JPAQuery<>(entityManager);
+        JPAQuery<Booking> subQueryBooking = new JPAQuery<>(entityManager);
         QProduct productQ  = QProduct.product;
+        QBooking bookingQ  = QBooking.booking;
 
         BooleanBuilder queries = new BooleanBuilder();
         PathBuilder<Product> pathBuilder = new PathBuilder<>(Product.class, "Product");
@@ -51,6 +54,13 @@ public class ProductService implements IService<ProductDTO> {
                     break;
                 case "city":
                     queries.and(productQ.location.city.id.eq(Long.valueOf(entry.getValue())));
+                    break;
+                case "date":
+                    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.US);
+                    String[] dates = query.get("date").split(",");
+                    LocalDate initialDate = LocalDate.parse(dates[0], dateFormat);
+                    LocalDate finalDate = LocalDate.parse(dates[1], dateFormat);
+                    queries.and(subQueryBooking.from(bookingQ).where(bookingQ.product.id.eq(productQ.id).and(bookingQ.initialDate.between(initialDate, finalDate).or(bookingQ.finalDate.between(initialDate, finalDate)))).notExists());
                     break;
                 default:
                     queries.and(pathBuilder.getString(entry.getKey()).eq(entry.getValue()));
@@ -87,9 +97,16 @@ public class ProductService implements IService<ProductDTO> {
     @Override
     public ProductDTO searchById(Long id) throws NotFoundException {
         logger.debug("Searching product with id: " + id);
+        JPAQuery<Booking> queryBooking = new JPAQuery<>(entityManager);
+        QBooking bookingQ = QBooking.booking;
+
         Product productFounded = productRepository.findById(id).orElseThrow(() -> new NotFoundException("The " +
                 "product with id: " + id + " was not found."));
-        return mapper.convertValue(productFounded, ProductDTO.class);
+
+        List<Booking> bookings = queryBooking.select(Projections.bean(Booking.class, bookingQ.initialDate.as("initialDate"), bookingQ.finalDate)).from(bookingQ).where(bookingQ.product.id.eq(productFounded.getId())).stream().toList();
+        ProductDTO productFinal = mapper.convertValue(productFounded, ProductDTO.class);
+        productFinal.setAvailability(bookings);
+        return productFinal;
     }
 
     @Override
@@ -113,6 +130,8 @@ public class ProductService implements IService<ProductDTO> {
                         " was not found."));
 
         logger.debug("Updating product...");
+        List<Rating> ratings = (List<Rating>) product.getRatings().stream().map((rating) -> mapper.convertValue(rating, Rating.class));
+
         existingProduct.setTitle(product.getTitle());
         existingProduct.setDescription(product.getDescription());
         existingProduct.setCategory(product.getCategory());
@@ -120,8 +139,7 @@ public class ProductService implements IService<ProductDTO> {
         existingProduct.setLocation(product.getLocation());
         existingProduct.setImages(product.getImages());
         existingProduct.setItems(product.getItems());
-        existingProduct.setRatings(product.getRatings());
-
+        existingProduct.setRatings(ratings);
 
         productRepository.save(existingProduct);
         logger.info("The product was updated successfully.");

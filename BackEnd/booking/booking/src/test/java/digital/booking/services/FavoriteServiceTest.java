@@ -33,7 +33,7 @@ public class FavoriteServiceTest {
         List<Rating> ratingsTest = new ArrayList<>();
         List<Product> productsTest = new ArrayList<>();
 
-        productDTOTest = new ProductDTO(25L, "titleTest", "descriptionTest", categoryTest, amenitiesTest, locationTest, imagesTest, itemsTest, ratingsTest);
+        productDTOTest = new ProductDTO(25L, "titleTest", "descriptionTest", categoryTest, amenitiesTest, locationTest, imagesTest, itemsTest, ratingsTest, new ArrayList<>());
         userTest = new User("userNameTest", "userLastNameTest", "userEmailTest", "userPassTest", productsTest);
         userTest.setId(10L);
         favoriteTest = new FavoriteDTO(userTest.getId(), productDTOTest.getId());

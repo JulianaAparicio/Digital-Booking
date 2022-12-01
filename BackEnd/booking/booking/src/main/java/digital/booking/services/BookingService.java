@@ -2,18 +2,30 @@ package digital.booking.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import digital.booking.DTO.BookingDTO;
+import digital.booking.DTO.BookingReqDTO;
+import digital.booking.DTO.ProductDTO;
+import digital.booking.DTO.UserDTO;
 import digital.booking.entities.Booking;
+import digital.booking.entities.Product;
+import digital.booking.entities.User;
 import digital.booking.exceptions.BadRequestException;
 import digital.booking.exceptions.NotFoundException;
 import digital.booking.interfaces.IService;
+import digital.booking.mails.BookingMail;
 import digital.booking.repositories.BookingRepository;
+import digital.booking.repositories.ProductRepository;
+import digital.booking.repositories.UserRepository;
 import org.apache.log4j.Logger;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 
 @Service
 public class BookingService implements IService<BookingDTO> {
@@ -22,6 +34,10 @@ public class BookingService implements IService<BookingDTO> {
 
     @Autowired
     private BookingRepository bookingRepository;
+    @Autowired
+    private ProductRepository productRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private ObjectMapper mapper;
@@ -62,17 +78,51 @@ public class BookingService implements IService<BookingDTO> {
     }
 
     @Override
-    public BookingDTO update(BookingDTO booking, Long id) throws NotFoundException {
+    public BookingDTO update(BookingDTO entity, Long id) throws NotFoundException {
+        return null;
+    }
+
+    public BookingDTO book(BookingReqDTO booking) throws BadRequestException {
+        if (booking.getFinalDate()==null || booking.getInitialDate()==null || booking.getStartTime()==null){
+            logger.error("The data entered has null values.");
+            throw new BadRequestException("The booking has null values.");
+        } else {
+            logger.debug("Creating new booking...");
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy", Locale.US);
+            Optional<User> user = userRepository.findById(Long.parseLong(booking.getUserId()));
+            Optional<Product> product = productRepository.findById(Long.parseLong(booking.getProductId()));
+            Booking bookingCreated = new Booking();
+            bookingCreated.setUser(user.get());
+            bookingCreated.setProduct(product.get());
+            bookingCreated.setStartTime(booking.getStartTime());
+            bookingCreated.setInitialDate(LocalDate.parse(booking.getInitialDate(), dateFormat));
+            bookingCreated.setFinalDate(LocalDate.parse(booking.getFinalDate(), dateFormat));
+            bookingCreated.setVaccinated(booking.getVaccinated());
+            bookingCreated.setSeller(booking.getSeller());
+
+            logger.info("The booking was created successfully.");
+            Booking bookingSaved = bookingRepository.save(bookingCreated);
+            BookingMail.sendBookingEmail(user.get(), product.get(), bookingSaved);
+            return mapper.convertValue(bookingSaved, BookingDTO.class);
+        }
+    }
+
+    public BookingDTO updateBooking(BookingReqDTO booking, Long id) throws NotFoundException {
         Booking existingBooking = bookingRepository.findById(booking.getId())
                 .orElseThrow(() -> new NotFoundException("The booking with id " + booking.getId() +
                         "was not found."));
 
         logger.debug("Updating booking...");
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy", Locale.US);
+        Optional<User> user = userRepository.findById(Long.parseLong(booking.getUserId()));
+        Optional<Product> product = productRepository.findById(Long.parseLong(booking.getProductId()));
         existingBooking.setStartTime(booking.getStartTime());
-        existingBooking.setInitialDate(booking.getInitialDate());
-        existingBooking.setFinalDate(booking.getFinalDate());
-        existingBooking.setProduct(booking.getProduct());
-        existingBooking.setUser(booking.getUser());
+        existingBooking.setInitialDate(LocalDate.parse(booking.getInitialDate(), dateFormat));
+        existingBooking.setFinalDate(LocalDate.parse(booking.getFinalDate(), dateFormat));
+        existingBooking.setProduct(product.get());
+        existingBooking.setUser(user.get());
+        existingBooking.setVaccinated(booking.getVaccinated());
+        existingBooking.setSeller(booking.getSeller());
 
         bookingRepository.save(existingBooking);
         logger.info("The booking was updated successfully.");

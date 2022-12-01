@@ -1,6 +1,9 @@
 package digital.booking.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import digital.booking.core.GrandAuthoritiesDeserializer;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,8 +18,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
@@ -72,6 +74,7 @@ public class User implements UserDetails {
     }
 
     @Override
+    @JsonDeserialize(using = GrandAuthoritiesDeserializer.class)
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority grantedAuthority= new SimpleGrantedAuthority(role.getName().name());
         return Collections.singletonList(grantedAuthority);

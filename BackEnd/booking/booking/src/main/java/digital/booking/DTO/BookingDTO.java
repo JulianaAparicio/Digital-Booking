@@ -2,15 +2,11 @@ package digital.booking.DTO;
 
 import digital.booking.entities.Product;
 import digital.booking.entities.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookingDTO {
@@ -18,7 +14,9 @@ public class BookingDTO {
     private String startTime;
     private LocalDate initialDate;
     private LocalDate finalDate;
-    private Product product;
-    private User user;
+    private Boolean vaccinated;
+    private String seller;
+    private ProductDTO product;
+    private UserDTO user;
 
 }

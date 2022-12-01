@@ -1,8 +1,8 @@
 package digital.booking.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -12,6 +12,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Table(name = "bookings")
 public class Booking {
     @Id
@@ -32,6 +34,12 @@ public class Booking {
     @NotNull
     @Column
     private LocalDate finalDate;
+
+    @Column
+    private Boolean vaccinated;
+
+    @Column(columnDefinition="TEXT")
+    private String seller;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
