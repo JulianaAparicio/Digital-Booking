@@ -2,6 +2,7 @@ package digital.booking.services;
 
 import digital.booking.DTO.FavoriteDTO;
 import digital.booking.DTO.ProductDTO;
+import digital.booking.DTO.RatingDTO;
 import digital.booking.entities.*;
 import digital.booking.exceptions.BadRequestException;
 import org.junit.jupiter.api.*;
@@ -30,7 +31,7 @@ public class FavoriteServiceTest {
         Location locationTest = new Location();
         List<Image> imagesTest = new ArrayList<>();
         List<Item> itemsTest = new ArrayList<>();
-        List<Rating> ratingsTest = new ArrayList<>();
+        List<RatingDTO> ratingsTest = new ArrayList<>();
         List<Product> productsTest = new ArrayList<>();
 
         productDTOTest = new ProductDTO(25L, "titleTest", "descriptionTest", categoryTest, amenitiesTest, locationTest, imagesTest, itemsTest, ratingsTest, new ArrayList<>());

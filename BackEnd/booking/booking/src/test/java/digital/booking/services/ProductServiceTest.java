@@ -1,6 +1,7 @@
 package digital.booking.services;
 
 import digital.booking.DTO.ProductDTO;
+import digital.booking.DTO.RatingDTO;
 import digital.booking.entities.*;
 import digital.booking.exceptions.BadRequestException;
 import digital.booking.exceptions.NotFoundException;
@@ -16,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -47,12 +49,20 @@ public class ProductServiceTest {
 
     @Mock
     private Product productTest;
+    @Mock
+    private ProductDTO productDTOTest;
 
     @Mock
     private Category categoryTest;
 
     @Mock
     private Location locationTest;
+
+    @Mock
+    private List<RatingDTO> ratingDTOTest;
+
+    @Mock
+    private List<Rating> ratingTest;
 
     @Mock
     private City cityTest;
@@ -65,8 +75,12 @@ public class ProductServiceTest {
         cityTest = new City(1L,"cityNameTest","stateTest","countryTest");
         cityRepository.save(cityTest);
         locationTest = new Location(1L,cityTest,"addressTest","latitudeTest","longitudeTest");
+        ratingTest = new ArrayList<>();
+        ratingDTOTest = new ArrayList<>();
 
-        productTest = new Product(1L, "titleTest", "descriptionTest",categoryTest,locationTest);
+        productTest = new Product(1L, "titleTest", "descriptionTest",categoryTest,locationTest, ratingTest);
+        productDTOTest = new ProductDTO(1L,"titleTest", "descriptionTest", categoryTest, new ArrayList<>(), locationTest, new ArrayList<>(), new ArrayList<>(), ratingDTOTest, new ArrayList<>());
+
     }
 
     @Order(2)
@@ -88,7 +102,7 @@ public class ProductServiceTest {
     @Test
     void testSearchById() {
         try {
-            lenient().when(productRepository.findById(1L)).thenReturn(Optional.of(productTest));
+            lenient().when(productRepository.findById(productTest.getId())).thenReturn(Optional.ofNullable(productTest));
             ProductDTO productFounded = productService.searchById(productTest.getId());
 
             assertThat(productFounded).isNotNull();
@@ -104,14 +118,7 @@ public class ProductServiceTest {
         try{
             lenient().when(productRepository.save(any(Product.class))).thenReturn(productTest);
 
-            ProductDTO productDTO = new ProductDTO();
-            productDTO.setId(1L);
-            productDTO.setTitle("titleTest");
-            productDTO.setDescription("descriptionTest");
-            productDTO.setCategory(categoryTest);
-            productDTO.setLocation(locationTest);
-
-            ProductDTO productCreated = productService.create(productDTO);
+            ProductDTO productCreated = productService.create(productDTOTest);
 
             // Verifies if product is null:
             assertNotNull(productCreated,"The product is null");
@@ -129,15 +136,14 @@ public class ProductServiceTest {
     @Test
     void testUpdate() {
         try{
-            ProductDTO productDTO = new ProductDTO();
-            productDTO.setId(1L);
-            productDTO.setTitle("titleEdited");
-            productDTO.setDescription("descriptionEdited");
+
+            productDTOTest.setTitle("titleEdited");
+            productDTOTest.setDescription("descriptionEdited");
 
             lenient().when(productRepository.findById(1L)).thenReturn(Optional.ofNullable(productTest));
             lenient().when(productRepository.save(productTest)).thenReturn(productTest);
 
-            ProductDTO productUpdated = productService.update(productDTO,1L);
+            ProductDTO productUpdated = productService.update(productDTOTest, productTest.getId());
 
             assertNotNull(productUpdated,"The product updated is null.");
 
