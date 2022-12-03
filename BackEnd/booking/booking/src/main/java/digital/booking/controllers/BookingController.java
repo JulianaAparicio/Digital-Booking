@@ -2,6 +2,7 @@ package digital.booking.controllers;
 
 import digital.booking.DTO.BookingDTO;
 import digital.booking.DTO.BookingReqDTO;
+import digital.booking.entities.Booking;
 import digital.booking.exceptions.BadRequestException;
 import digital.booking.exceptions.NotFoundException;
 import digital.booking.services.BookingService;
@@ -49,6 +50,12 @@ public class BookingController {
     public ResponseEntity<String> deleteBooking(@PathVariable Long id) throws NotFoundException {
         bookingService.delete(id);
         return ResponseEntity.ok("Booking deleted ID: " + id);
+    }
+
+    @Operation(summary = "Consultar reservas por ID de usuario")
+    @GetMapping("/bookings/{id}")
+    public ResponseEntity<List<Booking>> findBookingsByUserId(@PathVariable Long id){
+        return ResponseEntity.ok(bookingService.getBookingsByUserId(id));
     }
 
 }
