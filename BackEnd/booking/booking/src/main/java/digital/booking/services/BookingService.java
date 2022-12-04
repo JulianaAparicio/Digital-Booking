@@ -5,8 +5,6 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
 import digital.booking.DTO.BookingDTO;
 import digital.booking.DTO.BookingReqDTO;
-import digital.booking.DTO.ProductDTO;
-import digital.booking.DTO.UserDTO;
 import digital.booking.entities.Booking;
 import digital.booking.entities.Product;
 import digital.booking.entities.QBooking;
@@ -149,5 +147,11 @@ public class BookingService implements IService<BookingDTO> {
                 "booking with id: " + id + " was not found."));
         logger.debug("Deleting booking...");
         bookingRepository.delete(booking);
+    }
+
+    public List<Booking> getBookingsByUserId(Long id) {
+        JPAQuery<Booking> queryBooking = new JPAQuery<>(entityManager);
+        QBooking bookingQ = QBooking.booking;
+        return queryBooking.from(bookingQ).where(bookingQ.user.id.eq(id)).stream().toList();
     }
 }
