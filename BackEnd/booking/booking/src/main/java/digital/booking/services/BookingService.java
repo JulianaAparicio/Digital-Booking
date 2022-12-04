@@ -152,6 +152,6 @@ public class BookingService implements IService<BookingDTO> {
     public List<Booking> getBookingsByUserId(Long id) {
         JPAQuery<Booking> queryBooking = new JPAQuery<>(entityManager);
         QBooking bookingQ = QBooking.booking;
-        return queryBooking.select(Projections.bean(Booking.class)).from(bookingQ).where(bookingQ.user.id.eq(id)).stream().toList();
+        return queryBooking.from(bookingQ).where(bookingQ.user.id.eq(id)).stream().toList();
     }
 }
