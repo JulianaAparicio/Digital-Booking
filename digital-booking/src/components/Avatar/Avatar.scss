@@ -1,7 +1,7 @@
 .db-avatar {
-
     display: flex;
     align-items: center;
+    position: relative;
 
     &-initials {
         font-weight: var(--font-weight-bold);
@@ -37,55 +37,51 @@
         }
     }
 
-    & svg {
-        position: relative;
-        top: -20px;
-        left: -15px;
-        
-        &:hover {
-            cursor: pointer;
-
-            path {
-                fill: var(--color-secondary-light);
-            }
-        }
-    }
-
 .db-user-nav{
     align-items: center;
     position: relative;
-    
 }
-.db-user-nav ul{
+.db-user-options{
     position:absolute;
-    max-height: 0px;
-    overflow: hidden;
-    transition: all 1s;
+    align-items: center;
+    top: 100%;
+    padding: 1rem;
     list-style: none;
     background-color:var(--color-text-light) ;
     color: var(--color-primary);
+    border-radius: 4px;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
+    translate: -5px 0;
+    display: none;
+    
+    & li{
+        display: flex;
+        justify-content: space-around;
+        padding: 0.3rem;
+        
+    }
     
 }
 
-.db-user-nav:hover ul {
-    max-height: 400px;
-    padding: 1rem;
+.dropdown-item {
+    width: 200px;
+    align-items: center;
 }
 
 .dropdown-icon{
     & svg{
         position: relative;
-        
+        align-items: center;
+
+
+        &:hover {
+            cursor: pointer;
+        }
 
         path {
             fill: var(--color-secondary);
         }
     }
 }
-
-.dropdown-item li{
-    width: 200px;
-}
-
 
 }
