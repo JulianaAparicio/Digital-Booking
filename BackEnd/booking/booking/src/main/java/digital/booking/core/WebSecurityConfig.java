@@ -6,6 +6,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -74,6 +75,7 @@ public class WebSecurityConfig  {
                         "/swagger-ui.html",
                         "/swagger-ui/**",
                         "/v3/api-docs/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/products/**").hasAuthority("ADMIN")
                 .antMatchers("/categories/**","/products/**","/cities/**","/amenities/**","/auth/**","/users/register" ).permitAll()
                 .antMatchers("/booking/**").hasAnyAuthority("USER", "ADMIN")
                 .anyRequest().authenticated()

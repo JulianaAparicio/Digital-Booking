@@ -13,10 +13,7 @@ import javax.validation.constraints.NotNull;
 public class Amenity {
 
     @Id
-    @SequenceGenerator(name="amenity_seg",initialValue = 1,allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "amenity_seq")
-
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull

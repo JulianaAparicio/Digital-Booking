@@ -13,10 +13,7 @@ import javax.validation.constraints.NotNull;
 public class Category {
 
     @Id
-    @SequenceGenerator(name="category_seg",initialValue = 1,allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "category_seq")
-
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull

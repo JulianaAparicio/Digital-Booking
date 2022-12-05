@@ -14,10 +14,7 @@ import javax.validation.constraints.NotNull;
 public class Item {
 
     @Id
-    @SequenceGenerator(name="item_seg",initialValue = 1,allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "item_seq")
-
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull

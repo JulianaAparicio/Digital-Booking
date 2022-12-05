@@ -17,10 +17,7 @@ import java.time.LocalDate;
 @Table(name = "bookings")
 public class Booking {
     @Id
-    @SequenceGenerator(name="booking_seg", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    @NotNull
     private Long id;
 
     @NotNull

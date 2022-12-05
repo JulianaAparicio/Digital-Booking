@@ -53,7 +53,7 @@ public class BookingController {
     }
 
     @Operation(summary = "Consultar reservas por ID de usuario")
-    @GetMapping("/bookings/{id}")
+    @GetMapping("/user/{id}")
     public ResponseEntity<List<Booking>> findBookingsByUserId(@PathVariable Long id){
         return ResponseEntity.ok(bookingService.getBookingsByUserId(id));
     }
