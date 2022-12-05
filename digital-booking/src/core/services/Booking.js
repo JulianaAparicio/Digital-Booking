@@ -9,12 +9,12 @@ export async function bookingProduct(bookingForm) {
     const bookingQueryMapper = {
         userId: bookingQuery.userId,
         productId: bookingQuery.productId,
-        initialDate: new Date(bookingQuery.dates[0]).toLocaleDateString('en-US', {
+        initial_date: new Date(bookingQuery.dates[0]).toLocaleDateString('en-US', {
             year: "numeric",
             month: "2-digit",
             day: "2-digit"
         }),
-        finalDate: new Date(bookingQuery.dates[1]).toLocaleDateString('en-US', {
+        final_date: new Date(bookingQuery.dates[1]).toLocaleDateString('en-US', {
             year: "numeric",
             month: "2-digit",
             day: "2-digit"
