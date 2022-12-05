@@ -1,6 +1,7 @@
 package digital.booking.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,15 +13,12 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "products")
 public class Product {
 
     @Id
-    @SequenceGenerator(name="product_seg",initialValue = 1,allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "product_seq")
-
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
@@ -42,7 +40,7 @@ public class Product {
     private Category category;
 
     @NotNull
-    @OneToOne(cascade = CascadeType.ALL )
+    @OneToOne(cascade = CascadeType.MERGE )
     @JoinColumn(name = "location_id",nullable = false)
     private Location location;
 
@@ -50,8 +48,8 @@ public class Product {
     @JoinColumn(name = "amenities",nullable = false)
     private List<Amenity> amenities;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "product",nullable = false)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    @JsonManagedReference
     private List<Image> images;
 
     @ManyToMany

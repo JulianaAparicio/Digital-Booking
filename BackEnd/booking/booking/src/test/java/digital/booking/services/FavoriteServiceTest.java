@@ -1,6 +1,7 @@
 package digital.booking.services;
 
 import digital.booking.DTO.FavoriteDTO;
+import digital.booking.DTO.ImageDTO;
 import digital.booking.DTO.ProductDTO;
 import digital.booking.DTO.RatingDTO;
 import digital.booking.entities.*;
@@ -29,7 +30,7 @@ public class FavoriteServiceTest {
         Category categoryTest = new Category();
         List<Amenity> amenitiesTest = new ArrayList<>();
         Location locationTest = new Location();
-        List<Image> imagesTest = new ArrayList<>();
+        List<ImageDTO> imagesTest = new ArrayList<>();
         List<Item> itemsTest = new ArrayList<>();
         List<RatingDTO> ratingsTest = new ArrayList<>();
         List<Product> productsTest = new ArrayList<>();

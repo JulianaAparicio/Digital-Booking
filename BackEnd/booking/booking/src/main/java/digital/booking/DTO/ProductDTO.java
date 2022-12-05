@@ -18,7 +18,7 @@ public class ProductDTO {
     private Category category;
     private List<Amenity> amenities;
     private Location location;
-    private List<Image> images;
+    private List<ImageDTO> images;
     private List<Item> items;
     private List<RatingDTO> ratings;
     private List<Booking> availability;

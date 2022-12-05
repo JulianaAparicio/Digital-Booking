@@ -2,19 +2,16 @@ package digital.booking.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.Tuple;
-import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
+import digital.booking.DTO.ImageDTO;
 import digital.booking.DTO.ProductDTO;
-import digital.booking.DTO.RatingDTO;
 import digital.booking.entities.*;
 import digital.booking.exceptions.BadRequestException;
 import digital.booking.exceptions.NotFoundException;
 import digital.booking.interfaces.IService;
 import digital.booking.repositories.ProductRepository;
 import org.apache.log4j.Logger;
-import org.hibernate.query.criteria.internal.predicate.ExistsPredicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +30,15 @@ public class ProductService implements IService<ProductDTO> {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private ImageService imageService;
+
+    @Autowired
+    private LocationService locationService;
+
+    @Autowired
+    private ItemService itemService;
 
     @Autowired
     private ObjectMapper mapper;
@@ -111,10 +117,22 @@ public class ProductService implements IService<ProductDTO> {
             throw new BadRequestException("The product is null.");
         } else{
             logger.debug("Creating new product...");
+            List<ImageDTO> images = product.getImages();
+            Location locationCreated = locationService.create(product.getLocation());
+            List<Item> itemsCreated = saveProductItems(product.getItems());
+            product.setLocation(locationCreated);
+            product.setImages(new ArrayList<>());
+            product.setItems(itemsCreated);
             Product productCreated = mapper.convertValue(product, Product.class);
-            productRepository.save(productCreated);
+            Product productSaved = productRepository.save(productCreated);
             logger.info("The product was created successfully.");
-            return mapper.convertValue(productCreated, ProductDTO.class);
+            System.out.println(productSaved);
+
+            if (images.size() > 0 ) {
+                List<Image> productImages = saveProductImages(images, productSaved);
+            }
+
+            return  mapper.convertValue(productSaved, ProductDTO.class);
         }
     }
 
@@ -129,12 +147,15 @@ public class ProductService implements IService<ProductDTO> {
         List<Rating> ratings = new ArrayList<>();
         product.getRatings().stream().map((rating) -> ratings.add(mapper.convertValue(rating, Rating.class)));
 
+        List<Image> images = new ArrayList<>();
+        product.getImages().stream().forEach((image) -> images.add(mapper.convertValue(image, Image.class)));
+
         existingProduct.setTitle(product.getTitle());
         existingProduct.setDescription(product.getDescription());
         existingProduct.setCategory(product.getCategory());
         existingProduct.setAmenities(product.getAmenities());
         existingProduct.setLocation(product.getLocation());
-        existingProduct.setImages(product.getImages());
+        existingProduct.setImages(images);
         existingProduct.setItems(product.getItems());
         existingProduct.setRatings(ratings);
 
@@ -166,6 +187,36 @@ public class ProductService implements IService<ProductDTO> {
 
         logger.info("Listing 6 random products...");
         return randomProducts;
+    }
+
+    private List<Image> saveProductImages(List<ImageDTO> productImages, Product product) {
+        List<Image> images = new ArrayList<>();
+        productImages.stream().forEach((image) -> {
+            try {
+                Image imageMapper = mapper.convertValue(image, Image.class);
+                imageMapper.setProduct(product);
+                Image imageCreated = imageService.create(imageMapper);
+                images.add(imageCreated);
+            } catch (BadRequestException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        return images;
+    }
+
+    private List<Item> saveProductItems(List<Item> productItems) {
+        List<Item> items = new ArrayList<>();
+
+        productItems.stream().forEach((item) -> {
+            try {
+                Item itemCreated = itemService.create(item);
+                items.add(itemCreated);
+            } catch (BadRequestException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        return  items;
     }
 
 }
