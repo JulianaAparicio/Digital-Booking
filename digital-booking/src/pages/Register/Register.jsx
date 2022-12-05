@@ -28,19 +28,26 @@ const Register = () => {
       email: { state: useState(), isValid: useState(false) },
       password: { state: useState(), isValid: useState(false) },
       passwordConfirm: { state: useState(), isValid: useState(false) },
+      role: { state: useState('USER'), isValid: useState(appContext.user && appContext.user.role === 'ADMIN' ? false : true) },
    };
 
    const registerNewUser = () => {
       setIsLoading(true);
       registerUser(registerForm).then((user) => {
-         loginUser({email: registerForm.email, password: registerForm.password}).then(data => {
-            setToken(data);
-            appContext.setUser(decodeToken());
+         if (appContext.user && appContext.user.role === 'ADMIN') {
+            alert('Usuario registrado con exito');
             browserNavigate('/');
-         }).catch(({response}) => {
-            setFailedAuth(true);
-            setFailedAuthError(response.data.message);
-         }).finally(() => setIsLoading(false));
+         } else {
+            loginUser({email: registerForm.email, password: registerForm.password}).then(data => {
+               setToken(data);
+               appContext.setUser(decodeToken());
+               browserNavigate('/');
+            }).catch(({response}) => {
+               setFailedAuth(true);
+               setFailedAuthError(response.data.message);
+            }).finally(() => setIsLoading(false));
+         }
+         
       }).catch(({response}) => {
          setFailedAuth(true);
          setFailedAuthError(response.data.message);
@@ -56,6 +63,16 @@ const Register = () => {
          <MainCenterLayout>
             <div className="db-register">
                <h1 className="db-form-title">Crear cuenta</h1>
+               {appContext.user && appContext.user.role !== 'ADMIN' ?
+               <Input
+                  type="select"
+                  value={registerForm.role.state[0]}
+                  setValue={registerForm.role.state[1]}
+                  label={'Tipo de usuario'}
+                  options={['USER', 'ADMIN']}
+                  errors={getValidationErrors('select', true)}
+                  setInputValidation={registerForm.role.isValid[1]}
+               /> : null }
                <div className="db-form-row">
                   <Input
                      id={'name'}

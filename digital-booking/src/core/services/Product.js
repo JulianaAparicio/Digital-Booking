@@ -15,7 +15,10 @@ export async function getAllProducts() {
 export async function getProductById(id) {
    const url = `${PRODUCT_URL}/${id}`;
    return getReq(url).then((product) => {
-      return mapProducts([product]);
+      return getAvailabilityByProductId(product.id).then((availability) => {
+         product.availability = availability;
+         return mapProducts([product]);
+      })
    });
 }
 
@@ -50,6 +53,10 @@ export function mapProducts(products) {
          }
       }
    })
+}
+
+export async function getAvailabilityByProductId(id) {
+   return getReq(`${PRODUCT_URL}/availability/${id}`);
 }
 
 function productQualification(rate) {
