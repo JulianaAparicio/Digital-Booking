@@ -1,0 +1,24 @@
+    .db-my-reservations-container {
+        .booking-card-spacer {
+            margin: 10px 0px;
+        }
+
+        .db-reservation-card {
+            display: grid;
+            gap: 1rem;
+            padding: 1rem  2rem;
+            margin: var(--gap-x) var(--gap-y) 0;
+            margin-bottom: 1rem;
+            
+
+            
+                @media screen and (min-width: 768px) {
+                    grid-template-columns: 1fr 1fr;
+                }
+
+                @media screen and (min-width: 1280px) {
+                    grid-template-columns: repeat(4, 1fr);
+                }
+            
+        }
+    }

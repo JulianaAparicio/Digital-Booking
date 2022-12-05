@@ -4,6 +4,7 @@ import Header from '../components/Header/Header';
 import Apartment from '../pages/Apartment/Apartment';
 import Home from '../pages/Home/Home';
 import Login from '../pages/Login/Login';
+import MyReservations from '../pages/MyReservations/MyReservations';
 import Register from '../pages/Register/Register';
 import ReservationPage from '../pages/Reservation/ReservationPage';
 
@@ -49,6 +50,15 @@ const router = createBrowserRouter(
                   {
                      path: ':apartmentId',
                      element: <ReservationPage />,
+                  },
+               ],
+            },
+            {
+               path: '/myreservations',
+               children: [
+                  {
+                     path: ':userId',
+                     element: <MyReservations />,
                   },
                ],
             },

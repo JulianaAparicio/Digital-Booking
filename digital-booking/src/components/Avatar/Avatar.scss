@@ -50,4 +50,42 @@
             }
         }
     }
+
+.db-user-nav{
+    align-items: center;
+    position: relative;
+    
+}
+.db-user-nav ul{
+    position:absolute;
+    max-height: 0px;
+    overflow: hidden;
+    transition: all 1s;
+    list-style: none;
+    background-color:var(--color-text-light) ;
+    color: var(--color-primary);
+    
+}
+
+.db-user-nav:hover ul {
+    max-height: 400px;
+    padding: 1rem;
+}
+
+.dropdown-icon{
+    & svg{
+        position: relative;
+        
+
+        path {
+            fill: var(--color-secondary);
+        }
+    }
+}
+
+.dropdown-item li{
+    width: 200px;
+}
+
+
 }
