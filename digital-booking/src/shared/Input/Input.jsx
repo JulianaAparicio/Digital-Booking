@@ -117,7 +117,7 @@ export default function Input({
                <select
                   key={id}
                   id={id}
-                  defaultValue={options[0]}
+                  value={value}
                   placeholder={placeholder}
                   disabled={isDisabled}
                   readOnly={isReadOnly}

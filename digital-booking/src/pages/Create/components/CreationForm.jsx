@@ -120,6 +120,7 @@ const CreationForm = ({ isValid }) => {
                      label={'Ciudad'}
                      options={context.cities.slice(1, -1).map(el => el.name)}
                   />
+
                   <Input
                      type="textarea"
                      setValue={states.description.state[1]}
