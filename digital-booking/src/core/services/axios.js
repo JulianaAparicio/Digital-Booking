@@ -5,6 +5,13 @@ export async function getReq(url, params) {
    return (await axios.get(url, { params })).data;
 }
 
+export async function getReqAuth(url, params) {
+   return (await axios.get(url, { params, headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      "Authorization": `Bearer ${getToken()}`,
+    }})).data;
+}
+
 export async function postReq(url, body) {
    return await axios.post(url, JSON.stringify(body), {headers: {
       'Content-Type': 'application/json;charset=UTF-8',
