@@ -24,7 +24,6 @@ const ReservationForm = ({ user, reservationForm, currentProduct }) => {
                setValue={reservationForm.name.state[1]}
                name={'name'}
                setInputValidation={reservationForm.name.isValid[1]}
-               // isReadOnly={true}
                isDisabled={true}
             />
             <Input
@@ -37,7 +36,6 @@ const ReservationForm = ({ user, reservationForm, currentProduct }) => {
                setValue={reservationForm.lastName.state[1]}
                name={'lastName'}
                setInputValidation={reservationForm.lastName.isValid[1]}
-               // isReadOnly={true}
                isDisabled={true}
             />
             <Input
@@ -50,7 +48,6 @@ const ReservationForm = ({ user, reservationForm, currentProduct }) => {
                setValue={reservationForm.email.state[1]}
                name={'email'}
                setInputValidation={reservationForm.email.isValid[1]}
-               // isReadOnly={true}
                isDisabled={true}
             />
             <Input
@@ -63,7 +60,6 @@ const ReservationForm = ({ user, reservationForm, currentProduct }) => {
                setValue={reservationForm.city.state[1]}
                name={'city'}
                setInputValidation={reservationForm.city.isValid[1]}
-               // isReadOnly={true}
                isDisabled={true}
             />
             <Input

@@ -9,10 +9,6 @@
       justify-content: space-around;
       background-color: var(--color-text-light);
 
-      textarea {
-         resize: vertical;
-      }
-
       input,
       select,
       textarea {
@@ -34,6 +30,11 @@
             border: none;
             outline: none;
          }
+      }
+
+      textarea {
+         resize: vertical;
+         padding: .6rem .2rem;
       }
 
       &.focus {

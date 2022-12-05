@@ -8,9 +8,7 @@ function App() {
    return (
       <DataProvider>
          <div id="app">
-            <main>
-               <RouterProvider  router={router} />
-            </main>
+            <RouterProvider router={router} />
          </div>
       </DataProvider>
    );

@@ -1,0 +1,69 @@
+.rmdp-container,
+.rmdp-calendar {
+
+   width: 100%;
+
+   .rmdp-input {
+
+      &:focus,
+      &:active {
+         border: none;
+         box-shadow: none;
+         width: 100%;
+      }
+   }
+
+   .rmdp-arrow {
+      border-color: var(--color-primary);
+   }
+
+   .rmdp-week-day {
+      color: var(--color-primary);
+   }
+
+   .rmdp-range,
+   .rmdp-panel-body li {
+      background-color: var(--color-primary);
+   }
+
+   .rmdp-day.rmdp-today span {
+      background-color: var(--color-primary-dark);
+   }
+
+   .rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) span,
+   .rmdp-arrow-container {
+      &:hover {
+         background-color: var(--color-primary-light);
+         color: black;
+      }
+   }
+
+   .rmdp-day.rmdp-selected span:not(.highlight) {
+      background-color: var(--color-primary-light);
+      color: black;
+   }
+}
+
+.db-apartment-header {
+   margin: 0;
+   padding: 0.5rem 2rem;
+   background-color: var(--color-tertiary);
+   color: var(--color-text-light);
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+
+   svg {
+      &:hover {
+         cursor: pointer;
+
+         path {
+            fill: var(--color-secondary);
+         }
+      }
+   }
+
+   @media (max-width:450px) {
+      padding: .7rem 0.5rem;
+   }
+}

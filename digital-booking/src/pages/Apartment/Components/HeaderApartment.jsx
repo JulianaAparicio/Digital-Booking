@@ -17,7 +17,6 @@ export default function HeaderApartment ({category, title}) {
                 <h1>{title}</h1>
             </div>
             <div onClick={goBack}>
-
                 <BackButtonIcon/>
             </div>
         </div>

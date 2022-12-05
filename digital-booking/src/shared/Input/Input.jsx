@@ -28,8 +28,6 @@ export default function Input({
 
    const inputRef = useRef();
 
-   const inputId = useId();
-
    const handleFocus = $event => {
       setFocus(true);
    };
@@ -39,16 +37,18 @@ export default function Input({
 
    const handleChangeInput = $event => {
       const error = errors
-         .map(validationError => validationError($event.target.value, name))
-         .reduce((messages, error) => `${error ? error + '.' : ''} ${messages} `, '');
+         ? errors
+              .map(validationError => validationError($event.target.value, name))
+              .reduce((messages, error) => `${error ? error + '.' : ''} ${messages} `, '')
+         : '';
       if (!Boolean(error.trim())) {
          setValue($event.target.value);
          setInvalid(false);
-         setInputValidation(true);
+         setInputValidation && setInputValidation(true);
       } else {
          setErrorMessage(error);
          setInvalid(true);
-         setInputValidation(false);
+         setInputValidation && setInputValidation(false);
       }
    };
 
@@ -117,13 +117,13 @@ export default function Input({
                <select
                   key={id}
                   id={id}
+                  defaultValue={options[0]}
                   placeholder={placeholder}
                   disabled={isDisabled}
                   readOnly={isReadOnly}
                   onFocus={handleFocus}
                   onBlur={handleBlur}
-                  onChange={handleChangeInput}
-                  value={value}>
+                  onChange={handleChangeInput}>
                   {options.map((op, i) => (
                      <option value={op} key={i}>
                         {op}

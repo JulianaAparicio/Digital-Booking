@@ -1,45 +1,48 @@
 .db-alert {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: -35px;
-    background-color: rgba(196,196,196, 0.2);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   position: absolute;
+   height: 100%;
+   width: 100%;
+   top: -35px;
+   background-color: rgba(196, 196, 196, 0.2);
 
-    .db-card {
-        width: 50% !important;
-    }
+   .db-card {
+      width: 50% !important;
+   }
 
-    &-content {
-        display: flex;
-        align-items: center;
-        text-align: center;
-        justify-content: center;
-        padding: 25px;
-        border-radius: var(--border-radius-medium);
+   &-content {
+      position: relative;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      padding: 25px;
+      border-radius: var(--border-radius-medium);
 
-        svg {
-            position: relative;
-            left: 75px;
+      svg {
+         position: absolute;
+         right: 0;
+         top: 0;
+         margin-top: .5rem;
+
+         &:hover {
+            cursor: pointer;
+         }
+      }
+
+      &.error {
+         background-color: var(--error-contrast);
+         color: var(--error);
+
+         svg path {
+            fill: var(--error);
 
             &:hover {
-                cursor: pointer;
+               opacity: 0.5;
             }
-        }
-
-        &.error {
-            background-color: var(--error-contrast);
-            color: var(--error);
-
-            svg path {
-                fill: var(--error);
-
-                &:hover {
-                   opacity: 0.5;
-                }
-            }
-        }
-    }
+         }
+      }
+   }
 }
