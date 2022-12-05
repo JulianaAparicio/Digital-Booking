@@ -1,7 +1,6 @@
 import React from 'react';
 import Button from '../../../shared/Button/Button';
 import Card from '../../../shared/Card/Card';
-import LocationIcon from '../../../shared/Icons/LocationIcon';
 import { Link } from 'react-router-dom';
 
 const ReservationCard = ({currentProduct, reservation, user, id}) => {
@@ -9,7 +8,6 @@ const ReservationCard = ({currentProduct, reservation, user, id}) => {
             return (
             <section className="db-my-reservations-card">
                 <Card>
-                    <h1>Reserva {reservation.id}</h1>
                     <h2>Detalles del Alojamiento</h2>
                     <div>
                         <div className="hotel-details">
@@ -36,10 +34,6 @@ const ReservationCard = ({currentProduct, reservation, user, id}) => {
                             <div className="check-out">
                                 <p className="label">Check out</p>
                                 <p>{reservation.checkOutDate}</p>
-                            </div>
-                            <div className="check-out">
-                                <p className="label">Llegada</p>
-                                <p>{reservation.arrivalDate}</p>
                             </div>
                             <hr className="booking-card-spacer" />
                         </div>
