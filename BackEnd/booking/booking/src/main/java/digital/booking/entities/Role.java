@@ -15,8 +15,7 @@ import javax.validation.constraints.NotNull;
 public class Role {
 
     @Id
-    @SequenceGenerator(name="role_seg",initialValue = 1,allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "role_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull

@@ -13,10 +13,7 @@ import javax.validation.constraints.NotNull;
 public class Politic {
 
     @Id
-    @SequenceGenerator(name="politic_seg",initialValue = 1,allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "politic_seq")
-
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull

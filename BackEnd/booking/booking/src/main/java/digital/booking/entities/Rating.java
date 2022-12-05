@@ -13,10 +13,7 @@ import javax.validation.constraints.NotNull;
 public class Rating {
 
     @Id
-    @SequenceGenerator(name="rating_seg",initialValue = 1,allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "rating_seq")
-
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
