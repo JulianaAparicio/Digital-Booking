@@ -42,7 +42,7 @@ public class BookingMail {
                 "\n" +
                 "         Tu reserva en el alojamiento " + product.getTitle() + ", se ha realizado con exito.<br><br><br>\n" +
                 "\n" +
-                "         Tu reserva esta confirmada para las siguientes fechas: " + booking.getInitialDate().toString() +" - " + booking.getFinalDate().toString()  + "<br><br>\n" +
+                "         Tu reserva esta confirmada para las siguientes fechas: " + booking.getInitial_date().toString() +" - " + booking.getFinal_date().toString()  + "<br><br>\n" +
                 "\n" +
                 "         Recuerda que tu hora de ingreso será: " + booking.getStartTime() + "<br><br><br>\n" +
                 "\n" +

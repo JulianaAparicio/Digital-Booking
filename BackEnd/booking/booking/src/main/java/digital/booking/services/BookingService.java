@@ -72,7 +72,7 @@ public class BookingService implements IService<BookingDTO> {
 
     @Override
     public BookingDTO create(BookingDTO booking) throws BadRequestException {
-        if (booking.getFinalDate()==null || booking.getInitialDate()==null || booking.getStartTime()==null){
+        if (booking.getFinal_date()==null || booking.getInitial_date()==null || booking.getStartTime()==null){
             logger.error("The data entered has null values.");
             throw new BadRequestException("The booking has null values.");
         } else{
@@ -101,8 +101,8 @@ public class BookingService implements IService<BookingDTO> {
             bookingCreated.setUser(user.get());
             bookingCreated.setProduct(product.get());
             bookingCreated.setStartTime(booking.getStartTime());
-            bookingCreated.setInitialDate(LocalDate.parse(booking.getInitialDate(), dateFormat));
-            bookingCreated.setFinalDate(LocalDate.parse(booking.getFinalDate(), dateFormat));
+            bookingCreated.setInitial_date(LocalDate.parse(booking.getInitialDate(), dateFormat));
+            bookingCreated.setFinal_date(LocalDate.parse(booking.getFinalDate(), dateFormat));
             bookingCreated.setVaccinated(booking.getVaccinated());
             bookingCreated.setSeller(booking.getSeller());
 
@@ -123,8 +123,8 @@ public class BookingService implements IService<BookingDTO> {
         Optional<User> user = userRepository.findById(Long.parseLong(booking.getUserId()));
         Optional<Product> product = productRepository.findById(Long.parseLong(booking.getProductId()));
         existingBooking.setStartTime(booking.getStartTime());
-        existingBooking.setInitialDate(LocalDate.parse(booking.getInitialDate(), dateFormat));
-        existingBooking.setFinalDate(LocalDate.parse(booking.getFinalDate(), dateFormat));
+        existingBooking.setInitial_date(LocalDate.parse(booking.getInitialDate(), dateFormat));
+        existingBooking.setFinal_date(LocalDate.parse(booking.getFinalDate(), dateFormat));
         existingBooking.setProduct(product.get());
         existingBooking.setUser(user.get());
         existingBooking.setVaccinated(booking.getVaccinated());
@@ -138,7 +138,9 @@ public class BookingService implements IService<BookingDTO> {
     public List<Booking> getAvailabilityByProductId(Long id) {
         JPAQuery<Booking> queryBooking = new JPAQuery<>(entityManager);
         QBooking bookingQ = QBooking.booking;
-        return queryBooking.select(Projections.bean(Booking.class, bookingQ.initialDate.as("initialDate"), bookingQ.finalDate)).from(bookingQ).where(bookingQ.product.id.eq(id)).stream().toList();
+        List<Booking> bookings = queryBooking.select(Projections.bean(Booking.class, bookingQ.initial_date, bookingQ.final_date)).from(bookingQ).where(bookingQ.product.id.eq(id)).stream().toList();
+        System.out.println(bookings);
+        return bookings;
     }
 
     @Override

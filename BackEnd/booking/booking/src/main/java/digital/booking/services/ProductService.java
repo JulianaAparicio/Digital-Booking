@@ -60,7 +60,7 @@ public class ProductService implements IService<ProductDTO> {
                     String[] dates = query.get("date").split(",");
                     LocalDate initialDate = LocalDate.parse(dates[0], dateFormat);
                     LocalDate finalDate = LocalDate.parse(dates[1], dateFormat);
-                    queries.and(subQueryBooking.from(bookingQ).where(bookingQ.product.id.eq(productQ.id).and(bookingQ.initialDate.between(initialDate, finalDate).or(bookingQ.finalDate.between(initialDate, finalDate)))).notExists());
+                    queries.and(subQueryBooking.from(bookingQ).where(bookingQ.product.id.eq(productQ.id).and(bookingQ.initial_date.between(initialDate, finalDate).or(bookingQ.final_date.between(initialDate, finalDate)))).notExists());
                     break;
                 default:
                     queries.and(pathBuilder.getString(entry.getKey()).eq(entry.getValue()));

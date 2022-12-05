@@ -12,8 +12,8 @@ import java.time.LocalDate;
 public class BookingDTO {
     private Long id;
     private String startTime;
-    private LocalDate initialDate;
-    private LocalDate finalDate;
+    private LocalDate initial_date;
+    private LocalDate final_date;
     private Boolean vaccinated;
     private String seller;
     private ProductDTO product;

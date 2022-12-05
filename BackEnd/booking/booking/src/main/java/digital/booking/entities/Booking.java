@@ -29,11 +29,11 @@ public class Booking {
 
     @NotNull
     @Column
-    private LocalDate initialDate;
+    private LocalDate initial_date;
 
     @NotNull
     @Column
-    private LocalDate finalDate;
+    private LocalDate final_date;
 
     @Column
     private Boolean vaccinated;
