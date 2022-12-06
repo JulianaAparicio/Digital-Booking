@@ -88,6 +88,7 @@ public class FavoriteServiceTest {
         favoriteTest = new FavoriteDTO(userTest.getId(), productTest.getId());
     }
 
+    @Order(1)
     @Test
     void testToggleFavorite() {
         try {
@@ -117,6 +118,22 @@ public class FavoriteServiceTest {
             assertTrue(userTestProducts.size() > 0,"There are no products associated to this user.");
 
         } catch (BadRequestException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Order(2)
+    @Test
+    public void testGetFavoritesByUserId(){
+        try {
+            when(userRepository.findById(userTest.getId())).thenReturn(Optional.ofNullable(userTest));
+
+            List<Product> productList = favoriteService.getFavoritesByUserId(userTest.getId());
+
+            assertNotNull(productList,"The value is null.");
+            assertTrue(productList.size() > 0,"There are no products associated to this user.");
+
+        } catch (Exception e){
             e.printStackTrace();
         }
     }
