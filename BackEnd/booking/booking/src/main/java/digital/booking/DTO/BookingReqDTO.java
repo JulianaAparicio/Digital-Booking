@@ -12,8 +12,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class BookingReqDTO {
     private String startTime;
-    private String initialDate;
-    private String finalDate;
+    private String initial_date;
+    private String final_date;
     private String productId;
     private String userId;
     private Long id;

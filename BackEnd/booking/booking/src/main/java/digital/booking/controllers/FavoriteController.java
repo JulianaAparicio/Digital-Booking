@@ -25,4 +25,10 @@ public class FavoriteController {
         return ResponseEntity.ok(favoriteService.toggleFavorite(favorite.get("userId"), favorite.get("productId")));
     }
 
+    @Operation(summary = "Obtener Favoritos por id Usuario")
+    @GetMapping("{id}")
+    public ResponseEntity<List<Product>> getFavorites(@PathVariable Long id) throws BadRequestException {
+        return ResponseEntity.ok(favoriteService.getFavoritesByUserId(id));
+    }
+
 }

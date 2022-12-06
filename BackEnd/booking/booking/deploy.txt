@@ -15,7 +15,7 @@ Pasos para hacer deploy en el servidor EC2 de BackEnd Aplicacion Api Digital-boo
 - git add ../../../bookingApi-1.jar
 - git add .
 - git status
-- git commit -m "2411221008am Actualización Versión y nuevo jar"
+- git commit -m "0512222252pm Actualización Versión y nuevo jar"
 - git push origin produccionBackEnd
 - git checkout BackEnd
 

@@ -77,7 +77,7 @@ public class WebSecurityConfig  {
                         "/v3/api-docs/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/products/**").hasAuthority("ADMIN")
                 .antMatchers("/categories/**","/products/**","/cities/**","/amenities/**","/auth/**","/users/register" ).permitAll()
-                .antMatchers("/booking/**").hasAnyAuthority("USER", "ADMIN")
+                .antMatchers("/booking/**", "/favorites/**").hasAnyAuthority("USER", "ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();
