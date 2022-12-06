@@ -5,6 +5,8 @@ import Header from './components/Header/Header';
 import { DataProvider } from './core/Context';
 
 function App() {
+   // console.log(BrowserRouter);
+
    return (
       <DataProvider>
          <div id="app">

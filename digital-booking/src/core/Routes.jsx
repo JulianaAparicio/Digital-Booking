@@ -15,7 +15,7 @@ const MainLayout = () => {
          <main>
             <Outlet />
          </main>
-         <Footer />
+         <Footer>©2022 Digital Booking</Footer>
       </>
    );
 };

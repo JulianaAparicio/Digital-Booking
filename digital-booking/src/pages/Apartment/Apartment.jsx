@@ -32,6 +32,7 @@ const Apartment = () => {
       await getProductById(apartmentId).then(product => {
          setCurrentProduct(product[0]);
          setIsFavorite(product[0].isFavorite);
+         console.log(product[0]);
       });
    };
 
