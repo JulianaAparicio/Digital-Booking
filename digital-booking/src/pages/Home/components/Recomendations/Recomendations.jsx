@@ -1,15 +1,20 @@
+import { useContext } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import ProductCard from '../../../../components/ProductCard/ProductCard';
 import { toggleFavoriteLocal } from '../../../../core/services/Favorite';
 import { mapProducts } from '../../../../core/services/Product';
+import { Context } from '../../../../core/Context';
 
-const Recomendations = ({ products }) => {
+
+export default function Recomendations ({ products }) {
+   const { user } = useContext(Context);
    const [currentProducts, setCurrentProducts] = useState([]);
 
-   const toggleFavorite = async id => {
-      await toggleFavoriteLocal(id);
-      setCurrentProducts(mapProducts(products));
+   const toggleFavorite = async (id) => {
+      await toggleFavoriteLocal(id, user).then(() => {
+         setCurrentProducts(mapProducts(products));
+      });
    };
 
    useEffect(() => {
@@ -32,4 +37,3 @@ const Recomendations = ({ products }) => {
    );
 };
 
-export default Recomendations;

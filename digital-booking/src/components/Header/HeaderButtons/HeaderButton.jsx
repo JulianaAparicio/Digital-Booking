@@ -1,7 +1,6 @@
 import { useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import Button from "../../../shared/Button/Button";
-import HeaderMenu from "../HeaderMenu/HeaderMenu";
 import './HeaderButton.scss'
 
 export default function HeaderButtons() {
@@ -27,7 +26,6 @@ export default function HeaderButtons() {
         <div className="db-header-buttons"> 
             {showRegister ? <Link to={'/register'}><Button classList={'db-button-primary-outlined'} >Crear cuenta</Button></Link> : null}
             {showLogin ? <Link to={'/login'}><Button classList={'db-button-primary-outlined'} >Iniciar sesión</Button></Link> : null}
-            <HeaderMenu />
         </div>
     )
 }

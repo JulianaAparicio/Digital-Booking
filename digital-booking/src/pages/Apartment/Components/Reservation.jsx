@@ -13,7 +13,7 @@ export default function Reservation({ id }) {
             <div>Agregá fecha de tus viajes para obtener precios exactos</div>
             {/*si el usuario esta logeado */}
             {appContext.user ? (
-               <Link to={`/reservation/${id}`}>
+               <Link to={`/booking/${id}`}>
                   <Button classList={'db-button-primary'}>Iniciar Reserva</Button>
                </Link>
             ) : (

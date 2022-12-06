@@ -45,23 +45,30 @@ const router = createBrowserRouter(
                ],
             },
             {
-               path: '/reservation',
+               path: '/booking',
                children: [
+                  {
+                     path: 'user/:userId',
+                     element: <MyReservations />,
+                  },
                   {
                      path: ':apartmentId',
                      element: <ReservationPage />,
-                  },
+                  }                  
                ],
             },
             {
-               path: '/myreservations',
+               path: '/administration',
                children: [
                   {
-                     path: ':userId',
-                     element: <MyReservations />,
+                     path: 'products',
                   },
-               ],
-            },
+                  {
+                     path: 'users',
+                     element: <Register />
+                  }
+               ]
+            }
          ],
       },
    ],

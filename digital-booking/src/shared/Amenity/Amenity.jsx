@@ -33,7 +33,6 @@ const Svg = ({ type }) => {
       case 'parking':
          return <ParkingIcon />;
       default:
-         console.error('amenity type not found');
          return null;
    }
 };

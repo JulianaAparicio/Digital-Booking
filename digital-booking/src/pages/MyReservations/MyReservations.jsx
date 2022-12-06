@@ -1,74 +1,50 @@
 import React from 'react';
-import ReservationCard from './components/ReservationCard';
 import "./MyReservations.scss"
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import LoadingScreen from '../../components/LoadingScreen/LoadingScreen';
 import TitlePagesSection from '../../shared/TitlePagesSection/TitlePagesSection';
-import Alert from "../../shared/Alert/Alert"
+import { getBookingsByUserId } from '../../core/services/Booking';
+import ApartmentOverview from '../Reservation/components/ApartmentOverview';
 
 
 const MyReservations = () => {
+    const { userId } = useParams();
+    const [bookings, setBookings] = useState([]);
 
-
-    const currentProduct = {
-        category: {
-            title: "hotel"
-        },
-        title: "hotel santa marta",
-        location: "direccion falsa"
+    const getBookingsByUser = async () => {
+        await getBookingsByUserId(userId).then((bookings) => {
+            setBookings(bookings)
+        });
     }
 
-    const reservation = {
-        id: "1",
-        checkInDate: "20-12-2022",
-        checkOutDate: "31-12-2022",
-        arrivalDate: "20-12-2022"
-    }
+    useEffect(() => {
+        getBookingsByUser();
+    }, [userId])
 
-    const user = {
-        name: "Leandro",
-        lastname: "Perez",
-        email: "leandoperez@gmail.com"
-    }
-
-    const closeAlert =()=>{
-        
-    }
-
-    //aca va la logica 
     return (
-
         <>
-            {/* <LoadingScreen />  */}
-            {/*div con el titulo */}
-            {/*abre codicional dependiendo si tiene reservas  muestra bloque de reserva 
-            sino mensaje no tiene reservas */}
-
             <div className='db-my-reservations-container'>
                 <TitlePagesSection
-                    title1={"Mi Perfil"}
-                    title2={"Mis Reservas"}
+                    title={"Mis Reservas"}
                 />
-                <div className='db-reservation-card'>
-                    <ReservationCard
-                        currentProduct={currentProduct}
-                        reservation={reservation}
-                        user={user}
-                        id={2}
-                    />
+                <div className='db-my-reservations-bookings'>
+                    {
+                        bookings.map((booking) => {
+                            return <ApartmentOverview
+                                key={booking.id}
+                                currentProduct={booking.product}
+                                getCheckInDate={() => booking.initial_date}
+                                getCheckOutDate={() => booking.final_date}
+                                isBooking={false}
+                                startTime={booking.startTime}
+                            />
+                        })
+                    }
+                    {
+                        !bookings.length ? <div>No se encontraron reservas para este usuario</div> : null
+                    }
                 </div>
             </div>
-            {/* para opcion cdo no hay reservas */}
-            {/* <div className='db-my-reservations-container'>
-            <TitlePagesSection
-                    title1={"Mi Perfil"}
-                    title2={"Mis Reservas"}
-                />
-                <Alert type={'error'} >
-                Aún no has efectuado ninguna reserva
-                </Alert>
-            </div> */}
         </>
 
     );

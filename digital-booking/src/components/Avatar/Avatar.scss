@@ -2,18 +2,24 @@
 
     display: flex;
     align-items: center;
+    border-left: 3px solid var(--color-primary);
+    padding: 0 0 0 10px;
 
     &-initials {
         font-weight: var(--font-weight-bold);
         font-size: var(--font-size-big);
-        line-height: 25px;
         text-align: center;
         color: var(--color-text-light);
         background-color: var(--color-secondary);
         border-radius: 50%;
-        padding: 8px;
+        padding: 4px;
         letter-spacing: -2px;
         margin-right: 5px;
+        height: 40px;
+        width: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     &-name {
@@ -30,10 +36,12 @@
         & span:first-child {
             color: var(--color-secondary);
             opacity: 0.5;
+            text-transform: capitalize;
         }
 
         & span:last-child {
             color: var(--color-primary);
+            text-transform: capitalize;
         }
     }
 
@@ -51,41 +59,35 @@
         }
     }
 
-.db-user-nav{
-    align-items: center;
-    position: relative;
     
-}
-.db-user-nav ul{
-    position:absolute;
-    max-height: 0px;
-    overflow: hidden;
-    transition: all 1s;
-    list-style: none;
-    background-color:var(--color-text-light) ;
-    color: var(--color-primary);
+
+    @media (max-width: 600px) {
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: space-around;
+        height: 110px;
+
+        &-name {
+            align-items: flex-end;
     
-}
+            & span:first-child {
+                color: var(--color-text-light);
+                opacity: 1;
+                text-align: right;
+                text-transform: capitalize;
+            }
+    
+            & span:last-child {
+                color: var(--color-secondary);
+                white-space: nowrap;
+                text-align: right;
+                text-transform: capitalize;
+            }
+        }
 
-.db-user-nav:hover ul {
-    max-height: 400px;
-    padding: 1rem;
-}
-
-.dropdown-icon{
-    & svg{
-        position: relative;
-        
-
-        path {
-            fill: var(--color-secondary);
+        &-close {
+            display: none;
         }
     }
-}
-
-.dropdown-item li{
-    width: 200px;
-}
-
 
 }

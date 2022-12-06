@@ -2,7 +2,7 @@ import BackButtonIcon from "../../shared/Icons/BackButtonIcon";
 import { useNavigate } from "react-router-dom";
 import "./TitlePagesSection.scss"
 
-export default function TitlePagesSection ({title1, title2}) {
+export default function TitlePagesSection ({title, subtitle}) {
     const browserNavigate = useNavigate();
 
     const goBack = () => {
@@ -13,9 +13,9 @@ export default function TitlePagesSection ({title1, title2}) {
         <div className="db-title-pages-section ">
             <div>
                 <h4>
-                    {title1}
+                    {subtitle}
                 </h4>
-                <h1>{title2}</h1>
+                <h1>{title}</h1>
             </div>
             <div onClick={goBack}>
                 <BackButtonIcon/>

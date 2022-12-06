@@ -4,33 +4,30 @@ import './Avatar.scss';
 import { Link } from "react-router-dom";
 import HeartIcon from "../../shared/Icons/HeartIcon"
 import ReservationIcon from "../../shared/Icons/ReservationIcon"
+import { useContext } from 'react';
+import { Context } from '../../core/Context';
 
 
 export const Avatar = ({ name, lastName, logOut }) => {
+  const appContext = useContext(Context);
 
   return (
-    <div className='db-avatar'>
-      <span className='db-avatar-initials'>
-        {name && name.charAt(0)} {lastName && lastName.charAt(0)}
-      </span>
-      <div className='db-user-nav'>
-        <div className='db-avatar-name'>
-          <span>Hola,</span>
-          <span>{name} {lastName}</span>     
+    <>
+      <div className='db-avatar'>
+        <span className='db-avatar-initials'>
+          {name && name.charAt(0).toUpperCase()} {lastName && lastName.charAt(0).toUpperCase()}
+        </span>
+        <div className='db-user-nav'>
+          <div className='db-avatar-name'>
+            <span>Hola,</span>
+            <span>{name} {lastName}</span>     
+          </div>
         </div>
-          <ul>
-            <Link to={"/myreservations"}>
-              <li className='dropdown-item'>Mis Reservas</li>
-              <div className='dropdown-icon'><ReservationIcon /></div>
-            </Link>
-            <Link to={"/myreservations"}>
-              <li className='dropdown-item'>Mis favoritos</li>
-              <div className='dropdown-icon'><HeartIcon /></div>
-            </Link>
-            <li className='dropdow-item' onClick={logOut}>Cerrar Sesión</li>
-            <div className='dropdown-icon'><CloseIcon /></div>
-          </ul>
+        <div className='db-avatar-close' onClick={logOut}>
+            <CloseIcon/>
+        </div>
       </div>
-    </div>
+    </>
+    
   )
 }

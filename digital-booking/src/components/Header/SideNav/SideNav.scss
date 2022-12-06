@@ -11,6 +11,8 @@
       bottom: 0;
       right: 0;
       padding: 5px 10px;
+      width: 100%;
+      text-align: right;
 
       a {
          margin-left: 8px;
@@ -19,6 +21,10 @@
             fill: var(--color-tertiary);
          }
       }
+
+      .db-side-panel-options-item {
+         color: var(--color-primary);
+      }
    }
 
    &-header {
@@ -26,15 +32,16 @@
       height: 175px;
       background-color: var(--color-primary);
       color: var(--color-text-light);
-
-      h2 {
-         position: absolute;
-         right: 10px;
-         top: 150px;
-      }
+      position: relative;
 
       svg path {
          fill: var(--color-text-light);
+      }
+
+      & div:last-child, h2 {
+         position: absolute;
+         right: 10px;
+         bottom: 5px;
       }
    }
 
