@@ -86,7 +86,7 @@ public class BookingService implements IService<BookingDTO> {
     }
 
     public BookingDTO book(BookingReqDTO booking) throws BadRequestException {
-        if (booking.getFinalDate()==null || booking.getInitialDate()==null || booking.getStartTime()==null){
+        if (booking.getFinal_date()==null || booking.getInitial_date()==null || booking.getStartTime()==null){
             logger.error("The data entered has null values.");
             throw new BadRequestException("The booking has null values.");
         } else {
@@ -98,8 +98,8 @@ public class BookingService implements IService<BookingDTO> {
             bookingCreated.setUser(user.get());
             bookingCreated.setProduct(product.get());
             bookingCreated.setStartTime(booking.getStartTime());
-            bookingCreated.setInitial_date(LocalDate.parse(booking.getInitialDate(), dateFormat));
-            bookingCreated.setFinal_date(LocalDate.parse(booking.getFinalDate(), dateFormat));
+            bookingCreated.setInitial_date(LocalDate.parse(booking.getInitial_date(), dateFormat));
+            bookingCreated.setFinal_date(LocalDate.parse(booking.getFinal_date(), dateFormat));
             bookingCreated.setVaccinated(booking.getVaccinated());
             bookingCreated.setSeller(booking.getSeller());
 
@@ -120,8 +120,8 @@ public class BookingService implements IService<BookingDTO> {
         Optional<User> user = userRepository.findById(Long.parseLong(booking.getUserId()));
         Optional<Product> product = productRepository.findById(Long.parseLong(booking.getProductId()));
         existingBooking.setStartTime(booking.getStartTime());
-        existingBooking.setInitial_date(LocalDate.parse(booking.getInitialDate(), dateFormat));
-        existingBooking.setFinal_date(LocalDate.parse(booking.getFinalDate(), dateFormat));
+        existingBooking.setInitial_date(LocalDate.parse(booking.getInitial_date(), dateFormat));
+        existingBooking.setFinal_date(LocalDate.parse(booking.getFinal_date(), dateFormat));
         existingBooking.setProduct(product.get());
         existingBooking.setUser(user.get());
         existingBooking.setVaccinated(booking.getVaccinated());
