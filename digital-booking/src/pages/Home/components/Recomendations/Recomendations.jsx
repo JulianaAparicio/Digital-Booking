@@ -7,7 +7,7 @@ import { mapProducts } from '../../../../core/services/Product';
 import { Context } from '../../../../core/Context';
 
 
-export default function Recomendations ({ products }) {
+export default function Recomendations ({ title, products }) {
    const { user } = useContext(Context);
    const [currentProducts, setCurrentProducts] = useState([]);
 
@@ -23,7 +23,7 @@ export default function Recomendations ({ products }) {
 
    return (
       <section className="db-recommendations">
-         <h2>Recomendaciones</h2>
+         <h2>{title}</h2>
          <article className="cards">
             {currentProducts.map(($product, i) => (
                <ProductCard

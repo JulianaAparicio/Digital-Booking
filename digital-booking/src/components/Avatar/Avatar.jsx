@@ -11,9 +11,9 @@ export const Avatar = ({ name, lastName, logOut }) => {
   return (
     <>
       <div className='db-avatar'>
-        <span className='db-avatar-initials'>
+        <div className='db-avatar-initials'>
           {name && name.charAt(0).toUpperCase()} {lastName && lastName.charAt(0).toUpperCase()}
-        </span>
+        </div>
         <div className='db-user-nav'>
           <div className='db-avatar-name'>
             <span>Hola,</span>

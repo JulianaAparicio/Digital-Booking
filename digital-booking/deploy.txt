@@ -11,7 +11,7 @@ npm run dev //Correr el proyecto y verificar que este funcionando o realizar los
 npm run build //Crear la carpeta y archivos de deploy
 git status //Verificar que archivos cambiaron
 git add . //Incluir todos los archivos que corresponden para el commit
-git commit -m "211122 Actualizacion AWS bucket FrontEnd" //Crear el commit
+git commit -m "0512221654pm Actualizacion AWS bucket FrontEnd" //Crear el commit
 git push origin produccionFrontEndBucket //Enviar la informacion a gitlab
 - Verificar en gitlab CI/CD Pipeline que el deploy pase bien
 - En Repository crear el Merge requests para mezclar la rama produccionFrontEndBucket a la rama FrontEnd con los cambios de dist y otros

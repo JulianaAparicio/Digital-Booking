@@ -20,15 +20,16 @@ export default function Input({
    minDate = null,
    value,
    options = [],
+   values = false,
 }) {
    const [isFocus, setFocus] = useState(false);
    const [isInvalid, setInvalid] = useState(false);
    const [errorMessage, setErrorMessage] = useState('');
    const [isMobile, setIsMobile] = useState(null);
 
-   const inputRef = useRef();
+   if (!values) values = options;
 
-   const inputId = useId();
+   const inputRef = useRef();
 
    const handleFocus = $event => {
       setFocus(true);
@@ -39,16 +40,18 @@ export default function Input({
 
    const handleChangeInput = $event => {
       const error = errors
-         .map(validationError => validationError($event.target.value, name))
-         .reduce((messages, error) => `${error ? error + '.' : ''} ${messages} `, '');
+         ? errors
+              .map(validationError => validationError($event.target.value, name))
+              .reduce((messages, error) => `${error ? error + '.' : ''} ${messages} `, '')
+         : '';
       if (!Boolean(error.trim())) {
          setValue($event.target.value);
          setInvalid(false);
-         setInputValidation(true);
+         setInputValidation && setInputValidation(true);
       } else {
          setErrorMessage(error);
          setInvalid(true);
-         setInputValidation(false);
+         setInputValidation && setInputValidation(false);
       }
    };
 
@@ -122,10 +125,9 @@ export default function Input({
                   readOnly={isReadOnly}
                   onFocus={handleFocus}
                   onBlur={handleBlur}
-                  onChange={handleChangeInput}
-                  value={value}>
+                  onChange={handleChangeInput}>
                   {options.map((op, i) => (
-                     <option value={op} key={i}>
+                     <option value={values[i]} key={i}>
                         {op}
                      </option>
                   ))}

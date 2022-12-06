@@ -81,7 +81,7 @@ export default function SideNav({close}) {
                                     Mis reservas
                                 </div> 
                             </Link>
-                            <Link to={'/favorites'}>
+                            <Link to={`/favorites/${user.id}`}>
                                 <div className="db-side-panel-options-item" >
                                     Mis Favoritos
                                 </div>

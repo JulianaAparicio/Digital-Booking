@@ -8,8 +8,9 @@ footer {
    grid-template-columns: 1fr 1fr;
    padding: .6rem 2rem;
    position: fixed;
+   bottom: 0;
    width: 100%;
-   z-index: 10;
+   z-index: 2;
 
    .leftSide {
       justify-self: start;

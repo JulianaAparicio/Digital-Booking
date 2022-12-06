@@ -141,7 +141,7 @@ const Home = () => {
             </div>
             <div className="db-component-container db-recommendations-container">
                <LoadingComponent />
-               {currentProducts ? <Recomendations products={currentProducts} /> : null}
+               {currentProducts ? <Recomendations title={'Recomendaciones'} products={currentProducts} /> : null}
             </div>
          </div>
       </ProductMap.Provider>

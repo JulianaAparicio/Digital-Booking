@@ -42,30 +42,6 @@
       }
    }
 
-   .db-apartment-header {
-      margin: 0;
-      padding: 0.5rem 2rem;
-      background-color: var(--color-tertiary);
-      color: var(--color-text-light);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      svg {
-         &:hover {
-            cursor: pointer;
-
-            path {
-               fill: var(--color-secondary);
-            }
-         }
-      }
-
-      @media (max-width:450px) {
-         padding: .7rem 0.5rem;
-      }
-   }
-
    .db-apartment-location {
       margin: 0;
       padding: 0.5rem 2rem;
@@ -102,7 +78,8 @@
 
    .db-apartment-icons {
       margin: 0;
-      padding: 1rem 2rem 0.5rem;
+      padding: 1rem;
+      padding-bottom: 0;
 
       svg {
          &:hover {
@@ -115,7 +92,7 @@
       }
 
       @media (max-width:450px) {
-         padding: 0.5rem 0.5rem;
+         padding: .8rem .5rem;
       }
    }
 
@@ -351,6 +328,24 @@
 
          @media (max-width: 768px) {
             grid-template-columns: 1fr;
+         }
+      }
+
+      .rmdp-day-picker * {
+         cursor: default;
+      }
+
+      .rmdp-day:not(.rmdp-today) .sd {
+         &:hover {
+            background-color: white;
+            color: black;
+         }
+      }
+
+      .rmdp-today .sd {
+         &:hover {
+            background: var(--color-primary-dark) !important;
+            color: white !important;
          }
       }
    }

@@ -10,12 +10,11 @@ import Alert from '../../shared/Alert/Alert';
 import { Context } from '../../core/Context';
 import { loginUser } from '../../core/services/Auth';
 import { decodeToken, setToken } from '../../core/services/Token';
+import { getFavoritesByUser } from '../../core/services/Favorite';
 
 const Login = () => {
    let browserNavigate = useNavigate();
    const appContext = useContext(Context);
-
-
 
    const location = useLocation();
 
@@ -44,6 +43,7 @@ const Login = () => {
       loginUser(loginForm).then(data => {
          setToken(data);
          appContext.setUser(decodeToken());
+         getFavoritesByUser(decodeToken().id);
          browserNavigate('/');
       }).catch((e) => setFailedAuth(true)).finally(() => setIsLoading(false));
    };

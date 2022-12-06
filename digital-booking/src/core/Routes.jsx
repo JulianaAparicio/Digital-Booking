@@ -2,6 +2,8 @@ import { createBrowserRouter, Outlet } from 'react-router-dom';
 import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
 import Apartment from '../pages/Apartment/Apartment';
+import CreateProduct from '../pages/Create/CreateProduct';
+import FavoritePage from '../pages/FavoritePage/FavoritePage';
 import Home from '../pages/Home/Home';
 import Login from '../pages/Login/Login';
 import MyReservations from '../pages/MyReservations/MyReservations';
@@ -12,7 +14,9 @@ const MainLayout = () => {
    return (
       <>
          <Header />
-         <Outlet />
+         <main>
+            <Outlet />
+         </main>
          <Footer>©2022 Digital Booking</Footer>
       </>
    );
@@ -62,10 +66,20 @@ const router = createBrowserRouter(
                children: [
                   {
                      path: 'products',
+                     element: <CreateProduct />,
                   },
                   {
                      path: 'users',
                      element: <Register />
+                  }
+               ]
+            },
+            {
+               path: '/favorites',
+               children: [
+                  {
+                     path: ':userId',
+                     element: <FavoritePage/>
                   }
                ]
             }

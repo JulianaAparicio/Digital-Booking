@@ -5,12 +5,12 @@ import Header from './components/Header/Header';
 import { DataProvider } from './core/Context';
 
 function App() {
+   // console.log(BrowserRouter);
+
    return (
       <DataProvider>
          <div id="app">
-            <main>
-               <RouterProvider  router={router} />
-            </main>
+            <RouterProvider router={router} />
          </div>
       </DataProvider>
    );

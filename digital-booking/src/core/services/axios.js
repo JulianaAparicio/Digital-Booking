@@ -31,6 +31,13 @@ export async function putReq(url, body) {
     }});
 }
 
+export async function putReqAuth(url, body) {
+   return await axios.put(url, JSON.stringify(body), {headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      "Authorization": `Bearer ${getToken()}`,
+    }});
+}
+
 export async function deleteReq(url, body) {
    return await axios.delete(url, {data: body});
 }
