@@ -1,9 +1,6 @@
-import React, { useState } from 'react'
+import React, { createRef, useState } from 'react'
 import CloseIcon from '../../shared/Icons/CloseIcon';
 import './Avatar.scss';
-import { Link } from "react-router-dom";
-import HeartIcon from "../../shared/Icons/HeartIcon"
-import ReservationIcon from "../../shared/Icons/ReservationIcon"
 import { useContext } from 'react';
 import { Context } from '../../core/Context';
 

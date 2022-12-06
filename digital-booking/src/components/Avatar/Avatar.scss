@@ -1,9 +1,9 @@
 .db-avatar {
-
     display: flex;
     align-items: center;
     border-left: 3px solid var(--color-primary);
     padding: 0 0 0 10px;
+    position: relative;
 
     &-initials {
         font-weight: var(--font-weight-bold);
