@@ -1,8 +1,7 @@
 import { formStateMapper } from "../../utils/formStateMapper";
-import { getReq } from "./axios";
+import { getReq, postAuthReq } from "./axios";
 import { baseUrl } from './baseUrl';
 import { setLocalStorage, getLocalStorage } from "./Storage";
-
 
 const PRODUCT_URL = `${baseUrl}/products`;
 
@@ -40,6 +39,20 @@ export async function getProductByQuery(queryForm) {
    });
 }
 
+export async function getAvailabilityByProductId(id) {
+   return getReq(`${PRODUCT_URL}/availability/${id}`);
+}
+
+export async function createProduct(productForm) {
+   const productMapper = formStateMapper(productForm);
+   const newProduct = {
+      ...productMapper,
+      ratings: [],
+      availability: []
+   }
+   return postAuthReq(PRODUCT_URL, newProduct);
+}
+
 export function mapProducts(products) {
    const favoriteProducts = getLocalStorage("USER_FAVORITES") || [];
    return products.map((product) => {
@@ -55,9 +68,6 @@ export function mapProducts(products) {
    })
 }
 
-export async function getAvailabilityByProductId(id) {
-   return getReq(`${PRODUCT_URL}/availability/${id}`);
-}
 
 function productQualification(rate) {
    switch (rate * 2) {
