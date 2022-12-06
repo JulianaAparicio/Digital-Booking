@@ -15,9 +15,9 @@ const ReservationDate = ({ reservationForm, currentDates, disabledDates }) => {
       if (!disabledDates) return;
 
       const isNotAvailable = disabledDates.some(dateRange => {
-         const initialDate = new Date(dateRange.initialDate);
+         const initialDate = new Date(dateRange.initial_date);
          initialDate.setMinutes(initialDate.getMinutes() + initialDate.getTimezoneOffset());
-         const finalDate = new Date(dateRange.finalDate);
+         const finalDate = new Date(dateRange.final_date);
          finalDate.setMinutes(finalDate.getMinutes() + finalDate.getTimezoneOffset());
          finalDate.setDate(finalDate.getDate() + 1);
          return typeof date === 'object'
