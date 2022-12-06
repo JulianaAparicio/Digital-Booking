@@ -31,7 +31,6 @@ public class FavoriteService  {
             Product currentProduct = productRepository.findById(productId).orElseThrow(() -> new BadRequestException("The product id not exists"));
 
             List<Product> currentUserProducts = currentUser.getProducts();
-            System.out.println(currentUserProducts);
             if (!currentUserProducts.contains(currentProduct)) {
                 currentUserProducts.add(currentProduct);
                 logger.info("The favorite was created successfully.");
@@ -41,13 +40,16 @@ public class FavoriteService  {
                 logger.info("The favorite was removed successfully.");
             }
 
-            System.out.println(currentUserProducts);
-
             userRepository.save(currentUser);
 
             return currentUserProducts;
         }
 
+    }
+
+    public List<Product> getFavoritesByUserId(Long id) throws BadRequestException {
+        User currentUser = userRepository.findById(id).orElseThrow(() -> new BadRequestException("The user id not exists"));
+        return  currentUser.getProducts();
     }
 
 }
