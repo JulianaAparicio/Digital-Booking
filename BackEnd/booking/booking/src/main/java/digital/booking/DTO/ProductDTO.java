@@ -23,4 +23,11 @@ public class ProductDTO {
     private List<RatingDTO> ratings;
     private List<Booking> availability;
 
+    public ProductDTO(Long id, String title, String description, Category category, Location location) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.category = category;
+        this.location = location;
+    }
 }
