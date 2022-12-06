@@ -20,6 +20,13 @@
 
    &-items {
       margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      @media (max-width: 600px) {
+         display: none;
+      }
    }
 
    .db-logo {

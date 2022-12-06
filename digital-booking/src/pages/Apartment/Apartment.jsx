@@ -18,6 +18,7 @@ import LoadingScreen from '../../components/LoadingScreen/LoadingScreen';
 import HeartFilledIcon from '../../shared/Icons/HeartFilledIcon';
 import { toggleFavoriteLocal } from '../../core/services/Favorite';
 import { getLocalStorage } from '../../core/services/Storage';
+import TitlePagesSection from '../../shared/TitlePagesSection/TitlePagesSection';
 
 let aux = 0;
 
@@ -92,9 +93,9 @@ const Apartment = () => {
          <LoadingScreen />
          {currentProduct && (
             <div className="db-apartment-container">
-               <HeaderApartment
+               <TitlePagesSection
                   title={currentProduct.title}
-                  category={currentProduct.category.title}
+                  subtitle={currentProduct.category.title}
                />
                <Location location={currentProduct.location} rate={currentProduct.rate} />
                <div className="db-apartment-icons">

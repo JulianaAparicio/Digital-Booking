@@ -6,14 +6,16 @@ import HeaderButtons from "./HeaderButtons/HeaderButton";
 import {Avatar} from "../Avatar/Avatar"
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../../core/services/Auth";
+import HeaderAdmin from "./HeaderAdmin/HeaderAdmin";
+import HeaderMenu from "./HeaderMenu/HeaderMenu";
 
 const Header = () => {
 
-    const appContext = useContext(Context);
+    const {user, setUser} = useContext(Context);
     const browserNavigate = useNavigate();
 
     const logOut = () => {
-        appContext.setUser(null);
+        setUser(null);
         logoutUser();
         browserNavigate("/");       
     }
@@ -24,8 +26,10 @@ const Header = () => {
                 <Logo />
             </a>
             <div className="db-header-items">
-                {appContext && appContext.user ? <Avatar {...appContext.user} logOut={logOut} /> : <HeaderButtons />}
+                {user ? <HeaderAdmin user={user} /> : null}
+                {user ? <Avatar {...user} logOut={logOut} /> : <HeaderButtons />}
             </div>
+            <HeaderMenu />
         </header>
     )
 } 

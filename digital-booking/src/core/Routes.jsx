@@ -3,8 +3,10 @@ import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
 import Apartment from '../pages/Apartment/Apartment';
 import CreateProduct from '../pages/Create/CreateProduct';
+import FavoritePage from '../pages/FavoritePage/FavoritePage';
 import Home from '../pages/Home/Home';
 import Login from '../pages/Login/Login';
+import MyReservations from '../pages/MyReservations/MyReservations';
 import Register from '../pages/Register/Register';
 import ReservationPage from '../pages/Reservation/ReservationPage';
 
@@ -47,18 +49,40 @@ const router = createBrowserRouter(
                ],
             },
             {
-               path: '/reservation',
+               path: '/booking',
                children: [
+                  {
+                     path: 'user/:userId',
+                     element: <MyReservations />,
+                  },
                   {
                      path: ':apartmentId',
                      element: <ReservationPage />,
-                  },
+                  }                  
                ],
             },
             {
-               path: '/create',
-               element: <CreateProduct />,
+               path: '/administration',
+               children: [
+                  {
+                     path: 'products',
+                     element: <CreateProduct />,
+                  },
+                  {
+                     path: 'users',
+                     element: <Register />
+                  }
+               ]
             },
+            {
+               path: '/favorites',
+               children: [
+                  {
+                     path: ':userId',
+                     element: <FavoritePage/>
+                  }
+               ]
+            }
          ],
       },
    ],

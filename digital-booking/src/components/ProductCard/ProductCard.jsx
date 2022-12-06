@@ -5,9 +5,7 @@ import ProductDescription from './ProductDescription';
 import ProductImage from './ProductImage';
 
 export default function ProductCard({ product, toggleFavorite }) {
-   const toggleFav = async () => {
-      toggleFavorite(product.id);
-   };
+   
 
    useEffect(() => {}, [product]);
    return (
@@ -15,7 +13,8 @@ export default function ProductCard({ product, toggleFavorite }) {
          <SideMainLayout
             side={
                <ProductImage
-                  addFavorite={toggleFav}
+                  id={product.id}
+                  addFavorite={toggleFavorite}
                   isFavorite={product.isFavorite}
                   url={product.images.length ? product.images[0].url : ''}
                   productName={product.images.length ? product.images[0].title : ''}

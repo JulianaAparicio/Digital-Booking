@@ -18,6 +18,7 @@ import { bookingProduct } from '../../core/services/Booking';
 import { DateObject } from 'react-multi-date-picker';
 import Thanks from './components/Thanks';
 import { createRef } from 'react';
+import TitlePagesSection from '../../shared/TitlePagesSection/TitlePagesSection';
 
 const ReservationPage = () => {
    const ctx = useContext(Context);
@@ -155,9 +156,9 @@ const ReservationPage = () => {
             <LoadingScreen />
             {currentProduct && (
                <div className="db-reservation-page">
-                  <HeaderApartment
+                  <TitlePagesSection
                      title={currentProduct.title}
-                     category={currentProduct.category.title}
+                     subtitle={currentProduct.category.title}
                   />
                   <div className="content">
                      <ReservationForm
@@ -178,6 +179,7 @@ const ReservationPage = () => {
                         confirm={booking}
                         isLoading={isLoading}
                         isDisabled={isDisabled}
+                        isBooking={true}
                      />
                   </div>
                   <Highlights highlights={currentProduct.items} />

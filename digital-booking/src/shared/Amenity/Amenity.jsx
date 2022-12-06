@@ -36,7 +36,6 @@ const Svg = ({ type }) => {
       case 'kitchen':
          return <KitchenIcon />;
       default:
-         console.error('amenity type not found');
          return null;
    }
 };

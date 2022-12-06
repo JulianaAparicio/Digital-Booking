@@ -44,13 +44,7 @@ export async function getAvailabilityByProductId(id) {
 }
 
 export async function createProduct(productForm) {
-   const productMapper = formStateMapper(productForm);
-   const newProduct = {
-      ...productMapper,
-      ratings: [],
-      availability: []
-   }
-   return postAuthReq(PRODUCT_URL, newProduct);
+   return postAuthReq(PRODUCT_URL, productForm);
 }
 
 export function mapProducts(products) {

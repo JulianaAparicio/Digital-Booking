@@ -63,7 +63,7 @@ const Register = () => {
          <MainCenterLayout>
             <div className="db-register">
                <h1 className="db-form-title">Crear cuenta</h1>
-               {appContext.user && appContext.user.role !== 'ADMIN' ?
+               {appContext.user && appContext.user.role === 'ADMIN' ?
                <Input
                   type="select"
                   value={registerForm.role.state[0]}

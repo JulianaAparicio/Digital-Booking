@@ -8,6 +8,8 @@ import { Context } from '../../core/Context';
 import gsap from 'gsap';
 import LoadingScreen from './../../components/LoadingScreen/LoadingScreen';
 import { getAllAmenities } from '../../core/services/Amenities';
+import TitlePagesSection from '../../shared/TitlePagesSection/TitlePagesSection';
+import { createProduct } from '../../core/services/Product';
 
 export const StateContext = createContext(null);
 
@@ -25,7 +27,7 @@ const CreateProduct = () => {
       direction: { state: useState(null) },
       city: {
          state: useState(
-            context.cities.slice(1, -1).at(0) ? context.cities.slice(1, -1).at(0).name : null
+            context.cities.slice(1, -1).at(0) ? `${context.cities.slice(1, -1).at(0).name} - ${context.cities.slice(1, -1).at(0).state} `: null
          ),
       },
       description: { state: useState(null) },
@@ -85,7 +87,7 @@ const CreateProduct = () => {
       getAllAmenities().then(setAmenities);
    }, []);
 
-   const submitProduct = () => {
+   const submitProduct = async () => {
       if (!isValid) {
          console.error('No todos los campos están completos');
          return;
@@ -121,13 +123,11 @@ const CreateProduct = () => {
          category: {
             id: creationForm.category.state[0],
          },
-         amenities: [creationForm.amenities.state[0].map(el => ({ id: el }))],
-         images: [
-            creationForm.images.state[0].map((image, i) => ({
-               title: `${creationForm.name.state[0]?.toUpperCase()}_${i + 1}`,
-               url: image,
-            })),
-         ],
+         amenities: creationForm.amenities.state[0].map(el => ({ id: el })),
+         images: creationForm.images.state[0].map((image, i) => ({
+            title: `${creationForm.name.state[0]?.toUpperCase()}_${i + 1}`,
+            url: image,
+         })),
          location: {
             address: creationForm.direction.state[0],
             // longitude: '6.5550639',
@@ -135,18 +135,21 @@ const CreateProduct = () => {
             city,
          },
          items: [...politics, ...rules, ...security],
-         // ratings: [],
-         // availability: [],
+         ratings: [],
+         availability: [],
       };
-
-      console.log(producto);
+      await createProduct(producto).then(({data}) => {
+         console.log(productCreated)
+      })
    };
 
    return (
       <StateContext.Provider value={creationForm}>
          <div className="db-creation-page">
             <LoadingScreen />
-            <CreateHeader>Administración</CreateHeader>
+            <TitlePagesSection
+               title={'Administración'}
+            />
             {amenities && (
                <CreationForm
                   submitProduct={submitProduct}

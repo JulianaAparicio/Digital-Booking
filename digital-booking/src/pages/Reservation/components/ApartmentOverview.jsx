@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Button from '../../../shared/Button/Button';
 import Card from '../../../shared/Card/Card';
 import LocationIcon from '../../../shared/Icons/LocationIcon';
@@ -9,13 +10,15 @@ const ApartmentOverview = ({
    confirm,
    isLoading,
    isDisabled,
+   isBooking,
+   startTime
 }) => {
    return (
       <section className="db-apartment-overview">
          <Card>
             <h2>Detalle de la reserva</h2>
             <div className="top">
-               <img src={currentProduct.images.at(0)?.url ?? ''} alt="" />
+               <img width="100%" src={currentProduct.images.at(0)?.url ?? ''} alt="" />
             </div>
             <div>
                <div className="details">
@@ -29,6 +32,10 @@ const ApartmentOverview = ({
                         )}
                      </p>
                   </div>
+                  { !isBooking ? <div className="description">
+                     <p>{currentProduct.description}</p>
+                  </div> : null }
+                  
                </div>
                <div className="bottom">
                   <hr />
@@ -42,10 +49,20 @@ const ApartmentOverview = ({
                      <p>{getCheckOutDate() ?? 'Aun no seleccionado'}</p>
                   </div>
                   <hr />
-
-                  <Button classList="db-button-primary" isDisabled={isDisabled} action={confirm}>
+                  {!isBooking ? <>
+                     <div className="check-out">
+                        <p className="label">Hora de Ingreso</p>
+                        <p>{startTime}</p>
+                     </div>
+                     <hr/>
+                  </>: null}
+                  
+                  {isBooking ? <Button classList="db-button-primary" isDisabled={isDisabled} action={confirm}>
                      Confirmar reserva
-                  </Button>
+                  </Button> : <Link to={`/product/${currentProduct.id}`}>
+                     <Button classList={'db-button-primary'}>Ver Alojamiento</Button>
+                  </Link>}
+                  
                </div>
             </div>
          </Card>

@@ -100,7 +100,7 @@ const CreationForm = ({ isValid, submitProduct, amenities }) => {
                         id={'name'}
                         placeholder={'Hermiage Hotel'}
                         type={'text'}
-                        label={'Nombre de la propiedad'}
+                        label={'Nombre del Alojamiento'}
                         setValue={states.name.state[1]}
                         name={'name'}
                      />
@@ -123,7 +123,7 @@ const CreationForm = ({ isValid, submitProduct, amenities }) => {
                         setValue={states.city.state[1]}
                         values={context.cities.slice(1, -1).map(el => el.id)}
                         label={'Ciudad'}
-                        options={context.cities.slice(1, -1).map(el => el.name)}
+                        options={context.cities.slice(1, -1).map(el => `${el.name} - ${el.state}`)}
                      />
 
                      <Input
@@ -142,7 +142,7 @@ const CreationForm = ({ isValid, submitProduct, amenities }) => {
                            setValue={setAmenitySelected}
                            label={'Nombre'}
                            options={visibleAmenities.map(el => el.name)}
-                           values={visibleAmenities.map(el => el.id)}
+                           values={visibleAmenities.map(el => Number(el.id))}
                            isDisabled={visibleAmenities.length <= 0}
                         />
                         <Button

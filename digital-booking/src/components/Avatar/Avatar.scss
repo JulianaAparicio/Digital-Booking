@@ -1,24 +1,26 @@
 .db-avatar {
+    display: flex;
+    align-items: center;
+    border-left: 3px solid var(--color-primary);
+    padding: 0 0 0 10px;
+    position: relative;
 
-   display: grid;
-   align-items: center;
-   grid-template-columns: auto 1fr auto;
-   gap: .4rem;
-
-   &-initials {
-      aspect-ratio: 1/1;
-      height: 60%;
-      font-weight: var(--font-weight-bold);
-      font-size: var(--font-size-big);
-      line-height: 25px;
-      text-align: center;
-      color: var(--color-text-light);
-      background-color: var(--color-secondary);
-      border-radius: 50%;
-      padding: 8px;
-      letter-spacing: -2px;
-      margin-right: 5px;
-   }
+    &-initials {
+        font-weight: var(--font-weight-bold);
+        font-size: var(--font-size-big);
+        text-align: center;
+        color: var(--color-text-light);
+        background-color: var(--color-secondary);
+        border-radius: 50%;
+        padding: 4px;
+        letter-spacing: -2px;
+        margin-right: 5px;
+        height: 40px;
+        width: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
    &-name {
       font-family: 'Roboto Bold';
@@ -31,27 +33,61 @@
       justify-content: center;
       flex-direction: column;
 
-      & span:first-child {
-         color: var(--color-secondary);
-         opacity: 0.5;
-      }
+        & span:first-child {
+            color: var(--color-secondary);
+            opacity: 0.5;
+            text-transform: capitalize;
+        }
 
-      & span:last-child {
-         color: var(--color-primary);
-      }
-   }
+        & span:last-child {
+            color: var(--color-primary);
+            text-transform: capitalize;
+        }
+    }
 
    & svg {
       position: relative;
       top: -20px;
       left: -15px;
 
-      &:hover {
-         cursor: pointer;
+        &:hover {
+            cursor: pointer;
+            path {
+                fill: var(--color-secondary-light);
+            }
+        }
+       
+    }
 
-         path {
-            fill: var(--color-secondary-light);
-         }
-      }
-   }
+    
+
+    @media (max-width: 600px) {
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: space-around;
+        height: 110px;
+
+        &-name {
+            align-items: flex-end;
+    
+            & span:first-child {
+                color: var(--color-text-light);
+                opacity: 1;
+                text-align: right;
+                text-transform: capitalize;
+            }
+    
+            & span:last-child {
+                color: var(--color-secondary);
+                white-space: nowrap;
+                text-align: right;
+                text-transform: capitalize;
+            }
+        }
+
+        &-close {
+            display: none;
+        }
+    }
+
 }

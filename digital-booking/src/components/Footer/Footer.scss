@@ -7,7 +7,8 @@ footer {
    display: grid;
    grid-template-columns: 1fr 1fr;
    padding: .6rem 2rem;
-   position: sticky;
+   position: fixed;
+   bottom: 0;
    width: 100%;
    z-index: 2;
 
