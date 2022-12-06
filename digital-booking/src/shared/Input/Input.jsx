@@ -20,11 +20,14 @@ export default function Input({
    minDate = null,
    value,
    options = [],
+   values = false,
 }) {
    const [isFocus, setFocus] = useState(false);
    const [isInvalid, setInvalid] = useState(false);
    const [errorMessage, setErrorMessage] = useState('');
    const [isMobile, setIsMobile] = useState(null);
+
+   if (!values) values = options;
 
    const inputRef = useRef();
 
@@ -117,7 +120,6 @@ export default function Input({
                <select
                   key={id}
                   id={id}
-                  value={value}
                   placeholder={placeholder}
                   disabled={isDisabled}
                   readOnly={isReadOnly}
@@ -125,7 +127,7 @@ export default function Input({
                   onBlur={handleBlur}
                   onChange={handleChangeInput}>
                   {options.map((op, i) => (
-                     <option value={op} key={i}>
+                     <option value={values[i]} key={i}>
                         {op}
                      </option>
                   ))}

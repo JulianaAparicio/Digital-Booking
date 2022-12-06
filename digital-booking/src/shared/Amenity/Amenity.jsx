@@ -6,6 +6,7 @@ import PoolIcon from './../Icons/PoolIcon';
 import PetsIcon from './../Icons/PetsIcon';
 import PartyIcon from './../Icons/PartyIcon';
 import ParkingIcon from './../Icons/ParkingIcon';
+import KitchenIcon from '../Icons/KitchenIcon';
 
 const Amenity = ({ type, label = false }) => {
    return (
@@ -32,6 +33,8 @@ const Svg = ({ type }) => {
          return <PartyIcon />;
       case 'parking':
          return <ParkingIcon />;
+      case 'kitchen':
+         return <KitchenIcon />;
       default:
          console.error('amenity type not found');
          return null;

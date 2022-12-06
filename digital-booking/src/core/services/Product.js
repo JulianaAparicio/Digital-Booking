@@ -56,7 +56,7 @@ export async function createProduct(productForm) {
 export function mapProducts(products) {
    const favoriteProducts = getLocalStorage("USER_FAVORITES") || [];
    return products.map((product) => {
-      const score =product.ratings.length ? Math.round(product.ratings.reduce((acc, rate) => acc + rate.score,0) / product.ratings.length) : 0;
+      const score = product.ratings.length ? Math.round(product.ratings.reduce((acc, rate) => acc + rate.score, 0) / product.ratings.length) : 0;
       return {
          ...product,
          isFavorite: favoriteProducts.includes(product.id),
