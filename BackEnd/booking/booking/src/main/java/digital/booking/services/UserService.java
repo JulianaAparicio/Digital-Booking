@@ -1,10 +1,6 @@
 package digital.booking.services;
 
-import digital.booking.DTO.ProductDTO;
-import digital.booking.entities.Product;
-import digital.booking.entities.Role;
 import digital.booking.entities.User;
-import digital.booking.entities.UserRoleEnum;
 import digital.booking.exceptions.BadRequestException;
 import digital.booking.exceptions.NotFoundException;
 import digital.booking.interfaces.IService;
