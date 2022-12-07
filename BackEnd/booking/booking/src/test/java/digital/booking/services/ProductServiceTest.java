@@ -7,6 +7,7 @@ import digital.booking.exceptions.BadRequestException;
 import digital.booking.exceptions.NotFoundException;
 import digital.booking.repositories.CategoryRepository;
 import digital.booking.repositories.CityRepository;
+import digital.booking.repositories.LocationRepository;
 import digital.booking.repositories.ProductRepository;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,8 +27,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -43,14 +43,12 @@ public class ProductServiceTest {
     @Mock
     CityRepository cityRepository;
 
+    @Mock
+    LocationRepository locationRepository;
+
     @Autowired
     @InjectMocks
     ProductService productService;
-
-    @Mock
-    private Product productTest;
-    @Mock
-    private ProductDTO productDTOTest;
 
     @Mock
     private Category categoryTest;
@@ -67,18 +65,28 @@ public class ProductServiceTest {
     @Mock
     private City cityTest;
 
+    private Product productTest;
+    private ProductDTO productDTOTest;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+
         categoryTest = new Category(1L,"titleTest","descriptionTest","imageURLTest");
         categoryRepository.save(categoryTest);
+
         cityTest = new City(1L,"cityNameTest","stateTest","countryTest");
         cityRepository.save(cityTest);
+
         locationTest = new Location(1L,cityTest,"addressTest","latitudeTest","longitudeTest");
+        locationRepository.save(locationTest);
+
         ratingTest = new ArrayList<>();
         ratingDTOTest = new ArrayList<>();
 
         productTest = new Product(1L, "titleTest", "descriptionTest",categoryTest,locationTest, ratingTest);
+        productRepository.save(productTest);
+
         productDTOTest = new ProductDTO(1L,"titleTest", "descriptionTest", categoryTest, new ArrayList<>(), locationTest, new ArrayList<>(), new ArrayList<>(), ratingDTOTest, new ArrayList<>());
 
     }
@@ -87,7 +95,7 @@ public class ProductServiceTest {
     @Test
     void testSearchAll() {
         try {
-            lenient().when(productRepository.findAll()).thenReturn(Collections.emptyList());
+            when(productRepository.findAll()).thenReturn(Collections.emptyList());
 
             List<ProductDTO> productList = productService.searchAll();
 
@@ -102,7 +110,7 @@ public class ProductServiceTest {
     @Test
     void testSearchById() {
         try {
-            lenient().when(productRepository.findById(productTest.getId())).thenReturn(Optional.ofNullable(productTest));
+            when(productRepository.findById(productTest.getId())).thenReturn(Optional.ofNullable(productTest));
             ProductDTO productFounded = productService.searchById(productTest.getId());
 
             assertThat(productFounded).isNotNull();
@@ -116,7 +124,7 @@ public class ProductServiceTest {
     @Test
     void testCreate() {
         try{
-            lenient().when(productRepository.save(any(Product.class))).thenReturn(productTest);
+            when(productRepository.save(any(Product.class))).thenReturn(productTest);
 
             ProductDTO productCreated = productService.create(productDTOTest);
 
@@ -140,8 +148,8 @@ public class ProductServiceTest {
             productDTOTest.setTitle("titleEdited");
             productDTOTest.setDescription("descriptionEdited");
 
-            lenient().when(productRepository.findById(1L)).thenReturn(Optional.ofNullable(productTest));
-            lenient().when(productRepository.save(productTest)).thenReturn(productTest);
+            when(productRepository.findById(1L)).thenReturn(Optional.ofNullable(productTest));
+            when(productRepository.save(productTest)).thenReturn(productTest);
 
             ProductDTO productUpdated = productService.update(productDTOTest, productTest.getId());
 
@@ -159,7 +167,7 @@ public class ProductServiceTest {
     @Test
     public void testDelete() {
         try{
-            lenient().when(productRepository.findById(1L)).thenReturn(Optional.of(productTest));
+            when(productRepository.findById(1L)).thenReturn(Optional.of(productTest));
             productService.delete(1L);
             verify(productRepository).findById(1L);
 
