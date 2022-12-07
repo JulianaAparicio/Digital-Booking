@@ -122,8 +122,8 @@ public class BookingService implements IService<BookingDTO> {
         existingBooking.setStartTime(booking.getStartTime());
         existingBooking.setInitial_date(LocalDate.parse(booking.getInitial_date(), dateFormat));
         existingBooking.setFinal_date(LocalDate.parse(booking.getFinal_date(), dateFormat));
-        existingBooking.setProduct(product.get());
-        existingBooking.setUser(user.get());
+        existingBooking.setProduct(product.orElse(null));
+        existingBooking.setUser(user.orElse(null));
         existingBooking.setVaccinated(booking.getVaccinated());
         existingBooking.setSeller(booking.getSeller());
 
