@@ -19,8 +19,7 @@ import java.util.Optional;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -49,7 +48,7 @@ class CityServiceTest {
     @Test
     void testSearchAll() {
         try {
-            lenient().when(cityRepository.findAll()).thenReturn(Collections.emptyList());
+            when(cityRepository.findAll()).thenReturn(Collections.emptyList());
 
             List<City> cityList = cityService.searchAll();
 
@@ -78,7 +77,7 @@ class CityServiceTest {
     @Test
     void testCreate() {
         try{
-            lenient().when(cityRepository.save(any(City.class))).thenReturn(cityTest);
+            when(cityRepository.save(any(City.class))).thenReturn(cityTest);
 
             City city = new City();
             city.setId(1L);
