@@ -2,6 +2,7 @@ package digital.booking.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import digital.booking.DTO.BookingDTO;
+import digital.booking.DTO.BookingReqDTO;
 import digital.booking.DTO.ProductDTO;
 import digital.booking.DTO.UserDTO;
 import digital.booking.entities.*;
@@ -26,8 +27,7 @@ import static digital.booking.entities.UserRoleEnum.USER;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -47,6 +47,9 @@ class BookingServiceTest {
     CityRepository cityRepository;
 
     @Mock
+    LocationRepository locationRepository;
+
+    @Mock
     UserRepository userRepository;
 
     @Mock
@@ -60,9 +63,6 @@ class BookingServiceTest {
     private ObjectMapper mapper;
 
     @Mock
-    private Booking bookingTest;
-
-    @Mock
     private Category categoryTest;
 
     @Mock
@@ -72,7 +72,7 @@ class BookingServiceTest {
     private City cityTest;
 
     @Mock
-    private ProductDTO productTest;
+    private Product productTest;
 
     @Mock
     private User userTest;
@@ -80,12 +80,15 @@ class BookingServiceTest {
     @Mock
     private Role roleTest;
 
+    private Booking bookingTest;
+
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        categoryTest = new Category(1L,"titleTest","descriptionTest","imageURLTest");
+        categoryTest = new Category(1L,"titleTest","descriptionTest",
+                "imageURLTest");
         categoryRepository.save(categoryTest);
 
         cityTest = new City(1L,"cityNameTest","stateTest","countryTest");
@@ -93,28 +96,29 @@ class BookingServiceTest {
 
         locationTest = new Location(1L,cityTest,"addressTest","latitudeTest",
                 "longitudeTest");
+        locationRepository.save(locationTest);
 
-        productTest = new ProductDTO(1L, "titleTest", "descriptionTest",categoryTest,
+        productTest = new Product(1L, "titleTest", "descriptionTest",categoryTest,
                 locationTest);
-        Product productTestConverted = mapper.convertValue(productTest,Product.class);
-        productRepository.save(productTestConverted);
+        productRepository.save(productTest);
 
         roleTest = new Role(1L,USER);
         roleRepository.save(roleTest);
 
-        userTest = new User(1L,"nameTest","lastNameTest", "emailTest",
+        userTest = new User(1L,"nameTest","lastNameTest", "email_test@test.com",
                 "passwordTest",true,roleTest);
         userRepository.save(userTest);
 
         bookingTest = new Booking(1L, "hh:mm", LocalDate.now(),LocalDate.now(),
-                productTestConverted,userTest);
+                productTest,userTest);
+        bookingRepository.save(bookingTest);
     }
 
     @Order(2)
     @Test
     void searchAll() {
         try {
-            lenient().when(bookingRepository.findAll()).thenReturn(Collections.emptyList());
+            when(bookingRepository.findAll()).thenReturn(Collections.emptyList());
 
             List<BookingDTO> bookingList = bookingService.searchAll();
 
@@ -129,7 +133,7 @@ class BookingServiceTest {
     @Test
     void searchById() {
         try {
-            lenient().when(bookingRepository.findById(1L)).thenReturn(Optional.of(bookingTest));
+            when(bookingRepository.findById(1L)).thenReturn(Optional.of(bookingTest));
             BookingDTO bookingFounded = bookingService.searchById(bookingTest.getId());
 
             assertThat(bookingFounded).isNotNull();
@@ -143,22 +147,22 @@ class BookingServiceTest {
     @Test
     void create() {
         try{
-            lenient().when(bookingRepository.save(any(Booking.class))).thenReturn(bookingTest);
+            when(bookingRepository.save(any(Booking.class))).thenReturn(bookingTest);
 
             BookingDTO bookingDTO = new BookingDTO();
             bookingDTO.setId(1L);
             bookingDTO.setStartTime("hh:mm");
             bookingDTO.setInitial_date(LocalDate.now());
             bookingDTO.setFinal_date(LocalDate.now());
-            bookingDTO.setProduct(productTest);
+            bookingDTO.setProduct(mapper.convertValue(productTest,ProductDTO.class));
             bookingDTO.setUser(mapper.convertValue(userTest,UserDTO.class));
 
             BookingDTO bookingCreated = bookingService.create(bookingDTO);
 
-            // Verifies if product is null:
+            // Verifies if booking is null:
             assertNotNull(bookingCreated,"The booking is null");
 
-            // Verifies product's attributes:
+            // Verifies booking's attributes:
             assertEquals(bookingTest.getStartTime(), bookingCreated.getStartTime(), "Start times don't match.");
             assertEquals(bookingTest.getInitial_date(), bookingCreated.getInitial_date(), "Initial dates don't match.");
             assertEquals(bookingTest.getFinal_date(), bookingCreated.getFinal_date(), "Final dates don't match.");
@@ -169,20 +173,22 @@ class BookingServiceTest {
         }
     }
 
-    /*@Order(4)
+    @Order(4)
     @Test
     void update() {
         try{
             BookingReqDTO bookingReqDTO = new BookingReqDTO();
             bookingReqDTO.setId(1L);
             bookingReqDTO.setStartTime("startTimeTestEdited");
-            bookingReqDTO.setInitialDate("06/15/2020");
-            bookingReqDTO.setFinalDate("06/30/2020");
+            bookingReqDTO.setInitial_date("12/01/2022");
+            bookingReqDTO.setFinal_date("12/06/2022");
             bookingReqDTO.setUserId(userTest.getId().toString());
             bookingReqDTO.setProductId(productTest.getId().toString());
 
-            lenient().when(bookingRepository.findById(1L)).thenReturn(Optional.ofNullable(bookingTest));
-            lenient().when(bookingRepository.save(bookingTest)).thenReturn(bookingTest);
+            System.out.println(bookingReqDTO);
+
+            when(bookingRepository.findById(1L)).thenReturn(Optional.ofNullable(bookingTest));
+            when(bookingRepository.save(bookingTest)).thenReturn(bookingTest);
 
             BookingDTO bookingUpdated = bookingService.updateBooking(bookingReqDTO,1L);
 
@@ -194,13 +200,13 @@ class BookingServiceTest {
         } catch (NotFoundException e){
             e.printStackTrace();
         }
-    }*/
+    }
 
     @Order(5)
     @Test
     void delete() {
         try{
-            lenient().when(bookingRepository.findById(1L)).thenReturn(Optional.of(bookingTest));
+            when(bookingRepository.findById(1L)).thenReturn(Optional.of(bookingTest));
             bookingService.delete(1L);
             verify(bookingRepository).findById(1L);
 
