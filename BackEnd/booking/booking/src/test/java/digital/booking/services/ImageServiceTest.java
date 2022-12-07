@@ -59,10 +59,10 @@ class ImageServiceTest {
 
             Image imageCreated = imageService.create(image);
 
-            // Verifies if city is null:
+            // Verifies if image is null:
             assertNotNull(imageCreated,"The image is null");
 
-            // Verifies city's attributes:
+            // Verifies image's attributes:
             assertEquals(imageTest.getTitle(), imageCreated.getTitle(), "Titles don't match.");
             assertEquals(imageTest.getURL(), imageCreated.getURL(), "URLs don't match.");
             assertEquals(imageTest.getProduct(), imageCreated.getProduct(), "Products don't match.");
