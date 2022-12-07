@@ -1,6 +1,5 @@
 package digital.booking.services;
 
-import digital.booking.DTO.ImageDTO;
 import digital.booking.entities.Image;
 import digital.booking.exceptions.BadRequestException;
 import digital.booking.exceptions.NotFoundException;
