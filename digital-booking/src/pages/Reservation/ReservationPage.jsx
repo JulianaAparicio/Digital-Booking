@@ -5,7 +5,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import LoadingScreen from '../../components/LoadingScreen/LoadingScreen';
 import { getProductById } from '../../core/services/Product';
 import gsap from 'gsap';
-import HeaderApartment from '../Apartment/Components/HeaderApartment';
 import Highlights from '../Apartment/Components/Highlights';
 import ReservationForm from './components/ReservationForm';
 import ReservationDate from './components/ReservationDate';
@@ -39,7 +38,7 @@ const ReservationPage = () => {
       email: { state: useState(null), isValid: useState(false) },
       city: { state: useState(null), isValid: useState(false) },
       vacined: { state: useState('Si'), isValid: useState(false) },
-      tips: { state: useState(''), isValid: useState(true)},
+      tips: { state: useState(''), isValid: useState(true) },
       dates: { state: useState() },
       checkIn: { state: useState(new DateObject({ hour: 10, minute: 0 })) },
       productId: { state: useState(Number(apartmentId)) },
@@ -152,7 +151,9 @@ const ReservationPage = () => {
    return (
       ctx.user && (
          <>
-            <Thanks productId={apartmentId} ref={thanksContainer} />
+            <Thanks redirection="/booking" ref={thanksContainer}>
+               Su reserva se ha realizado con éxito
+            </Thanks>
             <LoadingScreen />
             {currentProduct && (
                <div className="db-reservation-page">

@@ -1,35 +1,56 @@
-import { useState } from "react";
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { getFavoritesByUser } from "../../core/services/Favorite";
-import TitlePagesSection from "../../shared/TitlePagesSection/TitlePagesSection";
-import LoadingComponent from "../Home/components/LoadingComponent/LoadingComponent";
-import Recomendations from "../Home/components/Recomendations/Recomendations";
-import { ProductMap } from "../Home/contexts/productMap";
+import gsap from 'gsap';
+import { useState } from 'react';
+import { useContext } from 'react';
+import { useEffect } from 'react';
+import LoadingScreen from '../../components/LoadingScreen/LoadingScreen';
+import { Context } from '../../core/Context';
+import { getFavoritesByUser } from '../../core/services/Favorite';
+import TitlePagesSection from '../../shared/TitlePagesSection/TitlePagesSection';
+import Recomendations from '../Home/components/Recomendations/Recomendations';
+import { ProductMap } from '../Home/contexts/productMap';
 
 export default function FavoritePage() {
-    const { userId } = useParams();
-    const [productMap, setProductMap] = useState(null);
+   const context = useContext(Context);
 
-    const [favorites, setFavorites] = useState([]);
+   const [productMap, setProductMap] = useState(null);
+   const [favorites, setFavorites] = useState(null);
 
-    useEffect(() => {
-        getFavoritesByUser(userId).then((userFavorites) => {
-            setFavorites(userFavorites)
-        })
-    }, [userId])
+   useEffect(() => {
+      if (!context.user) return;
 
-    return (
-        <ProductMap.Provider value={{ productMap, setProductMap }}>
+      getFavoritesByUser(context.user.id).then(userFavorites => {
+         console.log(userFavorites);
+         setFavorites(userFavorites);
+      });
+   }, [context]);
 
-            <TitlePagesSection
-               title={'Mis Favoritos'}
-            />
+   useEffect(() => {
+      if (!favorites) return;
+      console.log('pasao');
 
-            <div className="db-component-container db-recommendations-container">
-               {/* <LoadingComponent /> */}
-               {favorites.length ? <Recomendations products={favorites} title={'Favoritos'} /> : <div>No se encontraron resultados</div>}
-            </div>
-        </ProductMap.Provider>
-    )
+      const animationsContext = gsap.context(() => {
+         gsap.to('.db-loading-page', { opacity: 0, display: 'none' });
+
+         gsap.from('.db-card-product', { opacity: 0, delay: 0.4, yPercent: 30, stagger: 0.1 });
+      }, '.db-favourites-container');
+
+      return () => {
+         animationsContext.revert();
+      };
+   }, [favorites]);
+
+   return (
+      <ProductMap.Provider value={{ productMap, setProductMap }}>
+         <TitlePagesSection title={'Mis Favoritos'} />
+
+         <div className="db-favourites-container">
+            <LoadingScreen />
+            {favorites && favorites.length ? (
+               <Recomendations products={favorites} title={'Favoritos'} />
+            ) : (
+               <div style={{ margin: '2rem' }}>No se encontraron resultados</div>
+            )}
+         </div>
+      </ProductMap.Provider>
+   );
 }

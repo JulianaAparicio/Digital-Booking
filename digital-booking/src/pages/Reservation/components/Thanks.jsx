@@ -4,10 +4,11 @@ import Button from '../../../shared/Button/Button';
 import Card from '../../../shared/Card/Card';
 import CheckStarIcon from '../../../shared/Icons/CheckStarIcon';
 
-const Thanks = forwardRef(({ productId }, ref) => {
+const Thanks = forwardRef(({ redirection, children }, ref) => {
    const hidde = () => {
       ref.current.style.display = 'none';
-      navigate(`/product/${productId}`);
+      window.scrollTo(0, 0);
+      navigate(redirection);
    };
 
    const navigate = useNavigate();
@@ -17,7 +18,7 @@ const Thanks = forwardRef(({ productId }, ref) => {
          <Card>
             <CheckStarIcon />
             <h3>¡Muchas gracias!</h3>
-            <p>Su reserva se ha realizado con éxito</p>
+            <p>{children}</p>
             <Button action={hidde} classList="db-button-primary">
                Ok
             </Button>

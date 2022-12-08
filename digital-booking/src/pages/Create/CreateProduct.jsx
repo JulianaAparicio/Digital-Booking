@@ -71,7 +71,7 @@ const CreateProduct = () => {
          navigate('/');
       }
 
-      creationForm.category.state[1](context.cities.slice(1, -1).at(0).id);
+      creationForm.category.state[1](context.cities.at(0).id);
       creationForm.city.state[1](context.cities.slice(1, -1).at(0).id);
    }, [context]);
 
@@ -170,7 +170,6 @@ const CreateProduct = () => {
          .then(({ data }) => {
             setIsLoading(States.Success);
             setRedirectionUrl(`/product/${data.id}`);
-            window.scrollTo(0, 0);
          })
          .catch(err => {
             console.error(err);
@@ -186,12 +185,14 @@ const CreateProduct = () => {
          });
       }
 
-      if (isLoading === States.Success) {
+      if (isLoading === States.Success || isLoading === States.Error) {
          gsap.to('.db-loading-page', {
             opacity: 0,
             display: 'none',
          });
+      }
 
+      if (isLoading === States.Success) {
          thanksContainer.current.style.display = 'flex';
 
          gsap.from('.db-thanks-container .db-card', {

@@ -1,28 +1,29 @@
 .db-my-reservations {
-    .booking-card-spacer {
-        margin: 10px 0px;
-    }
 
-    .db-reservation-card {
-        display: grid;
-        gap: 1rem;
-        padding: 1rem  2rem;
-        margin: var(--gap-x) var(--gap-y) 0;
-        margin-bottom: 1rem;
-        
+   .booking-card-spacer {
+      margin: 10px 0px;
+   }
 
-        
-            @media screen and (min-width: 768px) {
-                grid-template-columns: 1fr 1fr;
-            }
+   .db-reservation-card {
+      display: grid;
+      gap: 1rem;
+      padding: 1rem 2rem;
+      margin: var(--gap-x) var(--gap-y) 0;
+      margin-bottom: 1rem;
 
-            @media screen and (min-width: 1280px) {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        
-    }
 
-    &-bookings {
+
+      @media screen and (min-width: 768px) {
+         grid-template-columns: 1fr 1fr;
+      }
+
+      @media screen and (min-width: 1280px) {
+         grid-template-columns: repeat(4, 1fr);
+      }
+
+   }
+
+   &-bookings {
 
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -31,79 +32,75 @@
       margin: 2rem auto 4rem;
 
       & section.db-apartment-overview {
-   
+
          @media (min-width: 1024px) {
             margin-left: 0 !important;
          }
-   
+
          .db-card {
             padding: 1rem 0;
-   
+
             &>div:not(.top) {
                padding: 0 1rem;
             }
-   
+
             h2 {
                margin: 0 1rem;
                margin-bottom: 1rem;
             }
-   
+
             .top {
-   
+
                img {
                   width: 100%;
                   height: 250px;
                   object-fit: cover;
-   
-                  @media (min-width: 768px) and (max-width: 1024px) {
-                     height: 100%;
-                  }
                }
             }
-   
+
             .details {
                margin: 1rem 0;
-   
+
                @media (min-width: 768px) and (max-width: 1024px) {
                   margin-top: 0;
                }
-   
+
                p {
                   color: var(--color-tertiary);
                }
-   
+
                h3 {
                   font-size: 1.3rem;
                }
-   
+
                .description {
-   
+
                   margin-top: .8rem;
                   display: flex;
                   gap: .6rem;
-   
+
                   svg {
                      height: 1rem;
                      width: min-content;
                   }
-   
+
                   p {
                      color: black;
                   }
                }
             }
-   
+
             .bottom {
                &>div {
                   display: flex;
                   justify-content: space-between;
                   padding: 1rem 0;
-   
+
                   .label {
                      font-weight: 600;
                   }
                }
-   
+
                button {
                   margin-top: 1rem;
                   width: 100%;
@@ -120,5 +117,12 @@
          grid-template-columns: 1fr 1fr;
       }
 
-    }
+   }
+}
+
+.db-my-reservations-bookings {
+   @media screen and (min-width: 1440px) {
+      max-width: 1440px;
+      margin: 2rem auto;
+   }
 }

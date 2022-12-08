@@ -83,6 +83,7 @@ section {
    padding: var(--gap-x) var(--gap-y) 0;
    background: var(--color-quaternary);
    margin-bottom: 50px;
+   min-height: 100vh;
 
    .cards {
       @media screen and (min-width: 1280px) {
