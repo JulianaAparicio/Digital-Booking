@@ -63,7 +63,7 @@ class CityServiceTest {
     @Test
     void testSearchById() {
         try {
-            lenient().when(cityRepository.findById(1L)).thenReturn(Optional.of(cityTest));
+            when(cityRepository.findById(1L)).thenReturn(Optional.of(cityTest));
             City cityFounded = cityService.searchById(cityTest.getId());
 
             assertThat(cityFounded).isNotNull();
@@ -111,8 +111,8 @@ class CityServiceTest {
             city.setState("stateEdited");
             city.setCountry("countryEdited");
 
-            lenient().when(cityRepository.findById(1L)).thenReturn(Optional.ofNullable(cityTest));
-            lenient().when(cityRepository.save(cityTest)).thenReturn(cityTest);
+            when(cityRepository.findById(1L)).thenReturn(Optional.ofNullable(cityTest));
+            when(cityRepository.save(cityTest)).thenReturn(cityTest);
 
             City cityUpdated = cityService.update(city, 1L);
 
@@ -131,7 +131,7 @@ class CityServiceTest {
     @Test
     public void testDelete() {
         try{
-            lenient().when(cityRepository.findById(1L)).thenReturn(Optional.of(cityTest));
+            when(cityRepository.findById(1L)).thenReturn(Optional.of(cityTest));
             cityService.delete(1L);
             verify(cityRepository).findById(1L);
 
