@@ -10,14 +10,29 @@ import LoadingScreen from './../../components/LoadingScreen/LoadingScreen';
 import { getAllAmenities } from '../../core/services/Amenities';
 import TitlePagesSection from '../../shared/TitlePagesSection/TitlePagesSection';
 import { createProduct } from '../../core/services/Product';
+import Thanks from '../Reservation/components/Thanks';
+import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const StateContext = createContext(null);
 
+const States = {
+   Null: 1,
+   Loading: 2,
+   Success: 3,
+   Error: 4,
+};
+
 const CreateProduct = () => {
    const context = useContext(Context);
+   const navigate = useNavigate();
 
    const [amenities, setAmenities] = useState(null);
    const [isValid, setIsValid] = useState(false);
+   const [isLoading, setIsLoading] = useState(States.Null);
+   const [redirectionUrl, setRedirectionUrl] = useState('/');
+
+   const thanksContainer = useRef(null);
 
    const creationForm = {
       name: { state: useState(null) },
@@ -27,7 +42,11 @@ const CreateProduct = () => {
       direction: { state: useState(null) },
       city: {
          state: useState(
-            context.cities.slice(1, -1).at(0) ? `${context.cities.slice(1, -1).at(0).name} - ${context.cities.slice(1, -1).at(0).state} `: null
+            context.cities.slice(1, -1).at(0)
+               ? `${context.cities.slice(1, -1).at(0).name} - ${
+                    context.cities.slice(1, -1).at(0).state
+                 } `
+               : null
          ),
       },
       description: { state: useState(null) },
@@ -48,7 +67,11 @@ const CreateProduct = () => {
    useEffect(() => {
       if (!context.categories.at(0) || !context.cities.at(0)) return;
 
-      creationForm.category.state[1](context.cities.slice(1, -1).at(0).id);
+      if (!context.user?.role || context.user?.role !== 'ADMIN') {
+         navigate('/');
+      }
+
+      creationForm.category.state[1](context.cities.at(0).id);
       creationForm.city.state[1](context.cities.slice(1, -1).at(0).id);
    }, [context]);
 
@@ -97,26 +120,28 @@ const CreateProduct = () => {
 
       const politics = creationForm.cancellation.state.at(0)?.map(el => ({
          politic: {
-            id: 1,
+            title: 'Política de cancelación',
+            id: 2,
          },
          description: el,
       }));
 
       const rules = creationForm.rules.state.at(0)?.map(el => ({
          politic: {
-            id: 2,
+            title: 'Normas de la casa',
+            id: 1,
          },
          description: el,
       }));
 
       const security = creationForm.security.state.at(0)?.map(el => ({
          politic: {
+            title: 'Salud y seguridad',
             id: 3,
          },
          description: el,
       }));
 
-      //el siguiente objeto es lo que se debe enviar
       const producto = {
          title: creationForm.name.state[0],
          description: creationForm.description.state[0],
@@ -135,30 +160,68 @@ const CreateProduct = () => {
             city,
          },
          items: [...politics, ...rules, ...security],
-         ratings: [],
-         availability: [],
+         // ratings: [],
+         // availability: [],
       };
-      await createProduct(producto).then(({data}) => {
-         console.log(productCreated)
-      })
+
+      setIsLoading(States.Loading);
+
+      createProduct(producto)
+         .then(({ data }) => {
+            setIsLoading(States.Success);
+            setRedirectionUrl(`/product/${data.id}`);
+         })
+         .catch(err => {
+            console.error(err);
+            setIsLoading(States.Error);
+         });
    };
 
+   useEffect(() => {
+      if (isLoading === States.Loading) {
+         gsap.to('.db-loading-page', {
+            opacity: 1,
+            display: 'flex',
+         });
+      }
+
+      if (isLoading === States.Success || isLoading === States.Error) {
+         gsap.to('.db-loading-page', {
+            opacity: 0,
+            display: 'none',
+         });
+      }
+
+      if (isLoading === States.Success) {
+         thanksContainer.current.style.display = 'flex';
+
+         gsap.from('.db-thanks-container .db-card', {
+            delay: 0.2,
+            scale: 0,
+            ease: 'elastic.out(1, 1)',
+         });
+      }
+   }, [isLoading]);
+
    return (
-      <StateContext.Provider value={creationForm}>
-         <div className="db-creation-page">
-            <LoadingScreen />
-            <TitlePagesSection
-               title={'Administración'}
-            />
-            {amenities && (
-               <CreationForm
-                  submitProduct={submitProduct}
-                  isValid={isValid}
-                  amenities={amenities}
-               />
-            )}
-         </div>
-      </StateContext.Provider>
+      <>
+         <Thanks ref={thanksContainer} redirection={redirectionUrl}>
+            Tu producto ha sido creado con éxito.
+         </Thanks>
+         <StateContext.Provider value={creationForm}>
+            <div className="db-creation-page">
+               <LoadingScreen />
+               <TitlePagesSection title={'Administración'} />
+               {amenities && (
+                  <CreationForm
+                     submitProduct={submitProduct}
+                     isValid={isValid}
+                     amenities={amenities}
+                  />
+               )}
+            </div>
+         </StateContext.Provider>
+      </>
    );
 };
 

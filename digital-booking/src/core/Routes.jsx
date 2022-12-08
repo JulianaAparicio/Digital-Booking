@@ -52,13 +52,13 @@ const router = createBrowserRouter(
                path: '/booking',
                children: [
                   {
-                     path: 'user/:userId',
+                     path: '',
                      element: <MyReservations />,
                   },
                   {
                      path: ':apartmentId',
                      element: <ReservationPage />,
-                  }                  
+                  },
                ],
             },
             {
@@ -70,19 +70,14 @@ const router = createBrowserRouter(
                   },
                   {
                      path: 'users',
-                     element: <Register />
-                  }
-               ]
+                     element: <Register />,
+                  },
+               ],
             },
             {
                path: '/favorites',
-               children: [
-                  {
-                     path: ':userId',
-                     element: <FavoritePage/>
-                  }
-               ]
-            }
+               element: <FavoritePage />,
+            },
          ],
       },
    ],

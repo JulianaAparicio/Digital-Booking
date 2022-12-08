@@ -1,5 +1,6 @@
 .db-creation-page {
    margin-bottom: 4rem;
+
    .alert-container {
 
       position: fixed;
@@ -90,7 +91,11 @@
             gap: .5rem;
             grid-column-end: 3;
             grid-column-start: 1;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(2, 1fr);
+
+            @media screen and (min-width: 380px) {
+               grid-template-columns: repeat(4, 1fr);
+            }
 
             &>div {
                cursor: pointer;

@@ -33,7 +33,7 @@ const ApartmentOverview = ({
                      </p>
                   </div>
                   { !isBooking ? <div className="description">
-                     <p>{currentProduct.description}</p>
+                     <p>{currentProduct.description.slice(0, 70)}...</p>
                   </div> : null }
                   
                </div>

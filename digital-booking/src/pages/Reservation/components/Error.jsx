@@ -4,17 +4,16 @@ import Button from '../../../shared/Button/Button';
 import Card from '../../../shared/Card/Card';
 import CheckStarIcon from '../../../shared/Icons/CheckStarIcon';
 
-const Thanks = forwardRef(({ redirection, children }, ref) => {
+const Error = forwardRef(({ children, redirection }, ref) => {
    const hidde = () => {
       ref.current.style.display = 'none';
-      window.scrollTo(0, 0);
       navigate(redirection);
    };
 
    const navigate = useNavigate();
 
    return (
-      <div ref={ref} className="db-thanks-container">
+      <div ref={ref} className="db-error-container">
          <Card>
             <CheckStarIcon />
             <h3>¡Muchas gracias!</h3>
@@ -27,4 +26,4 @@ const Thanks = forwardRef(({ redirection, children }, ref) => {
    );
 });
 
-export default Thanks;
+export default Error;
