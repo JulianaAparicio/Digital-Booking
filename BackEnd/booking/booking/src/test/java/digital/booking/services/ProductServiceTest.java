@@ -5,10 +5,7 @@ import digital.booking.DTO.RatingDTO;
 import digital.booking.entities.*;
 import digital.booking.exceptions.BadRequestException;
 import digital.booking.exceptions.NotFoundException;
-import digital.booking.repositories.CategoryRepository;
-import digital.booking.repositories.CityRepository;
-import digital.booking.repositories.LocationRepository;
-import digital.booking.repositories.ProductRepository;
+import digital.booking.repositories.*;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -69,6 +66,7 @@ public class ProductServiceTest {
     private ProductDTO productDTOTest;
 
     private List<Product> productListTest = new ArrayList<>();
+
 
     @BeforeEach
     void setUp() {
@@ -205,6 +203,11 @@ public class ProductServiceTest {
     }
 
     @Order(6)
+    @Test
+    public void testSearchByQuery(){
+    }
+
+    @Order(7)
     @Test
     public void testDelete() {
         try{
