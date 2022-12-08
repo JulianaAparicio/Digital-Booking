@@ -109,14 +109,15 @@ class BookingServiceTest {
                 "passwordTest",true,roleTest);
         userRepository.save(userTest);
 
-        bookingTest = new Booking(1L, "hh:mm", LocalDate.now(),LocalDate.now(),
+        bookingTest = new Booking(1L, "10:00", LocalDate.now(),LocalDate.now(),
                 productTest,userTest);
         bookingRepository.save(bookingTest);
+
     }
 
     @Order(2)
     @Test
-    void searchAll() {
+    void testSearchAll() {
         try {
             when(bookingRepository.findAll()).thenReturn(Collections.emptyList());
 
@@ -131,7 +132,7 @@ class BookingServiceTest {
 
     @Order(3)
     @Test
-    void searchById() {
+    void testSearchById() {
         try {
             when(bookingRepository.findById(1L)).thenReturn(Optional.of(bookingTest));
             BookingDTO bookingFounded = bookingService.searchById(bookingTest.getId());
@@ -145,13 +146,13 @@ class BookingServiceTest {
 
     @Order(1)
     @Test
-    void create() {
+    void testCreate() {
         try{
             when(bookingRepository.save(any(Booking.class))).thenReturn(bookingTest);
 
             BookingDTO bookingDTO = new BookingDTO();
             bookingDTO.setId(1L);
-            bookingDTO.setStartTime("hh:mm");
+            bookingDTO.setStartTime("10:00");
             bookingDTO.setInitial_date(LocalDate.now());
             bookingDTO.setFinal_date(LocalDate.now());
             bookingDTO.setProduct(mapper.convertValue(productTest,ProductDTO.class));
@@ -175,6 +176,41 @@ class BookingServiceTest {
 
     @Order(4)
     @Test
+    void testBook() {
+        try{
+            when(productRepository.findById(1L)).thenReturn(Optional.of(productTest));
+            when(userRepository.findById(1L)).thenReturn(Optional.of(userTest));
+            when(bookingRepository.save(any(Booking.class))).thenReturn(bookingTest);
+
+            BookingReqDTO bookingReqDTO = new BookingReqDTO();
+            bookingReqDTO.setId(1L);
+            bookingReqDTO.setStartTime("10:00");
+            bookingReqDTO.setInitial_date("12/01/2022");
+            bookingReqDTO.setFinal_date("12/15/2022");
+            bookingReqDTO.setProductId(productTest.getId().toString());
+            bookingReqDTO.setUserId(userTest.getId().toString());
+            bookingReqDTO.setVaccinated(true);
+            bookingReqDTO.setSeller("seller");
+
+            BookingDTO bookingCreated = bookingService.book(bookingReqDTO);
+
+            // Verifies if booking is null:
+            assertNotNull(bookingCreated,"The booking is null");
+
+            // Verifies booking's attributes:
+            assertEquals(bookingTest.getStartTime(), bookingCreated.getStartTime(), "Start times don't match.");
+            assertEquals(bookingTest.getInitial_date(), bookingCreated.getInitial_date(), "Initial dates don't match.");
+            assertEquals(bookingTest.getFinal_date(), bookingCreated.getFinal_date(), "Final dates don't match.");
+            assertEquals(bookingTest.getVaccinated(), bookingCreated.getVaccinated(), "Vaccinated info don't match.");
+            assertEquals(bookingTest.getSeller(), bookingCreated.getSeller(), "Sellers info don't match.");
+
+        } catch (BadRequestException e){
+            e.printStackTrace();
+        }
+    }
+
+    @Order(5)
+    @Test
     void update() {
         try{
             BookingReqDTO bookingReqDTO = new BookingReqDTO();
@@ -184,8 +220,6 @@ class BookingServiceTest {
             bookingReqDTO.setFinal_date("12/06/2022");
             bookingReqDTO.setUserId(userTest.getId().toString());
             bookingReqDTO.setProductId(productTest.getId().toString());
-
-            System.out.println(bookingReqDTO);
 
             when(bookingRepository.findById(1L)).thenReturn(Optional.ofNullable(bookingTest));
             when(bookingRepository.save(bookingTest)).thenReturn(bookingTest);
@@ -202,9 +236,9 @@ class BookingServiceTest {
         }
     }
 
-    @Order(5)
+    @Order(6)
     @Test
-    void delete() {
+    void testDelete() {
         try{
             when(bookingRepository.findById(1L)).thenReturn(Optional.of(bookingTest));
             bookingService.delete(1L);
