@@ -139,5 +139,4 @@ class CityServiceTest {
             e.printStackTrace();
         }
     }
-
 }
