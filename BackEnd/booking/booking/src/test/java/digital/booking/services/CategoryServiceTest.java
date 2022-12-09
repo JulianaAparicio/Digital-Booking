@@ -39,7 +39,6 @@ public class CategoryServiceTest {
 
     private Category category;
 
-
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
