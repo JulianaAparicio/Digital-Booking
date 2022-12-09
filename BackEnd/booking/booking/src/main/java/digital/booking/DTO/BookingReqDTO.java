@@ -1,11 +1,6 @@
 package digital.booking.DTO;
 
-import digital.booking.entities.Product;
-import digital.booking.entities.User;
 import lombok.*;
-
-import java.time.LocalDate;
-
 
 @Data
 @NoArgsConstructor

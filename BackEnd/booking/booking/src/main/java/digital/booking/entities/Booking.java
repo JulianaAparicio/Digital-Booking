@@ -49,5 +49,13 @@ public class Booking {
     private User user;
 
 
+    public Booking(Long id, String startTime, LocalDate initial_date, LocalDate final_date, Product product, User user) {
+        this.id = id;
+        this.startTime = startTime;
+        this.initial_date = initial_date;
+        this.final_date = final_date;
+        this.product = product;
+        this.user = user;
+    }
 
 }

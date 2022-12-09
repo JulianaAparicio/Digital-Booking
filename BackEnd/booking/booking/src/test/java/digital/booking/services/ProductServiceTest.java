@@ -5,9 +5,7 @@ import digital.booking.DTO.RatingDTO;
 import digital.booking.entities.*;
 import digital.booking.exceptions.BadRequestException;
 import digital.booking.exceptions.NotFoundException;
-import digital.booking.repositories.CategoryRepository;
-import digital.booking.repositories.CityRepository;
-import digital.booking.repositories.ProductRepository;
+import digital.booking.repositories.*;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,8 +24,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -43,14 +40,12 @@ public class ProductServiceTest {
     @Mock
     CityRepository cityRepository;
 
+    @Mock
+    LocationRepository locationRepository;
+
     @Autowired
     @InjectMocks
     ProductService productService;
-
-    @Mock
-    private Product productTest;
-    @Mock
-    private ProductDTO productDTOTest;
 
     @Mock
     private Category categoryTest;
@@ -67,19 +62,60 @@ public class ProductServiceTest {
     @Mock
     private City cityTest;
 
+    private Product productTest1;
+    private ProductDTO productDTOTest;
+
+    private List<Product> productListTest = new ArrayList<>();
+
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+
         categoryTest = new Category(1L,"titleTest","descriptionTest","imageURLTest");
         categoryRepository.save(categoryTest);
+
         cityTest = new City(1L,"cityNameTest","stateTest","countryTest");
         cityRepository.save(cityTest);
+
         locationTest = new Location(1L,cityTest,"addressTest","latitudeTest","longitudeTest");
+        locationRepository.save(locationTest);
+
         ratingTest = new ArrayList<>();
         ratingDTOTest = new ArrayList<>();
 
-        productTest = new Product(1L, "titleTest", "descriptionTest",categoryTest,locationTest, ratingTest);
+        productTest1 = new Product(1L, "titleTest", "descriptionTest",categoryTest,locationTest, ratingTest);
+        productRepository.save(productTest1);
+
+        Product productTest2 = new Product(2L, "titleTest2", "descriptionTest2", categoryTest, locationTest, ratingTest);
+        productRepository.save(productTest2);
+
+        Product productTest3 = new Product(3L, "titleTest3", "descriptionTest3", categoryTest, locationTest, ratingTest);
+        productRepository.save(productTest3);
+
+        Product productTest4 = new Product(4L, "titleTest4", "descriptionTest4", categoryTest, locationTest, ratingTest);
+        productRepository.save(productTest4);
+
+        Product productTest5 = new Product(5L, "titleTest5", "descriptionTest5", categoryTest, locationTest, ratingTest);
+        productRepository.save(productTest5);
+
+        Product productTest6 = new Product(6L, "titleTest6", "descriptionTest6", categoryTest, locationTest, ratingTest);
+        productRepository.save(productTest6);
+
+        Product productTest7 = new Product(7L, "titleTest7", "descriptionTest7", categoryTest, locationTest, ratingTest);
+        productRepository.save(productTest7);
+
         productDTOTest = new ProductDTO(1L,"titleTest", "descriptionTest", categoryTest, new ArrayList<>(), locationTest, new ArrayList<>(), new ArrayList<>(), ratingDTOTest, new ArrayList<>());
+
+        productListTest = new ArrayList<>();
+        productListTest.add(productTest1);
+        productListTest.add(productTest2);
+        productListTest.add(productTest3);
+        productListTest.add(productTest4);
+        productListTest.add(productTest5);
+        productListTest.add(productTest6);
+        productListTest.add(productTest7);
+
 
     }
 
@@ -87,7 +123,7 @@ public class ProductServiceTest {
     @Test
     void testSearchAll() {
         try {
-            lenient().when(productRepository.findAll()).thenReturn(Collections.emptyList());
+            when(productRepository.findAll()).thenReturn(Collections.emptyList());
 
             List<ProductDTO> productList = productService.searchAll();
 
@@ -102,8 +138,8 @@ public class ProductServiceTest {
     @Test
     void testSearchById() {
         try {
-            lenient().when(productRepository.findById(productTest.getId())).thenReturn(Optional.ofNullable(productTest));
-            ProductDTO productFounded = productService.searchById(productTest.getId());
+            when(productRepository.findById(productTest1.getId())).thenReturn(Optional.ofNullable(productTest1));
+            ProductDTO productFounded = productService.searchById(productTest1.getId());
 
             assertThat(productFounded).isNotNull();
 
@@ -116,7 +152,7 @@ public class ProductServiceTest {
     @Test
     void testCreate() {
         try{
-            lenient().when(productRepository.save(any(Product.class))).thenReturn(productTest);
+            when(productRepository.save(any(Product.class))).thenReturn(productTest1);
 
             ProductDTO productCreated = productService.create(productDTOTest);
 
@@ -124,8 +160,8 @@ public class ProductServiceTest {
             assertNotNull(productCreated,"The product is null");
 
             // Verifies product's attributes:
-            assertEquals(productTest.getTitle(), productCreated.getTitle(), "Titles don't match.");
-            assertEquals(productTest.getDescription(), productCreated.getDescription(), "Descriptions don't match.");
+            assertEquals(productTest1.getTitle(), productCreated.getTitle(), "Titles don't match.");
+            assertEquals(productTest1.getDescription(), productCreated.getDescription(), "Descriptions don't match.");
 
         } catch (BadRequestException e){
             e.printStackTrace();
@@ -136,14 +172,13 @@ public class ProductServiceTest {
     @Test
     void testUpdate() {
         try{
-
             productDTOTest.setTitle("titleEdited");
             productDTOTest.setDescription("descriptionEdited");
 
-            lenient().when(productRepository.findById(1L)).thenReturn(Optional.ofNullable(productTest));
-            lenient().when(productRepository.save(productTest)).thenReturn(productTest);
+            when(productRepository.findById(1L)).thenReturn(Optional.ofNullable(productTest1));
+            when(productRepository.save(productTest1)).thenReturn(productTest1);
 
-            ProductDTO productUpdated = productService.update(productDTOTest, productTest.getId());
+            ProductDTO productUpdated = productService.update(productDTOTest, productTest1.getId());
 
             assertNotNull(productUpdated,"The product updated is null.");
 
@@ -157,9 +192,26 @@ public class ProductServiceTest {
 
     @Order(5)
     @Test
+    public void testSearchRandom(){
+        when(productRepository.findAll()).thenReturn(productListTest);
+
+        List<ProductDTO> randomProductsList = productService.searchRandom();
+
+        assertNotNull(randomProductsList,"The 6 random product list is null");
+        assertEquals(6, randomProductsList.size());
+
+    }
+
+    @Order(6)
+    @Test
+    public void testSearchByQuery(){
+    }
+
+    @Order(7)
+    @Test
     public void testDelete() {
         try{
-            lenient().when(productRepository.findById(1L)).thenReturn(Optional.of(productTest));
+            when(productRepository.findById(1L)).thenReturn(Optional.of(productTest1));
             productService.delete(1L);
             verify(productRepository).findById(1L);
 

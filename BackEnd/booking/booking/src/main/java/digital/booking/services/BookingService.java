@@ -122,8 +122,8 @@ public class BookingService implements IService<BookingDTO> {
         existingBooking.setStartTime(booking.getStartTime());
         existingBooking.setInitial_date(LocalDate.parse(booking.getInitial_date(), dateFormat));
         existingBooking.setFinal_date(LocalDate.parse(booking.getFinal_date(), dateFormat));
-        existingBooking.setProduct(product.get());
-        existingBooking.setUser(user.get());
+        existingBooking.setProduct(product.orElse(null));
+        existingBooking.setUser(user.orElse(null));
         existingBooking.setVaccinated(booking.getVaccinated());
         existingBooking.setSeller(booking.getSeller());
 
@@ -136,7 +136,6 @@ public class BookingService implements IService<BookingDTO> {
         JPAQuery<Booking> queryBooking = new JPAQuery<>(entityManager);
         QBooking bookingQ = QBooking.booking;
         List<Booking> bookings = queryBooking.select(Projections.bean(Booking.class, bookingQ.initial_date, bookingQ.final_date)).from(bookingQ).where(bookingQ.product.id.eq(id)).stream().toList();
-        System.out.println(bookings);
         return bookings;
     }
 

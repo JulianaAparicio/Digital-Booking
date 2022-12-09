@@ -18,7 +18,7 @@ public class Item {
     private Long id;
 
     @NotNull
-    @Column
+    @Column(columnDefinition="TEXT")
     private String description;
 
     @NotNull

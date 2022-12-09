@@ -72,6 +72,25 @@ public class User implements UserDetails {
         this.active = true;
     }
 
+    public User(Long id, String name, String lastName, String email, String password, Boolean active, Role role) {
+        this.id = id;
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.active = active;
+        this.role = role;
+    }
+
+    public User(Long id, String name, String lastName, String email, String password, List<Product> products) {
+        this.id = id;
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.products = products;
+    }
+
     @Override
     @JsonDeserialize(using = GrandAuthoritiesDeserializer.class)
     public Collection<? extends GrantedAuthority> getAuthorities() {

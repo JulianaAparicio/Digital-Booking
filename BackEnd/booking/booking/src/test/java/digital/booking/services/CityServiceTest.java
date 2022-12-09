@@ -19,8 +19,7 @@ import java.util.Optional;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -49,7 +48,7 @@ class CityServiceTest {
     @Test
     void testSearchAll() {
         try {
-            lenient().when(cityRepository.findAll()).thenReturn(Collections.emptyList());
+            when(cityRepository.findAll()).thenReturn(Collections.emptyList());
 
             List<City> cityList = cityService.searchAll();
 
@@ -64,7 +63,7 @@ class CityServiceTest {
     @Test
     void testSearchById() {
         try {
-            lenient().when(cityRepository.findById(1L)).thenReturn(Optional.of(cityTest));
+            when(cityRepository.findById(1L)).thenReturn(Optional.of(cityTest));
             City cityFounded = cityService.searchById(cityTest.getId());
 
             assertThat(cityFounded).isNotNull();
@@ -78,7 +77,7 @@ class CityServiceTest {
     @Test
     void testCreate() {
         try{
-            lenient().when(cityRepository.save(any(City.class))).thenReturn(cityTest);
+            when(cityRepository.save(any(City.class))).thenReturn(cityTest);
 
             City city = new City();
             city.setId(1L);
@@ -112,8 +111,8 @@ class CityServiceTest {
             city.setState("stateEdited");
             city.setCountry("countryEdited");
 
-            lenient().when(cityRepository.findById(1L)).thenReturn(Optional.ofNullable(cityTest));
-            lenient().when(cityRepository.save(cityTest)).thenReturn(cityTest);
+            when(cityRepository.findById(1L)).thenReturn(Optional.ofNullable(cityTest));
+            when(cityRepository.save(cityTest)).thenReturn(cityTest);
 
             City cityUpdated = cityService.update(city, 1L);
 
@@ -132,7 +131,7 @@ class CityServiceTest {
     @Test
     public void testDelete() {
         try{
-            lenient().when(cityRepository.findById(1L)).thenReturn(Optional.of(cityTest));
+            when(cityRepository.findById(1L)).thenReturn(Optional.of(cityTest));
             cityService.delete(1L);
             verify(cityRepository).findById(1L);
 
@@ -140,5 +139,4 @@ class CityServiceTest {
             e.printStackTrace();
         }
     }
-
 }

@@ -39,7 +39,6 @@ public class CategoryServiceTest {
 
     private Category category;
 
-
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -50,7 +49,7 @@ public class CategoryServiceTest {
     @Test
     public void testSearchAll(){
         try {
-            lenient().when(categoryRepository.findAll()).thenReturn(Collections.emptyList());
+            when(categoryRepository.findAll()).thenReturn(Collections.emptyList());
 
             List<CategoryDTO> categoryList = categoryService.searchAll();
 
@@ -65,7 +64,7 @@ public class CategoryServiceTest {
     @Test
     public void testSearchById(){
         try {
-            lenient().when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
+            when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
             CategoryDTO categoryFounded = categoryService.searchById(category.getId());
 
             assertThat(categoryFounded).isNotNull();
@@ -79,7 +78,7 @@ public class CategoryServiceTest {
     @Test
     public void testCreate() {
         try{
-            lenient().when(categoryRepository.save(any(Category.class))).thenReturn(category);
+            when(categoryRepository.save(any(Category.class))).thenReturn(category);
 
             CategoryDTO categoryDTO = new CategoryDTO();
             categoryDTO.setId(1L);
@@ -112,8 +111,8 @@ public class CategoryServiceTest {
             categoryDTO.setDescription("descriptionEdited");
             categoryDTO.setImageURL("ImageURLEdited");
 
-            lenient().when(categoryRepository.findById(1L)).thenReturn(Optional.ofNullable(category));
-            lenient().when(categoryRepository.save(category)).thenReturn(category);
+            when(categoryRepository.findById(1L)).thenReturn(Optional.ofNullable(category));
+            when(categoryRepository.save(category)).thenReturn(category);
 
             CategoryDTO categoryUpdated = categoryService.update(categoryDTO,1L);
 
@@ -133,7 +132,7 @@ public class CategoryServiceTest {
     @Test
     public void testDelete() {
         try{
-            lenient().when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
+            when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
             categoryService.delete(1L);
             verify(categoryRepository).findById(1L);
 
