@@ -1,6 +1,8 @@
 package digital.booking.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.impl.JPAQuery;
 import digital.booking.DTO.BookingDTO;
 import digital.booking.DTO.BookingReqDTO;
 import digital.booking.DTO.ProductDTO;
@@ -18,7 +20,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -82,6 +87,22 @@ class BookingServiceTest {
 
     private Booking bookingTest;
 
+    @Mock
+    List<Booking> bookingsListAvailability;
+
+    @Mock
+    private EntityManager entityManagerMock;
+
+    @Mock
+    private EntityManagerFactory entityManagerFactory;
+
+    @Mock
+    private QBooking bookingQ;
+
+    @Mock
+    private JPAQuery<Booking> queryBooking;
+
+
 
     @BeforeEach
     void setUp() {
@@ -112,6 +133,16 @@ class BookingServiceTest {
         bookingTest = new Booking(1L, "10:00", LocalDate.now(),LocalDate.now(),
                 productTest,userTest);
         bookingRepository.save(bookingTest);
+
+        bookingsListAvailability = new ArrayList<>();
+        bookingsListAvailability.add(bookingTest);
+
+        when(entityManagerMock.getEntityManagerFactory())
+                .thenReturn(entityManagerFactory);
+
+        queryBooking = new JPAQuery<>(entityManagerMock);
+
+        bookingQ = QBooking.booking;
 
     }
 
@@ -237,6 +268,39 @@ class BookingServiceTest {
     }
 
     @Order(6)
+    @Test
+    void testGetAvailabilityByProductId() {
+        try {
+            when(queryBooking.select(Projections.bean(Booking.class, bookingQ.initial_date,
+                    bookingQ.final_date)).from(bookingQ).where(bookingQ.product.id.eq(1L)).stream()
+                    .toList()).thenReturn(bookingsListAvailability);
+
+            List<Booking> bookings = bookingService.getAvailabilityByProductId(1L);
+
+            assertNotNull(bookings,"The value is null.");
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Order(7)
+    @Test
+    void testGetBookingsByUserId() {
+        try {
+            when(queryBooking.from(bookingQ).where(bookingQ.user.id.eq(1L)).stream().toList())
+                    .thenReturn(bookingsListAvailability);
+
+            List<Booking> bookings = bookingService.getBookingsByUserId(1L);
+
+            assertNotNull(bookings,"The value is null.");
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Order(8)
     @Test
     void testDelete() {
         try{
