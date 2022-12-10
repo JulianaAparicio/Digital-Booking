@@ -4,6 +4,14 @@
    z-index: 20;
    box-shadow: 0 0 .5rem rgba(0, 0, 0, 0.3);
 
+   #progress-bar {
+      background: var(--color-primary);
+      height: .3rem;
+      left: 0;
+      position: absolute;
+      top: 100%;
+      // width: 100%;
+   }
 
    &-container {
       align-items: center;

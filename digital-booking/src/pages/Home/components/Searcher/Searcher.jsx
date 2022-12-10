@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Button from '../../../../shared/Button/Button';
 import CalendarIcon from '../../../../shared/Icons/CalendarIcon';
 import LocationIcon from '../../../../shared/Icons/locationIcon';
@@ -14,7 +15,8 @@ const Searcher = ({
    setDateValidation,
    typeHeadOptions,
    search,
-   isLoading
+   isLoading,
+   date,
 }) => {
    const typeHeadOptionsMapper = () => {
       return typeHeadOptions.map(option => {
@@ -51,8 +53,12 @@ const Searcher = ({
                setValue={setDate}
                minDate={new Date()}
                setInputValidation={setDateValidation}
+               clear
             />
-            <Button classList={'searchButton db-button-primary'} action={search}>
+            <Button
+               isDisabled={date?.length === 1}
+               classList={'searchButton db-button-primary'}
+               action={search}>
                {isLoading ? <Spinner /> : null}
                Buscar
             </Button>

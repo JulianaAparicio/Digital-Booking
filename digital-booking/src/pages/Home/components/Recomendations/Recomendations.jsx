@@ -6,12 +6,11 @@ import { toggleFavoriteLocal } from '../../../../core/services/Favorite';
 import { mapProducts } from '../../../../core/services/Product';
 import { Context } from '../../../../core/Context';
 
-
-export default function Recomendations ({ title, products }) {
+export default function Recomendations({ title, products }) {
    const { user } = useContext(Context);
    const [currentProducts, setCurrentProducts] = useState([]);
 
-   const toggleFavorite = async (id) => {
+   const toggleFavorite = async id => {
       await toggleFavoriteLocal(id, user).then(() => {
          setCurrentProducts(mapProducts(products));
       });
@@ -23,7 +22,11 @@ export default function Recomendations ({ title, products }) {
 
    return (
       <section className="db-recommendations">
-         <h2>{title}</h2>
+         <h2>
+            {currentProducts?.length
+               ? title
+               : 'Lo sentimos, no hay destinos disponibles para este destino en las fechas seleccionadas.'}
+         </h2>
          <article className="cards">
             {currentProducts.map(($product, i) => (
                <ProductCard
@@ -35,5 +38,4 @@ export default function Recomendations ({ title, products }) {
          </article>
       </section>
    );
-};
-
+}

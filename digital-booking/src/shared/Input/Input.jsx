@@ -21,6 +21,7 @@ export default function Input({
    value,
    options = [],
    values = false,
+   clear = false,
 }) {
    const [isFocus, setFocus] = useState(false);
    const [isInvalid, setInvalid] = useState(false);
@@ -80,7 +81,7 @@ export default function Input({
       };
    }, []);
 
-   const datePickerPlugins = isMobile ? [<DatePanel />] : [];
+   const datePickerPlugins = clear ? [<DatePanel />] : [];
 
    return (
       <div className="db-input">

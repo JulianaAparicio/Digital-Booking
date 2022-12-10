@@ -40,7 +40,7 @@ const Images = ({ images, imageIndex }) => {
                <div className="db-mobile-images-container">
                   {images.map((image, i) => (
                      <img
-                        key={image && image.id}
+                        key={i}
                         data-index={i + 1}
                         className="db-mobile-images"
                         src={image && image.url}
@@ -59,7 +59,7 @@ const Images = ({ images, imageIndex }) => {
                   {images.slice(0, 5).map((image, i) => (
                      <img
                         onClick={() => setIndex(i)}
-                        key={image && image.id}
+                        key={i}
                         className="db-desktop-images"
                         src={image && image.url}
                         alt={image && image.label}

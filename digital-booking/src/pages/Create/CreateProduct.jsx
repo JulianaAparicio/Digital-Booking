@@ -1,5 +1,4 @@
 import './createProductStyles.scss';
-import CreateHeader from './components/CreateHeader';
 import CreationForm from './components/CreationForm';
 import { useContext, useState } from 'react';
 import { useEffect } from 'react';
@@ -13,6 +12,7 @@ import { createProduct } from '../../core/services/Product';
 import Thanks from '../Reservation/components/Thanks';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Error from '../Reservation/components/Error';
 
 export const StateContext = createContext(null);
 
@@ -33,6 +33,7 @@ const CreateProduct = () => {
    const [redirectionUrl, setRedirectionUrl] = useState('/');
 
    const thanksContainer = useRef(null);
+   const errorContainer = useRef(null);
 
    const creationForm = {
       name: { state: useState(null) },
@@ -201,10 +202,21 @@ const CreateProduct = () => {
             ease: 'elastic.out(1, 1)',
          });
       }
+
+      if (isLoading === States.Error) {
+         errorContainer.current.style.display = 'flex';
+
+         gsap.from('.db-error-container .db-card', {
+            delay: 0.2,
+            scale: 0,
+            ease: 'elastic.out(1, 1)',
+         });
+      }
    }, [isLoading]);
 
    return (
       <>
+         <Error ref={errorContainer} action={() => setIsLoading(States.Null)} />
          <Thanks ref={thanksContainer} redirection={redirectionUrl}>
             Tu producto ha sido creado con éxito.
          </Thanks>
@@ -215,7 +227,7 @@ const CreateProduct = () => {
                {amenities && (
                   <CreationForm
                      submitProduct={submitProduct}
-                     isValid={isValid}
+                     isValid={/*isValid*/ true}
                      amenities={amenities}
                   />
                )}
