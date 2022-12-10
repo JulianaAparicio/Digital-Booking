@@ -43,7 +43,7 @@ public class UserService implements IService<User> {
         if (user == null){
             logger.error("The user entered is null.");
             throw new BadRequestException("The user is null.");
-        } else if (user.getName().length() !=0 && user.getLastName().length() ==0 && user.getPassword().length() ==0) {
+        } else if (user.getName().length() ==0 && user.getLastName().length() ==0 && user.getPassword().length() ==0) {
             logger.error("The user information has empty values.");
             throw new BadRequestException("The user's data must have information.");
         } else if(!validateEmail(user.getEmail())) {
