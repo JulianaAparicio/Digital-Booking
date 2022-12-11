@@ -18,6 +18,14 @@ import { DateObject } from 'react-multi-date-picker';
 import Thanks from './components/Thanks';
 import { createRef } from 'react';
 import TitlePagesSection from '../../shared/TitlePagesSection/TitlePagesSection';
+import Error from './components/Error';
+
+const States = {
+   Null: 1,
+   Loading: 2,
+   Success: 3,
+   Error: 4,
+};
 
 const ReservationPage = () => {
    const ctx = useContext(Context);
@@ -27,7 +35,8 @@ const ReservationPage = () => {
    const [isLoading, setIsLoading] = useState(null);
    const [isDisabled, setIsDisabled] = useState(true);
 
-   const thanksContainer = createRef();
+   const thanksContainer = createRef(null);
+   const errorContainer = createRef(null);
 
    const navigate = useNavigate();
 
@@ -45,11 +54,14 @@ const ReservationPage = () => {
    };
 
    const booking = async () => {
-      setIsLoading(true);
+      setIsLoading(States.Loading);
       await bookingProduct(reservationForm)
-         .then(status => console.log(status))
-         .finally(() => {
-            setIsLoading(false);
+         .then(() => {
+            setIsLoading(States.Success);
+         })
+         .catch(err => {
+            console.error(err);
+            setIsLoading(States.Error);
          });
    };
 
@@ -74,26 +86,38 @@ const ReservationPage = () => {
    };
 
    useEffect(() => {
-      if (isLoading) {
-         currentProduct &&
-            gsap.to('.db-loading-page', {
-               opacity: 1,
-               display: 'flex',
-            });
-      } else {
+      if (isLoading === States.Loading) {
          gsap.to('.db-loading-page', {
-            delay: 0.2,
+            opacity: 1,
+            display: 'flex',
+         });
+      }
+
+      if (isLoading === States.Success || isLoading === States.Error) {
+         gsap.to('.db-loading-page', {
             opacity: 0,
             display: 'none',
          });
-         if (isLoading !== null) {
-            thanksContainer.current.style.display = 'flex';
-            gsap.from('.db-thanks-container .db-card', {
-               delay: 0.2,
-               scale: 0,
-               ease: 'elastic.out(1, 1)',
-            });
-         }
+      }
+
+      if (isLoading === States.Success) {
+         thanksContainer.current.style.display = 'flex';
+
+         gsap.from('.db-thanks-container .db-card', {
+            delay: 0.2,
+            scale: 0,
+            ease: 'elastic.out(1, 1)',
+         });
+      }
+
+      if (isLoading === States.Error) {
+         errorContainer.current.style.display = 'flex';
+
+         gsap.from('.db-error-container .db-card', {
+            delay: 0.2,
+            scale: 0,
+            ease: 'elastic.out(1, 1)',
+         });
       }
    }, [isLoading]);
 
@@ -151,6 +175,7 @@ const ReservationPage = () => {
    return (
       ctx.user && (
          <>
+            <Error ref={errorContainer} action={() => setIsLoading(States.Null)} />
             <Thanks redirection="/booking" ref={thanksContainer}>
                Su reserva se ha realizado con éxito
             </Thanks>

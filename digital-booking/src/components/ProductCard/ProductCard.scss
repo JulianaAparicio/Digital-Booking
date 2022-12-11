@@ -52,6 +52,10 @@
    }
 
    &-description {
+      align-items: center;
+      box-sizing: border-box;
+      display: grid;
+      height: 100%;
       padding: 1rem;
       width: 100%;
 
@@ -101,7 +105,6 @@
    }
 
    &-location {
-      margin: .8rem 0;
 
       &-map {
          font-family: 'Roboto Bold';
@@ -146,6 +149,5 @@
       font-weight: var(--font-weight-semi-bold);
       font-size: var(--font-size-small);
       line-height: 16px;
-      margin: .8rem 0;
    }
 }

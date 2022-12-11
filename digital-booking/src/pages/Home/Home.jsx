@@ -81,21 +81,19 @@ const Home = () => {
          return;
       }
 
-      gsap.to('.db-recommendations-container .db-loading-component', {
-         delay: 0.2,
-         opacity: 0,
-         display: 'none',
+      const animations = gsap.context(() => {
+         gsap.to('.db-recommendations-container .db-loading-component', {
+            delay: 0.2,
+            opacity: 0,
+            display: 'none',
+         });
       });
 
-      gsap.from('#home .db-recommendations .cards .db-card', {
-         duration: 0.5,
-         opacity: 0,
-         scale: 0.6,
-         stagger: 0.2,
-         ease: 'power2.out',
-      });
+      // recomendationsAnimated.current = true;
 
-      recomendationsAnimated.current = true;
+      return () => {
+         animations.revert();
+      };
    }, [currentProducts]);
 
    useEffect(() => {
@@ -114,6 +112,7 @@ const Home = () => {
          <div id="home">
             <Searcher
                setDate={searchForm.date.state[1]}
+               date={searchForm.date.state[0]}
                setPlace={searchForm.city.state[1]}
                setPlaceValidation={searchForm.city.isValid[1]}
                setDateValidation={searchForm.date.isValid[1]}
@@ -141,7 +140,9 @@ const Home = () => {
             </div>
             <div className="db-component-container db-recommendations-container">
                <LoadingComponent />
-               {currentProducts ? <Recomendations title={'Recomendaciones'} products={currentProducts} /> : null}
+               {currentProducts ? (
+                  <Recomendations title={'Recomendaciones'} products={currentProducts} />
+               ) : null}
             </div>
          </div>
       </ProductMap.Provider>

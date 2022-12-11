@@ -1,24 +1,24 @@
 import { forwardRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../../shared/Button/Button';
 import Card from '../../../shared/Card/Card';
-import CheckStarIcon from '../../../shared/Icons/CheckStarIcon';
+import SomethingWrongIcon from '../../../shared/Icons/SomethingWrongIcon';
 
-const Error = forwardRef(({ children, redirection }, ref) => {
-   const hidde = () => {
+const Error = forwardRef(({ action }, ref) => {
+   const hide = () => {
       ref.current.style.display = 'none';
-      navigate(redirection);
+      action();
    };
-
-   const navigate = useNavigate();
 
    return (
       <div ref={ref} className="db-error-container">
          <Card>
-            <CheckStarIcon />
-            <h3>¡Muchas gracias!</h3>
-            <p>{children}</p>
-            <Button action={hidde} classList="db-button-primary">
+            <SomethingWrongIcon />
+            <h3>¡Ups! Algo salió mal</h3>
+            <p>
+               Revisa tus datos y prueba nuevamente. Si todos los campos están perfectos y sigue
+               apareciendo esta alerta espera un tiempo y vuelve a intentar.
+            </p>
+            <Button action={hide} classList="db-button-primary">
                Ok
             </Button>
          </Card>
