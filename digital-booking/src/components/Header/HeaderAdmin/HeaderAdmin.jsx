@@ -15,10 +15,10 @@ export default function HeaderAdmin({user}) {
                         </Link>
                     </> :
                     <>
-                        <Link to={`/booking/user/${user.id}`}>
+                        <Link to={`/booking`}>
                             <div>Mis Reservas</div>
                         </Link>
-                        <Link to={`/favorites/${user.id}`}>
+                        <Link to={`/favorites`}>
                             <div>Mis Favoritos</div>
                         </Link>
                     </> 

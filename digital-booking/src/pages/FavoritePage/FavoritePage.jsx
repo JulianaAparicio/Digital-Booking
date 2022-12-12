@@ -19,14 +19,12 @@ export default function FavoritePage() {
       if (!context.user) return;
 
       getFavoritesByUser(context.user.id).then(userFavorites => {
-         console.log(userFavorites);
          setFavorites(userFavorites);
       });
    }, [context]);
 
    useEffect(() => {
       if (!favorites) return;
-      console.log('pasao');
 
       const animationsContext = gsap.context(() => {
          gsap.to('.db-loading-page', { opacity: 0, display: 'none' });
