@@ -56,13 +56,18 @@ const CreateProduct = () => {
       security: { state: useState(null) },
       cancellation: { state: useState(null) },
       images: { state: useState([]) },
+      latitude: { state: useState(null) },
+      longitude: { state: useState(null) },
    };
 
    useEffect(() => {
       setIsValid(true);
 
-      Object.values(creationForm).some(({ state }) => state[0] == false || state[0] === null) &&
+      if (Object.values(creationForm).some(({ state }) => state[0] == false || state[0] === null)) {
          setIsValid(false);
+      }
+
+      console.log(isValid);
    }, [creationForm]);
 
    useEffect(() => {
@@ -156,8 +161,8 @@ const CreateProduct = () => {
          })),
          location: {
             address: creationForm.direction.state[0],
-            // longitude: '6.5550639',
-            // latitude: '-75.8443219',
+            latitude: creationForm.latitude.state[0],
+            longitude: creationForm.longitude.state[0],
             city,
          },
          items: [...politics, ...rules, ...security],
@@ -227,7 +232,7 @@ const CreateProduct = () => {
                {amenities && (
                   <CreationForm
                      submitProduct={submitProduct}
-                     isValid={/*isValid*/ true}
+                     isValid={isValid}
                      amenities={amenities}
                   />
                )}
