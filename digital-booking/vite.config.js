@@ -10,5 +10,8 @@ export default defineConfig({
     coverage: {
       provider: 'c8',
     }
-  }
+  },
+  build: {
+    chunkSizeWarningLimit: 1600,
+  },
 })
