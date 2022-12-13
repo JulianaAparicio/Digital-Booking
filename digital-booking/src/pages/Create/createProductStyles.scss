@@ -139,6 +139,60 @@
          }
       }
 
+      .db-product-location {
+         box-sizing: content-box;
+
+         h2 {
+            margin-bottom: 1rem;
+         }
+
+         .sub-container {
+            display: flex;
+            flex-direction: column;
+
+            .form {
+               gap: .8rem;
+               display: grid;
+               margin-bottom: .8rem;
+
+            @media screen and (min-width: 1024px) {
+               align-items: center;
+               grid-template-columns: 2fr 2fr 1fr;
+            }
+
+               button {
+                  width: 100%;
+               }
+            }
+
+            .map-container {
+               background: white url('../../assets/loader-gif.gif') center no-repeat;
+               background-size: contain;
+
+               iframe {
+                  aspect-ratio: 1/1;
+                  border-radius: 8px;
+                  height: 100%;
+                  width: 100%;
+
+                  @media screen and (min-width: 640px) {
+                     aspect-ratio: 3/2;
+                  }
+
+                  @media screen and (min-width: 1024px) {
+                     aspect-ratio: 2/1;
+                  }
+               }
+
+               p {
+                  color: var(--color-secondary);
+                  margin-top: 1rem;
+                  text-align: justify;
+               }
+            }
+         }
+      }
+
       .db-product-images {
 
          p {

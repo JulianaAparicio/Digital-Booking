@@ -6,28 +6,30 @@ import Button from '../../../shared/Button/Button';
 import PlusIcon from './../../../shared/Icons/PlusIcon';
 import { useState } from 'react';
 import Amenity from './../../../shared/Amenity/Amenity';
-import { useRef } from 'react';
 import Card from '../../../shared/Card/Card';
 import { StateContext } from '../CreateProduct';
 import Alert from '../../../shared/Alert/Alert';
-
-const amenities = ['wifi', 'tv', 'smoke', 'pool', 'pets', 'party', 'parking'];
 
 const CreationForm = ({ isValid, submitProduct, amenities }) => {
    const context = useContext(Context);
    const states = useContext(StateContext);
 
    const filterAmenities = () =>
-      amenities.filter(am => !states.amenities.state[0].some(am2 => am2 === am.id));
+      amenities.filter(
+         am => !states.amenities.state[0].some(am2 => parseInt(am2) === parseInt(am.id))
+      );
 
    const [visibleAmenities, setVisibleAmenities] = useState(() => filterAmenities());
    const [amenitySelected, setAmenitySelected] = useState(visibleAmenities.at(0) ?? null);
+   const [coordinates, setCoordinates] = useState([null, null]);
 
    const [imageUrl, setImageUrl] = useState('');
    const [imageInvalid, setImageInvalid] = useState(false);
 
    const addAmenity = () => {
       if (amenitySelected === null) return;
+
+      // console.log(amenitySelected);
 
       states.amenities.state[1](last => {
          const aux = [...last];
@@ -45,6 +47,14 @@ const CreationForm = ({ isValid, submitProduct, amenities }) => {
          return aux;
       });
    };
+
+   useEffect(() => {
+      setVisibleAmenities(filterAmenities);
+   }, [states.amenities.state[0]]);
+
+   useEffect(() => {
+      setAmenitySelected(visibleAmenities.at(0)?.id);
+   }, [visibleAmenities]);
 
    //
 
@@ -73,13 +83,9 @@ const CreationForm = ({ isValid, submitProduct, amenities }) => {
 
    //
 
-   useEffect(() => {
-      setVisibleAmenities(filterAmenities);
-   }, [states.amenities.state[0]]);
-
-   useEffect(() => {
-      setAmenitySelected(visibleAmenities.at(0)?.id);
-   }, [visibleAmenities]);
+   const updateCoordinates = () => {
+      setCoordinates([states.latitude.state[0], states.longitude.state[0]]);
+   };
 
    return (
       <>
@@ -199,6 +205,55 @@ const CreationForm = ({ isValid, submitProduct, amenities }) => {
                         />
                      </div>
                   </article>
+                  <article className="db-product-location">
+                     <h2>Coordenadas del lugar</h2>
+                     <div className="sub-container">
+                        <div className="form">
+                           <Input
+                              id={'latitude'}
+                              placeholder={'Latitud'}
+                              type={'number'}
+                              setValue={states.latitude.state[1]}
+                              name={'latitude'}
+                              min="-90"
+                              max="90"
+                           />
+                           <Input
+                              id={'longitude'}
+                              placeholder={'Longitud'}
+                              type={'number'}
+                              setValue={states.longitude.state[1]}
+                              name={'latitude'}
+                              min="-180"
+                              max="180"
+                           />
+                           <Button
+                              action={updateCoordinates}
+                              isDisabled={!states.longitude.state[0] || !states.latitude.state[0]}
+                              classList="db-button-primary animations-excent">
+                              Revisar
+                           </Button>
+                        </div>
+                        <div className="map-container">
+                           {coordinates[0] && coordinates[1] && (
+                              <>
+                                 <iframe
+                                    className="db-product-map"
+                                    frameBorder="0"
+                                    referrerPolicy="no-referrer-when-downgrade"
+                                    src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyAAWqIsm_JZtUYIW0OowHuGiMZIEJRX8F4&q=
+                                 ${coordinates[0]},${coordinates[1]}`}
+                                 />
+
+                                 <p>
+                                    Si no puedes correctamente ver tu sitio en el mapa de arriba
+                                    significa que algo en las coordenadas está mal digitado.
+                                 </p>
+                              </>
+                           )}
+                        </div>
+                     </div>
+                  </article>
                   <article className="db-product-images">
                      <h2>Cargar imágenes</h2>
                      <div className="input-container">
@@ -241,7 +296,7 @@ const CreationForm = ({ isValid, submitProduct, amenities }) => {
                         action={submitProduct}
                         isDisabled={!isValid}
                         classList="db-button-primary animations-excent">
-                        Crear
+                        Crear {!isValid ? '(Hay campos incompletos todavía)' : ''}
                      </Button>
                   </article>
                </Card>
