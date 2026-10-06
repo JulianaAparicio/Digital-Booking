@@ -1,10 +1,29 @@
-# Digital - Booking
+# Digital Booking
 
-Proyecto Integrador para Digital Booking (Certified Tech Developer 2022)
+Full-stack accommodation booking platform that allows users to search properties, create reservations, manage favorites, and receive email notifications.
 
+Administrators can create and manage properties, categories, amenities, policies, and user accounts.
 
-Web AWS: http://camada3grupo6frontend.s3-website.us-east-2.amazonaws.com/
+## Academic Context
 
-Swagger AWS API: http://ec2-3-23-114-239.us-east-2.compute.amazonaws.com:8080/swagger-ui/index.html
+Team project completed as the final capstone project for the Certified Tech Developer program.
 
-API AWS: http://ec2-3-23-114-239.us-east-2.compute.amazonaws.com:8080/
+Team size: 5 developers.
+
+My primary role: Backend Developer and Testing Contributor.
+
+## Demo Video
+
+A full application walkthrough is available here:
+
+🎥 https://youtu.be/TU_LINK
+
+The demo showcases:
+
+- User registration and authentication
+- Email confirmation workflow
+- Property creation and management (Admin role)
+- Reservation process
+- Favorites functionality
+- Administrative features
+- End-to-end booking experience
