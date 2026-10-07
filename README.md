@@ -4,13 +4,18 @@ Full-stack accommodation booking platform that allows users to search properties
 
 Administrators can create and manage properties, categories, amenities, policies, and user accounts.
 
-## Academic Context
+## My Role
 
-Team project completed as the final capstone project for the Certified Tech Developer program.
+**Backend Developer and Testing Contributor**
 
-Team size: 5 developers.
+Responsibilities included:
 
-My primary role: Backend Developer and Testing Contributor.
+- REST API development using Java and Spring Boot
+- Business logic implementation
+- Database integration
+- API documentation with Swagger/OpenAPI
+- Unit testing and validation
+- Agile team collaboration
 
 ## Demo Video
 
@@ -27,3 +32,24 @@ The demo showcases:
 - Favorites functionality
 - Administrative features
 - End-to-end booking experience
+
+## Technologies
+
+- Java
+- Spring Boot
+- MySQL
+- React
+- AWS
+- Swagger/OpenAPI
+- JUnit
+- Mockito
+- Git
+- Scrum
+
+## Academic Context
+
+Team project completed as the final capstone project for the Certified Tech Developer program.
+
+- Team size: 5 developers
+- Application language: Spanish
+- Source code and documentation: English
